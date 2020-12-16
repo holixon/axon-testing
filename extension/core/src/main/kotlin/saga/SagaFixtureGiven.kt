@@ -8,6 +8,10 @@ import org.axonframework.test.saga.FixtureExecutionResult
 import org.axonframework.test.saga.SagaTestFixture
 import org.axonframework.test.saga.WhenState
 
+/**
+ * Given stage for saga fixture.
+ * @param T saga type.
+ */
 @AxonJGivenStage
 class SagaFixtureGiven<T> : Stage<SagaFixtureGiven<T>>() {
 
@@ -28,18 +32,35 @@ class SagaFixtureGiven<T> : Stage<SagaFixtureGiven<T>>() {
     }
   }
 
-
+  /**
+   * Nothing happens before.
+   */
   @As("no prior activity")
   fun noPriorActivity(): SagaFixtureGiven<T> = self().apply {
     whenState = fixture.givenNoPriorActivity()
   }
 
+  /**
+   * An aggregate published an event.
+   * @param aggregateIdentifier aggregate identifier.
+   * @param event published event.
+   */
   @As("aggregate $ published $")
   fun aggregatePublishedEvent(@Quoted aggregateIdentifier: String, event: Any) = aggregatePublishedEvents(aggregateIdentifier, event)
 
+  /**
+   * An aggregate published one or multiple events.
+   * @param aggregateIdentifier aggregate identifier.
+   * @param events published events.
+   */
   @As("aggregate $ published $")
   fun aggregatePublishedEvents(@Quoted aggregateIdentifier: String, @Table vararg events: Any) = aggregatePublishedEvents(aggregateIdentifier, events.toList())
 
+  /**
+   * An aggregate published one or multiple events.
+   * @param aggregateIdentifier aggregate identifier.
+   * @param events published events.
+   */
   @As("aggregate $ published $")
   fun aggregatePublishedEvents(@Quoted aggregateIdentifier: String, events: List<Any>) = self().apply {
     whenState = fixture.givenAggregate(aggregateIdentifier).published(*events.toTypedArray())

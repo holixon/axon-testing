@@ -12,6 +12,11 @@ import org.axonframework.test.saga.WhenState
 import java.time.Duration
 import java.time.Instant
 
+
+/**
+ * When stage for saga fixture.
+ * @param T aggregate type.
+ */
 @AxonJGivenStage
 class SagaFixtureWhen<T> : Stage<SagaFixtureWhen<T>>() {
 
@@ -26,17 +31,30 @@ class SagaFixtureWhen<T> : Stage<SagaFixtureWhen<T>>() {
     whenState.whenAggregate(aggregateIdentifier).publishes(event)
   }
 
-  fun timeAdvancesTo(date: Instant) = execute {
-    whenState.whenTimeAdvancesTo(date)
+  /**
+   * Time advances.
+   * @param instant new time to set.
+   */
+  fun timeAdvancesTo(instant: Instant) = execute {
+    whenState.whenTimeAdvancesTo(instant)
   }
 
+  /**
+   * Time advances.
+   * @param duration duration to set time to.
+   */
+  fun timeElapses(duration: Duration) = execute {
+    whenState.whenTimeElapses(duration)
+  }
+
+  /**
+   * Application has published an event.
+   * @param event event published by the application
+   */
   fun publishing(event: Any): SagaFixtureWhen<T> = execute {
     whenState.whenPublishingA(event)
   }
 
-  fun timeElapses(duration: Duration) = execute {
-    whenState.whenTimeElapses(duration)
-  }
 
   private fun execute(block: () -> FixtureExecutionResult) = self().apply {
     thenState = block.invoke()

@@ -7,6 +7,10 @@ import io.holixon.axon.test.jgiven.AxonJGivenStage
 import org.axonframework.test.aggregate.ResultValidator
 import org.axonframework.test.aggregate.TestExecutor
 
+/**
+ * When stage for aggregate fixture.
+ * @param T aggregate type.
+ */
 @AxonJGivenStage
 class AggregateFixtureWhen<T> : Stage<AggregateFixtureWhen<T>>() {
 
@@ -16,9 +20,18 @@ class AggregateFixtureWhen<T> : Stage<AggregateFixtureWhen<T>>() {
   @ProvidedScenarioState
   lateinit var resultValidator: ResultValidator<T>
 
+  /**
+   * Dispatches a command.
+   * @param cmd command to dispatch.
+   */
   @As("command:")
   fun command(@Quoted cmd: Any) = execute { testExecutor.`when`(cmd) }
 
+  /**
+   * Dispatches a command.
+   * @param cmd command to dispatch.
+   * @param metadata metadata to include into command message.
+   */
   @As("command: \$cmd, metadata: \$metadata")
   fun command(@Quoted cmd: Any, @Table metadata: Map<String, *>) = execute { testExecutor.`when`(cmd, metadata) }
 
