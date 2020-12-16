@@ -23,7 +23,7 @@
 
     <axon-framework.version>4.4.5</axon-framework.version>
 
-    <jgiven.version>1.0.0-RC6</jgiven.version>
+    <jgiven.version>1.0.0-RC7</jgiven.version>
   </properties>
 
   <dependencyManagement>
