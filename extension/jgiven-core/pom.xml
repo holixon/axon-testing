@@ -15,6 +15,11 @@
   <dependencies>
     <dependency>
       <groupId>org.axonframework</groupId>
+      <artifactId>axon-configuration</artifactId>
+      <version>${axon-framework.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.axonframework</groupId>
       <artifactId>axon-test</artifactId>
       <version>${axon-framework.version}</version>
     </dependency>
