@@ -1,6 +1,6 @@
 ---
 name: 'Feature request'
-about: 'Suggest a feature for Axon JGiven'
+about: 'Suggest a feature for Axon Testing'
 title:
 labels: 'type: feature'
 
@@ -8,7 +8,7 @@ labels: 'type: feature'
 
 ### Scenario
 
-* gateway-extension version:
+* extension version:
 * Axon Framework version:
 * Description of your use case: (detailed description or executable reproducer, e.g. GitHub repo)
 

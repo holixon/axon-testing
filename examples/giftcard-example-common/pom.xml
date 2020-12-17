@@ -4,13 +4,13 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>io.holixon.axon.test.project</groupId>
-    <artifactId>axon-jgiven-examples-root</artifactId>
+    <groupId>io.holixon.axon.testing.project</groupId>
+    <artifactId>axon-testing-examples-root</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <groupId>io.holixon.axon.test.examples</groupId>
-  <artifactId>axon-jgiven-examples-giftcard-common</artifactId>
+  <groupId>io.holixon.axon.testing.examples</groupId>
+  <artifactId>axon-testing-examples-giftcard-common</artifactId>
 
   <dependencies>
     <dependency>

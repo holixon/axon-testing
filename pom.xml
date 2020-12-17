@@ -3,8 +3,8 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>io.holixon.axon.test.project</groupId>
-  <artifactId>axon-jgiven-root</artifactId>
+  <groupId>io.holixon.axon.testing.project</groupId>
+  <artifactId>axon-testing-root</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
 
@@ -37,8 +37,20 @@
       </dependency>
 
       <dependency>
-        <groupId>io.holixon.axon.test</groupId>
-        <artifactId>axon-jgiven-core</artifactId>
+        <groupId>io.holixon.axon.testing</groupId>
+        <artifactId>axon-testing-jgiven-core</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.holixon.axon.testing</groupId>
+        <artifactId>axon-testing-jgiven-junit</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.holixon.axon.testing</groupId>
+        <artifactId>axon-testing-jgiven-junit5</artifactId>
         <version>${project.version}</version>
       </dependency>
     </dependencies>

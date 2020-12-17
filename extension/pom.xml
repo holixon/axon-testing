@@ -4,18 +4,18 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>io.holixon.axon.test.project</groupId>
-    <artifactId>axon-jgiven-root</artifactId>
+    <groupId>io.holixon.axon.testing.project</groupId>
+    <artifactId>axon-testing-root</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>axon-jgiven-extension-root</artifactId>
+  <artifactId>axon-testing-extension-root</artifactId>
   <packaging>pom</packaging>
 
   <modules>
-    <module>core</module>
-    <module>junit</module>
-    <module>junit5</module>
+    <module>jgiven-core</module>
+    <module>jgiven-junit</module>
+    <module>jgiven-junit5</module>
   </modules>
 
   <dependencies>

@@ -1,6 +1,6 @@
 ---
 name: 'Enhancement request'
-about: 'Suggest an enhancement to an existing feature for Axon JGiven'
+about: 'Suggest an enhancement to an existing feature for Axon Testing'
 title:
 labels: 'type: enhancement'
 
@@ -8,7 +8,7 @@ labels: 'type: enhancement'
 
 ### Scenario
 
-* gateway-extension version:
+* extension version:
 * Axon Framework version:
 * Description of your use case: (detailed description or executable reproducer, e.g. GitHub repo)
 
