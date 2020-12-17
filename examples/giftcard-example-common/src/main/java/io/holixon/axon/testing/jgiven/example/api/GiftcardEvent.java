@@ -1,4 +1,4 @@
-package io.holixon.axon.test.jgiven.example.api;
+package io.holixon.axon.testing.jgiven.example.api;
 
 import lombok.NonNull;
 import lombok.Value;

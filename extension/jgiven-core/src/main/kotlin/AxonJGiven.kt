@@ -1,12 +1,12 @@
-package io.holixon.axon.test.jgiven
+package io.holixon.axon.testing.jgiven
 
 import com.tngtech.jgiven.base.ScenarioTestBase
-import io.holixon.axon.test.jgiven.aggregate.AggregateFixtureGiven
-import io.holixon.axon.test.jgiven.aggregate.AggregateFixtureThen
-import io.holixon.axon.test.jgiven.aggregate.AggregateFixtureWhen
-import io.holixon.axon.test.jgiven.saga.SagaFixtureGiven
-import io.holixon.axon.test.jgiven.saga.SagaFixtureThen
-import io.holixon.axon.test.jgiven.saga.SagaFixtureWhen
+import io.holixon.axon.testing.jgiven.aggregate.AggregateFixtureGiven
+import io.holixon.axon.testing.jgiven.aggregate.AggregateFixtureThen
+import io.holixon.axon.testing.jgiven.aggregate.AggregateFixtureWhen
+import io.holixon.axon.testing.jgiven.saga.SagaFixtureGiven
+import io.holixon.axon.testing.jgiven.saga.SagaFixtureThen
+import io.holixon.axon.testing.jgiven.saga.SagaFixtureWhen
 
 /**
  * Base class for scenario aggregate tests.

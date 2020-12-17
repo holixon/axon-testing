@@ -1,9 +1,9 @@
 @file:Suppress("unused")
-package io.holixon.axon.test.jgiven.aggregate
+package io.holixon.axon.testing.jgiven.aggregate
 
 import com.tngtech.jgiven.Stage
 import com.tngtech.jgiven.annotation.*
-import io.holixon.axon.test.jgiven.AxonJGivenStage
+import io.holixon.axon.testing.jgiven.AxonJGivenStage
 import org.axonframework.commandhandling.CommandResultMessage
 import org.axonframework.deadline.DeadlineMessage
 import org.axonframework.eventhandling.EventMessage

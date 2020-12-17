@@ -1,4 +1,4 @@
-package io.holixon.axon.test.jgiven.itest
+package io.holixon.axon.testing.jgiven.itest
 
 import com.tngtech.jgiven.Stage
 import com.tngtech.jgiven.annotation.AfterScenario

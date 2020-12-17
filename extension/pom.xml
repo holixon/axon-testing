@@ -16,6 +16,7 @@
     <module>jgiven-core</module>
     <module>jgiven-junit</module>
     <module>jgiven-junit5</module>
+    <module>upcaster-test-core</module>
   </modules>
 
   <dependencies>

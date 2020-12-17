@@ -1,4 +1,4 @@
-package io.holixon.axon.test.jgiven
+package io.holixon.axon.testing.jgiven
 
 /**
  * Marker annotation to identify Axon JGiven Stages.

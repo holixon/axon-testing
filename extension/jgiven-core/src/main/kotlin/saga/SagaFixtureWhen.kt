@@ -1,12 +1,12 @@
 @file:Suppress("unused")
-package io.holixon.axon.test.jgiven.saga
+package io.holixon.axon.testing.jgiven.saga
 
 import com.tngtech.jgiven.Stage
 import com.tngtech.jgiven.annotation.As
 import com.tngtech.jgiven.annotation.ExpectedScenarioState
 import com.tngtech.jgiven.annotation.ProvidedScenarioState
 import com.tngtech.jgiven.annotation.Quoted
-import io.holixon.axon.test.jgiven.AxonJGivenStage
+import io.holixon.axon.testing.jgiven.AxonJGivenStage
 import org.axonframework.test.saga.FixtureExecutionResult
 import org.axonframework.test.saga.WhenState
 import java.time.Duration

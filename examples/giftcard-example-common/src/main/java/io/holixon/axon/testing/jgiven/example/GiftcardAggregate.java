@@ -1,7 +1,7 @@
-package io.holixon.axon.test.jgiven.example;
+package io.holixon.axon.testing.jgiven.example;
 
-import io.holixon.axon.test.jgiven.example.api.GiftcardCommand;
-import io.holixon.axon.test.jgiven.example.api.GiftcardEvent;
+import io.holixon.axon.testing.jgiven.example.api.GiftcardCommand;
+import io.holixon.axon.testing.jgiven.example.api.GiftcardEvent;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.axonframework.commandhandling.CommandHandler;
