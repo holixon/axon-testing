@@ -16,8 +16,3 @@ For both kind of tests, we propose to use a JVM Framework for BDD testing called
 
 Writing event upcasters is sometimes difficult. Testing of them require even more effort. The library helps to create easy upcaster tests.
 
-## Contributors
-
-* Jan Galinski
-* Simon Zambrovski
-
