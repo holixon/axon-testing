@@ -27,7 +27,7 @@
     <junit.version>4.13.1</junit.version>
     <jgiven.version>1.0.0-RC7</jgiven.version>
     <dom4j.version>2.1.3</dom4j.version>
-    <assertj.version>3.16.1</assertj.version>
+    <assertj.version>3.18.1</assertj.version>
   </properties>
 
   <dependencyManagement>
