@@ -4,12 +4,12 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>io.holixon.axon.testing.project</groupId>
-    <artifactId>axon-testing-root</artifactId>
+    <groupId>io.holixon.axon.testing._</groupId>
+    <artifactId>axon-testing_</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>axon-testing-extension-root</artifactId>
+  <artifactId>extension</artifactId>
   <packaging>pom</packaging>
 
   <modules>
@@ -18,6 +18,18 @@
     <module>jgiven-junit5</module>
     <module>upcaster-test-core</module>
   </modules>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>io.holixon.axon</groupId>
+        <artifactId>axon-framework-bom</artifactId>
+        <version>${axon-framework.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <dependencies>
     <dependency>

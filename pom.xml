@@ -3,8 +3,8 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>io.holixon.axon.testing.project</groupId>
-  <artifactId>axon-testing-root</artifactId>
+  <groupId>io.holixon.axon.testing._</groupId>
+  <artifactId>axon-testing_</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
 
@@ -36,6 +36,13 @@
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-bom</artifactId>
         <version>${kotlin.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>io.holixon.axon</groupId>
+        <artifactId>axon-framework-bom</artifactId>
+        <version>${axon-framework.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
