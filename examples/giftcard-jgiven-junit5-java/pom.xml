@@ -10,23 +10,32 @@
   </parent>
 
   <groupId>io.holixon.axon.testing.examples</groupId>
-  <artifactId>giftcard-example-common</artifactId>
+  <artifactId>giftcard-jgiven-junit5-java</artifactId>
 
   <dependencies>
     <dependency>
-      <groupId>org.axonframework</groupId>
-      <artifactId>axon-configuration</artifactId>
+      <groupId>io.holixon.axon.testing.examples</groupId>
+      <artifactId>giftcard-example-common</artifactId>
     </dependency>
+
     <dependency>
-      <groupId>com.google.guava</groupId>
-      <artifactId>guava</artifactId>
-      <version>30.1-jre</version>
+      <groupId>io.holixon.axon.testing</groupId>
+      <artifactId>axon-testing-jgiven-junit5</artifactId>
+      <scope>test</scope>
     </dependency>
+
     <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <version>1.18.16</version>
-      <scope>provided</scope>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>5.7.0</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>1.7.30</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 

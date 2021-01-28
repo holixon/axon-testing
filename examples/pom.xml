@@ -14,8 +14,8 @@
 
   <modules>
     <module>giftcard-example-common</module>
+    <module>giftcard-jgiven-junit5-java</module>
   </modules>
-
 
   <properties>
     <jacoco.skip>true</jacoco.skip>
@@ -24,5 +24,15 @@
     <maven.install.skip>true</maven.install.skip>
     <gpg.skip>true</gpg.skip>
   </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>io.holixon.axon.testing.examples</groupId>
+        <artifactId>giftcard-example-common</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
 </project>

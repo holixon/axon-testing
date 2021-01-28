@@ -5,12 +5,12 @@ import lombok.Value;
 
 public interface GiftcardQuery {
 
-  class FindAll {
-
+  class FindAll implements GiftcardQuery {
+    public static final FindAll INSTANCE = new FindAll();
   }
 
   @Value
-  class FindById {
+  class FindById implements GiftcardQuery {
     @NonNull
     String id;
   }

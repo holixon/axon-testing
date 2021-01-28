@@ -2,6 +2,7 @@ package io.holixon.axon.testing.jgiven.example;
 
 import io.holixon.axon.testing.jgiven.example.api.GiftcardCommand;
 import io.holixon.axon.testing.jgiven.example.api.GiftcardEvent;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.axonframework.commandhandling.CommandHandler;
@@ -24,8 +25,10 @@ public class GiftcardAggregate {
   }
 
   @AggregateIdentifier
+  @Getter
   private String id;
 
+  @Getter
   private int balance;
 
   @EventSourcingHandler
