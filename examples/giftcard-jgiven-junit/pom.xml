@@ -10,7 +10,7 @@
   </parent>
 
   <groupId>io.holixon.axon.testing.examples</groupId>
-  <artifactId>giftcard-jgiven-junit5-java</artifactId>
+  <artifactId>giftcard-jgiven-junit</artifactId>
 
   <dependencies>
     <dependency>
@@ -20,14 +20,14 @@
 
     <dependency>
       <groupId>io.holixon.axon.testing</groupId>
-      <artifactId>axon-testing-jgiven-junit5</artifactId>
+      <artifactId>axon-testing-jgiven-junit</artifactId>
       <scope>test</scope>
     </dependency>
 
     <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter</artifactId>
-      <version>5.7.0</version>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
 

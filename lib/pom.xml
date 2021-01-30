@@ -9,14 +9,8 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>examples</artifactId>
+  <artifactId>lib</artifactId>
   <packaging>pom</packaging>
-
-  <modules>
-    <module>giftcard-example-common</module>
-    <module>giftcard-jgiven-junit</module>
-    <module>giftcard-jgiven-junit5</module>
-  </modules>
 
   <properties>
     <jacoco.skip>true</jacoco.skip>
@@ -26,14 +20,7 @@
     <gpg.skip>true</gpg.skip>
   </properties>
 
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>io.holixon.axon.testing.examples</groupId>
-        <artifactId>giftcard-example-common</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
-
+  <modules>
+    <module>fixtures/bankaccount</module>
+  </modules>
 </project>

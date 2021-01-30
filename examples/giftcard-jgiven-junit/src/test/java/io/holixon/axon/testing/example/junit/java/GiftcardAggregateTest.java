@@ -1,4 +1,4 @@
-package io.holixon.axon.testing.example;
+package io.holixon.axon.testing.example.junit.java;
 
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import io.holixon.axon.testing.jgiven.example.GiftcardAggregate;
@@ -6,9 +6,9 @@ import io.holixon.axon.testing.jgiven.example.api.GiftcardCommand.IssueCommand;
 import io.holixon.axon.testing.jgiven.example.api.GiftcardCommand.RedeemCommand;
 import io.holixon.axon.testing.jgiven.example.api.GiftcardEvent.IssuedEvent;
 import io.holixon.axon.testing.jgiven.example.api.GiftcardEvent.RedeemedEvent;
-import io.holixon.axon.testing.jgiven.junit5.AggregateFixtureScenarioTest;
+import io.holixon.axon.testing.jgiven.junit.AggregateFixtureScenarioTest;
 import org.axonframework.test.aggregate.AggregateTestFixture;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 public class GiftcardAggregateTest extends AggregateFixtureScenarioTest<GiftcardAggregate> {
 
@@ -16,7 +16,7 @@ public class GiftcardAggregateTest extends AggregateFixtureScenarioTest<Giftcard
   private final AggregateTestFixture<GiftcardAggregate> fixture = new AggregateTestFixture<>(GiftcardAggregate.class);
 
   @Test
-  void issue_a_giftcard() {
+  public void issue_a_giftcard() {
     given()
       .noPriorActivity()
     ;
@@ -60,7 +60,6 @@ public class GiftcardAggregateTest extends AggregateFixtureScenarioTest<Giftcard
       .expectState("balance", 20, GiftcardAggregate::getBalance)
     ;
   }
-
 
   @Test
   public void redeem_by_vararg_commands() {
