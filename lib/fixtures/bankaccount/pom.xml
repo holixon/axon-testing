@@ -17,22 +17,24 @@
     <dependency>
       <groupId>org.axonframework</groupId>
       <artifactId>axon-modelling</artifactId>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.axonframework</groupId>
       <artifactId>axon-spring</artifactId>
-      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.inject</groupId>
+      <artifactId>javax.inject</artifactId>
+      <version>1</version>
     </dependency>
     <dependency>
       <groupId>org.axonframework</groupId>
       <artifactId>axon-eventsourcing</artifactId>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <version>1.18.16</version>
+      <version>1.18.18</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>

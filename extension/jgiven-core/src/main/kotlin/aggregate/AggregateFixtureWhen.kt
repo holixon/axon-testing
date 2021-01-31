@@ -1,9 +1,11 @@
 @file:Suppress("unused")
+
 package io.holixon.axon.testing.jgiven.aggregate
 
 import com.tngtech.jgiven.Stage
 import com.tngtech.jgiven.annotation.*
 import io.holixon.axon.testing.jgiven.AxonJGivenStage
+import io.holixon.axon.testing.jgiven.step
 import org.axonframework.test.aggregate.ResultValidator
 import org.axonframework.test.aggregate.TestExecutor
 
@@ -15,16 +17,17 @@ import org.axonframework.test.aggregate.TestExecutor
 class AggregateFixtureWhen<T> : Stage<AggregateFixtureWhen<T>>() {
 
   @ExpectedScenarioState(required = true)
-  lateinit var testExecutor: TestExecutor<T>
+  private lateinit var testExecutor: TestExecutor<T>
 
   @ProvidedScenarioState
-  lateinit var resultValidator: ResultValidator<T>
+  private lateinit var resultValidator: ResultValidator<T>
 
   /**
    * Dispatches a command.
+   *
    * @param cmd command to dispatch.
    */
-  @As("command:")
+  @As("command: \$cmd")
   fun command(@Quoted cmd: Any) = execute { testExecutor.`when`(cmd) }
 
   /**
@@ -35,6 +38,6 @@ class AggregateFixtureWhen<T> : Stage<AggregateFixtureWhen<T>>() {
   @As("command: \$cmd, metadata: \$metadata")
   fun command(@Quoted cmd: Any, @Table metadata: Map<String, *>) = execute { testExecutor.`when`(cmd, metadata) }
 
-  private fun execute(block: () -> ResultValidator<T>) = self().apply { resultValidator = block.invoke() }!!
+  private fun execute(block: () -> ResultValidator<T>) = step { resultValidator = block.invoke() }
 
 }

@@ -33,6 +33,7 @@ public class BankAccountAggregate {
     ;
 
     public static final int DEFAULT_INITIAL_BALANCE = 0;
+    // for this example we assume that there is a maximum of money allowd in your account, so the transfer saga can fail.
     public static final int DEFAULT_MAXIMAL_BALANCE = 1000;
     public static final int MAXIMUM_NUMBER_OF_ACTIVE_MONEY_TRANSFERS = 1;
 
@@ -67,7 +68,6 @@ public class BankAccountAggregate {
     this.maximalBalance = evt.getMaximalBalance();
   }
 
-
   @CommandHandler
   void handle(WithdrawMoneyCommand cmd) {
     checkForInsufficientBalance(cmd.getAmount());
@@ -98,13 +98,11 @@ public class BankAccountAggregate {
     );
   }
 
-
   @EventSourcingHandler
   void on(MoneyDepositedEvent evt) {
     log.info("replaying event: {}", evt);
     increaseCurrentBalance(evt.getAmount());
   }
-
 
   @CommandHandler
   void handle(InitializeMoneyTransferCommand cmd) {
@@ -167,7 +165,6 @@ public class BankAccountAggregate {
     activeMoneyTransfer = null;
   }
 
-
   @CommandHandler
   void handle(RollBackMoneyTransferCommand cmd) {
     if (activeMoneyTransfer == null || !activeMoneyTransfer.transactionId.equals(cmd.getTransactionId())) {
@@ -181,12 +178,10 @@ public class BankAccountAggregate {
     );
   }
 
-
   @EventSourcingHandler
   void on(MoneyTransferRolledBackEvent evt) {
     activeMoneyTransfer = null;
   }
-
 
   /**
    * @return stored current balance minus amount(s) reserved by active money transfers
@@ -224,16 +219,15 @@ public class BankAccountAggregate {
     if (getEffectiveCurrentBalance() < amount) {
       throw new InsufficientBalanceException(getEffectiveCurrentBalance(), amount);
     }
-
   }
-
 
   @Value
   @Builder
   public static class ActiveMoneyTransfer {
 
     @NonNull
-    private String transactionId;
-    private int amount;
+    String transactionId;
+
+    int amount;
   }
 }

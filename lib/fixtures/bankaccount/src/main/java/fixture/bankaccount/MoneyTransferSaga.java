@@ -17,12 +17,14 @@ import org.axonframework.modelling.saga.SagaEventHandler;
 import org.axonframework.modelling.saga.StartSaga;
 import org.axonframework.spring.stereotype.Saga;
 
+import javax.inject.Inject;
+
 @Saga
 @Slf4j
 public class MoneyTransferSaga {
   public static final String TRANSACTION_ID = "transactionId";
 
-  @Setter
+  @Getter
   private transient CommandGateway commandGateway;
 
   @Getter
@@ -81,5 +83,10 @@ public class MoneyTransferSaga {
   @SagaEventHandler(associationProperty = TRANSACTION_ID)
   void on(MoneyTransferRolledBackEvent evt) {
     log.error("Saga: {}", evt);
+  }
+
+  @Inject
+  public void setCommandGateway(CommandGateway commandGateway) {
+    this.commandGateway = commandGateway;
   }
 }

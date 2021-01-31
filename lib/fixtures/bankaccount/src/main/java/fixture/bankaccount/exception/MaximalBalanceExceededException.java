@@ -5,7 +5,7 @@ import java.util.function.Supplier;
 public class MaximalBalanceExceededException extends RuntimeException {
 
   public static Supplier<MaximalBalanceExceededException> maximalBalanceException(Integer currentBalance, Integer requestedAmount,
-    Integer maximalBalance) {
+                                                                                  Integer maximalBalance) {
     return () -> new MaximalBalanceExceededException(currentBalance, requestedAmount, maximalBalance);
   }
 

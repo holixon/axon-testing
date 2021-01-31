@@ -13,9 +13,11 @@
   <packaging>pom</packaging>
 
   <modules>
-    <module>giftcard-example-common</module>
-    <module>giftcard-jgiven-junit</module>
-    <module>giftcard-jgiven-junit5</module>
+    <module>bankaccount-jgiven-junit4</module>
+    <module>bankaccount-jgiven-junit5</module>
+<!--    <module>giftcard-example-common</module>-->
+<!--    <module>giftcard-jgiven-junit</module>-->
+<!--    <module>giftcard-jgiven-junit5</module>-->
   </modules>
 
   <properties>
@@ -31,6 +33,12 @@
       <dependency>
         <groupId>io.holixon.axon.testing.examples</groupId>
         <artifactId>giftcard-example-common</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.holixon.axon.testing.lib</groupId>
+        <artifactId>axon-testing-fixtures-bankaccount</artifactId>
         <version>${project.version}</version>
       </dependency>
     </dependencies>

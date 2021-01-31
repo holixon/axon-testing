@@ -16,16 +16,16 @@ import org.axonframework.test.saga.WhenState
 class SagaFixtureGiven<T> : Stage<SagaFixtureGiven<T>>() {
 
   @ExpectedScenarioState(required = true)
-  lateinit var fixture: SagaTestFixture<T>
+  private lateinit var fixture: SagaTestFixture<T>
 
   @ProvidedScenarioState
-  lateinit var whenState: WhenState
+  private lateinit var whenState: WhenState
 
   @ProvidedScenarioState
-  lateinit var thenState: FixtureExecutionResult
+  private lateinit var thenState: FixtureExecutionResult
 
   @BeforeStage
-  fun init() {
+  internal fun init() {
     with(SagaTestFixture::class.java.getDeclaredField("fixtureExecutionResult")) {
       isAccessible = true
       thenState = get(fixture) as FixtureExecutionResult

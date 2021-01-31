@@ -21,7 +21,7 @@ import java.time.Instant
 class AggregateFixtureThen<T> : Stage<AggregateFixtureThen<T>>() {
 
   @ExpectedScenarioState(required = true)
-  lateinit var resultValidator: ResultValidator<T>
+  private lateinit var resultValidator: ResultValidator<T>
 
   /**
    * Expect event.

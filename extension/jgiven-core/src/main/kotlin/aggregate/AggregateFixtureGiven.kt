@@ -4,6 +4,7 @@ package io.holixon.axon.testing.jgiven.aggregate
 import com.tngtech.jgiven.Stage
 import com.tngtech.jgiven.annotation.*
 import io.holixon.axon.testing.jgiven.AxonJGivenStage
+import io.holixon.axon.testing.jgiven.step
 import org.axonframework.test.aggregate.AggregateTestFixture
 import org.axonframework.test.aggregate.TestExecutor
 import java.time.Duration
@@ -19,10 +20,10 @@ import java.util.function.Supplier
 class AggregateFixtureGiven<T> : Stage<AggregateFixtureGiven<T>>() {
 
   @ExpectedScenarioState(required = true)
-  lateinit var fixture: AggregateTestFixture<T>
+  private lateinit var fixture: AggregateTestFixture<T>
 
   @ProvidedScenarioState
-  lateinit var testExecutor: TestExecutor<T>
+  private lateinit var testExecutor: TestExecutor<T>
 
   /**
    * Nothing happens before.
@@ -131,8 +132,8 @@ class AggregateFixtureGiven<T> : Stage<AggregateFixtureGiven<T>>() {
       testExecutor.whenThenTimeElapses(duration)
   }
 
-  private fun execute(block: () -> TestExecutor<T>) = self().apply {
+  private fun execute(block: () -> TestExecutor<T>) = step {
     testExecutor = block.invoke()
-  }!!
+  }
 
 }
