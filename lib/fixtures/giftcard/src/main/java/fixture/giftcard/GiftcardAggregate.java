@@ -1,7 +1,9 @@
-package io.holixon.axon.testing.jgiven.example;
+package fixture.giftcard;
 
-import io.holixon.axon.testing.jgiven.example.api.GiftcardCommand;
-import io.holixon.axon.testing.jgiven.example.api.GiftcardEvent;
+import fixture.giftcard.command.IssueCommand;
+import fixture.giftcard.command.RedeemCommand;
+import fixture.giftcard.event.IssuedEvent;
+import fixture.giftcard.event.RedeemedEvent;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -17,10 +19,13 @@ import static com.google.common.base.Preconditions.checkArgument;
 public class GiftcardAggregate {
 
   @CommandHandler
-  public static GiftcardAggregate create(GiftcardCommand.IssueCommand cmd) {
+  public static GiftcardAggregate create(IssueCommand cmd) {
     checkArgument(cmd.getInitialBalance() > 0, "initial balance has to be > 0, %s", cmd);
 
-    AggregateLifecycle.apply(new GiftcardEvent.IssuedEvent(cmd.getId(), cmd.getInitialBalance()));
+    AggregateLifecycle.apply(IssuedEvent.builder()
+      .id(cmd.getId())
+      .initialBalance(cmd.getInitialBalance())
+      .build());
     return new GiftcardAggregate();
   }
 
@@ -32,21 +37,24 @@ public class GiftcardAggregate {
   private int balance;
 
   @EventSourcingHandler
-  public void on(GiftcardEvent.IssuedEvent evt) {
+  public void on(IssuedEvent evt) {
     this.id = evt.getId();
     this.balance = evt.getInitialBalance();
   }
 
   @CommandHandler
-  public void handle(GiftcardCommand.RedeemCommand cmd) {
+  public void handle(RedeemCommand cmd) {
     checkArgument(cmd.getAmount() > 0, "amount has to be > 0: %s", cmd);
     checkArgument(balance >= cmd.getAmount(), "card %s has insufficient balance: %s: %s", id, balance, cmd);
 
-    AggregateLifecycle.apply(new GiftcardEvent.RedeemedEvent(cmd.getId(), cmd.getAmount()));
+    AggregateLifecycle.apply(RedeemedEvent.builder()
+      .id(cmd.getId())
+      .amount(cmd.getAmount())
+      .build());
   }
 
   @EventSourcingHandler
-  public void on(GiftcardEvent.RedeemedEvent evt) {
+  public void on(RedeemedEvent evt) {
     this.balance -= evt.getAmount();
   }
 }

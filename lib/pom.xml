@@ -21,6 +21,6 @@
   </properties>
 
   <modules>
-    <module>fixtures/bankaccount</module>
+    <module>fixtures</module>
   </modules>
 </project>

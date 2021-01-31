@@ -5,38 +5,12 @@
 
   <parent>
     <groupId>io.holixon.axon.testing._</groupId>
-    <artifactId>lib</artifactId>
+    <artifactId>fixtures</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <relativePath>../../pom.xml</relativePath>
   </parent>
 
   <groupId>io.holixon.axon.testing.lib</groupId>
   <artifactId>axon-testing-fixtures-bankaccount</artifactId>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.axonframework</groupId>
-      <artifactId>axon-modelling</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.axonframework</groupId>
-      <artifactId>axon-spring</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>javax.inject</groupId>
-      <artifactId>javax.inject</artifactId>
-      <version>1</version>
-    </dependency>
-    <dependency>
-      <groupId>org.axonframework</groupId>
-      <artifactId>axon-eventsourcing</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <version>1.18.18</version>
-      <scope>provided</scope>
-    </dependency>
-  </dependencies>
 
 </project>
