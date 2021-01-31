@@ -1,4 +1,4 @@
-name: Development Build and Tests
+name: Development branches
 
 on: [ push ]
 

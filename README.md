@@ -1,5 +1,10 @@
 # Axon Testing
 
+
+[![Build Status](https://github.com/holixon/axon-testing/workflows/Development%20branches/badge.svg)](https://github.com/holixon/axon-testing/actions)
+[![sponsored](https://img.shields.io/badge/sponsoredBy-Holisticon-RED.svg)](https://holisticon.de/)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.holixon.axon.testing/axon-testing-jgiven-core/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.holixon.axon.testing/axon-testing-jgiven-core)
+
 This library is an opinionated collection of testing utilities used along and with Axon Framework.  
 
 ## Components
