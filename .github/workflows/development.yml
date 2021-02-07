@@ -28,7 +28,6 @@ jobs:
           server-id: ossrh
           server-username: OSS_CENTRAL_USERNAME # env variable for Maven Central
           server-password: OSS_CENTRAL_PASSWORD # env variable for Maven Central
-          gpg-keyname: MAVEN_GPG_KEYNAME # env variable for GPG key name
           gpg-passphrase: MAVEN_GPG_PASSPHRASE # env variable for GPG private key passphrase
           gpg-private-key: ${{ secrets.GPG_SECRET_KEYS }}
 
@@ -46,6 +45,6 @@ jobs:
         env:
           OSS_CENTRAL_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
           OSS_CENTRAL_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
-          MAVEN_GPG_KEYNAME: ${{ secrets.GPG_KEYNAME }}
+          # MAVEN_GPG_KEYNAME: ${{ secrets.GPG_KEYNAME }}
           MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
 
