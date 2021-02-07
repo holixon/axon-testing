@@ -38,7 +38,6 @@
     <dokka.skip>true</dokka.skip>
     <maven.javadoc.skip>true</maven.javadoc.skip>
     <maven.sources.skip>true</maven.sources.skip>
-    <maven.install.skip>true</maven.install.skip>
     <gpg.skip>true</gpg.skip>
 
   </properties>

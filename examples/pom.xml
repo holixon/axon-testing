@@ -12,6 +12,10 @@
   <artifactId>examples</artifactId>
   <packaging>pom</packaging>
 
+  <properties>
+    <maven.install.skip>false</maven.install.skip>
+  </properties>
+
   <modules>
     <module>bankaccount-jgiven-junit4</module>
     <module>bankaccount-jgiven-junit5</module>
@@ -19,12 +23,6 @@
 
   <dependencyManagement>
     <dependencies>
-      <dependency>
-        <groupId>io.holixon.axon.testing.examples</groupId>
-        <artifactId>giftcard-example-common</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-
       <dependency>
         <groupId>io.holixon.axon.testing.lib</groupId>
         <artifactId>axon-testing-fixtures-bankaccount</artifactId>
