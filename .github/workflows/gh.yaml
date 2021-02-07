@@ -1,0 +1,15 @@
+name: Github Testing
+
+on: [ push ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Expose branch name
+        run: echo ${{ github.ref }}
+      - name: Unconditional step
+        run: echo "Check"
+      - name: Conditional check should run on "develop"
+        run: echo "Check on develop only"
+        if: github.ref == 'refs/head/develop'
