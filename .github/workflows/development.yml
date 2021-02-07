@@ -11,6 +11,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Expose branch name
+        run: echo ${{ github.ref }}
+
       # Setup the cache
       - name: Cache .m2
         uses: actions/cache@v1
