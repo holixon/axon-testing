@@ -5,5 +5,11 @@ on: [ push ]
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: Build and tests on JDK 11
     steps:
+      - name: Expose branch name
+        run: echo ${{ github.ref }}
+      - name: Unconditional step
+        run: echo "Check"
+      - name: Deploy a new snapshot to Maven Central
+        run: echo "Check on develop only"
+        if: github.ref == 'refs/head/develop'
