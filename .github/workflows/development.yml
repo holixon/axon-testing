@@ -35,7 +35,6 @@ jobs:
           server-id: ossrh
           server-username: OSS_CENTRAL_USERNAME # env variable for Maven Central
           server-password: OSS_CENTRAL_PASSWORD # env variable for Maven Central
-          gpg-passphrase: MAVEN_GPG_PASSPHRASE # env variable for GPG private key passphrase
 
       # Prepare
       - name: Prepare Maven Wrapper
@@ -47,9 +46,8 @@ jobs:
 
       # Publish snapshot (simulate for now)
       - name: Deploy a new snapshot to Maven Central
-        run: ./mvnw clean deploy -B -DskipTests -DskipExamples -Prelease -Dgpg.keyname=${{ secrets.GPG_KEYNAME }} -DdryRun
+        run: ./mvnw clean deploy -B -DskipTests -DskipExamples -Prelease -Dgpg.keyname=${{ secrets.GPG_KEYNAME }} -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }} -DdryRun
         env:
           OSS_CENTRAL_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
           OSS_CENTRAL_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
-          MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
 
