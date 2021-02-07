@@ -13,6 +13,15 @@
   <groupId>io.holixon.axon.testing</groupId>
   <artifactId>axon-testing-jgiven-junit</artifactId>
 
+  <properties>
+    <jacoco.skip>false</jacoco.skip>
+    <dokka.skip>false</dokka.skip>
+    <maven.javadoc.skip>false</maven.javadoc.skip>
+    <maven.sources.skip>false</maven.sources.skip>
+    <maven.install.skip>false</maven.install.skip>
+    <gpg.skip>false</gpg.skip>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>${project.groupId}</groupId>
