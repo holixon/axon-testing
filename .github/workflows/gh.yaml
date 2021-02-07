@@ -10,6 +10,11 @@ jobs:
         run: echo ${{ github.ref }}
       - name: Unconditional step
         run: echo "Check"
+
+  publish:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/head/develop'
+    steps:
       - name: Conditional check should run on "develop"
         run: echo "Check on develop only"
-        if: github.ref == 'refs/head/develop'
+
