@@ -1,0 +1,9 @@
+name: Github Testing
+
+on: [ push ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Build and tests on JDK 11
+    steps:
