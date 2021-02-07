@@ -13,7 +13,7 @@ jobs:
 
   publish:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/head/develop'
+    if: ${{ github.ref }} == "refs/head/develop"
     steps:
       - name: Conditional check should run on "develop"
         run: echo "Check on develop only"
