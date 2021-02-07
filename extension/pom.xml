@@ -12,6 +12,11 @@
   <artifactId>extension</artifactId>
   <packaging>pom</packaging>
 
+  <properties>
+    <!-- the published artifacts are below this pom, sign everything from here on -->
+    <gpg.skip>true</gpg.skip>
+  </properties>
+
   <modules>
     <module>jgiven-core</module>
     <module>jgiven-junit</module>

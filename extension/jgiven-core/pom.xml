@@ -19,8 +19,6 @@
     <maven.javadoc.skip>false</maven.javadoc.skip>
     <maven.sources.skip>false</maven.sources.skip>
     <maven.install.skip>false</maven.install.skip>
-    <!-- the published artifacts are below this pom -->
-    <gpg.skip>true</gpg.skip>
   </properties>
 
   <dependencies>
