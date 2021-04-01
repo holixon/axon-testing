@@ -12,7 +12,8 @@ import static fixture.bankaccount.AccountAggregateTestHelper.*;
 public class MoneyTransferSagaJgivenJavaTest extends SagaFixtureScenarioTest<MoneyTransferSaga> {
 
   @ProvidedScenarioState
-  private final SagaTestFixture<MoneyTransferSaga> fixture = new SagaTestFixture<>(MoneyTransferSaga.class);
+  private final SagaTestFixture<MoneyTransferSaga> fixture = (SagaTestFixture<MoneyTransferSaga>) new SagaTestFixture<>(MoneyTransferSaga.class)
+    .registerStartRecordingCallback(() -> {});
 
   @Test
   public void initialize_transfer_money() {

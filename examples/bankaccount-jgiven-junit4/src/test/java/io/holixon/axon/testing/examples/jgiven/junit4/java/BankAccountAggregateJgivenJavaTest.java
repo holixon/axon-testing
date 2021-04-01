@@ -15,17 +15,25 @@ import fixture.bankaccount.exception.MaximumActiveMoneyTransfersReachedException
 import io.holixon.axon.testing.jgiven.junit.AggregateFixtureScenarioTest;
 import org.axonframework.test.aggregate.AggregateTestFixture;
 import org.junit.Test;
+import org.mockito.Mockito;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-import static fixture.bankaccount.AccountAggregateTestHelper.*;
+import static fixture.bankaccount.AccountAggregateTestHelper.ACCOUNT_ID_1;
+import static fixture.bankaccount.AccountAggregateTestHelper.ACCOUNT_ID_2;
+import static fixture.bankaccount.AccountAggregateTestHelper.CUSTOMER_ID_1;
+import static fixture.bankaccount.AccountAggregateTestHelper.accountAggregate;
+import static fixture.bankaccount.AccountAggregateTestHelper.accountCreatedEvent;
+import static fixture.bankaccount.AccountAggregateTestHelper.createAccountCommand;
 import static fixture.bankaccount.BankAccountAggregate.Configuration.DEFAULT_INITIAL_BALANCE;
 import static fixture.bankaccount.BankAccountAggregate.Configuration.DEFAULT_MAXIMAL_BALANCE;
 
 public class BankAccountAggregateJgivenJavaTest extends AggregateFixtureScenarioTest<BankAccountAggregate> {
 
   @ProvidedScenarioState
-  private final AggregateTestFixture<BankAccountAggregate> fixture = new AggregateTestFixture<>(BankAccountAggregate.class);
+  private final AggregateTestFixture<BankAccountAggregate> fixture = (AggregateTestFixture<BankAccountAggregate>) new AggregateTestFixture<>(BankAccountAggregate.class)
+    .registerInjectableResource(Mockito.mock(Serializable.class));
 
   @Test
   public void create_account() {
