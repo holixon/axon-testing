@@ -4,11 +4,13 @@ import com.tngtech.jgiven.base.ScenarioTestBase
 import io.holixon.axon.testing.jgiven.aggregate.AggregateFixtureGiven
 import io.holixon.axon.testing.jgiven.aggregate.AggregateFixtureThen
 import io.holixon.axon.testing.jgiven.aggregate.AggregateFixtureWhen
+import io.holixon.axon.testing.jgiven.aggregate.AggregateTestFixtureBuilder
 import io.holixon.axon.testing.jgiven.saga.SagaFixtureGiven
 import io.holixon.axon.testing.jgiven.saga.SagaFixtureThen
 import io.holixon.axon.testing.jgiven.saga.SagaFixtureWhen
 import org.axonframework.test.aggregate.AggregateTestFixture
 import org.axonframework.test.saga.SagaTestFixture
+import kotlin.reflect.KClass
 
 /**
  * Base class for scenario aggregate tests.
@@ -22,3 +24,11 @@ abstract class SagaFixtureScenarioTestBase<T> : ScenarioTestBase<SagaFixtureGive
 
 fun <T: Any> org.axonframework.test.aggregate.FixtureConfiguration<T>.toFixture() = this as AggregateTestFixture<T>
 fun <T: Any> org.axonframework.test.saga.FixtureConfiguration.toFixture() = this as SagaTestFixture<T>
+
+object AxonJGiven {
+  @JvmStatic
+  fun  <T:Any> aggregateTestFixtureBuilder(aggregateType:Class<T>) = AggregateTestFixtureBuilder(aggregateType)
+
+  inline fun  <reified T:Any> aggregateTestFixtureBuilder(aggregateType: KClass<T>) = AggregateTestFixtureBuilder(T::class.java)
+
+}
