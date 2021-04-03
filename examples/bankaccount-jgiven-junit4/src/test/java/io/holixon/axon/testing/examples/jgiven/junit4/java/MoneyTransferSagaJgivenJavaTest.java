@@ -8,12 +8,15 @@ import org.axonframework.test.saga.SagaTestFixture;
 import org.junit.Test;
 
 import static fixture.bankaccount.AccountAggregateTestHelper.*;
+import static io.holixon.axon.testing.jgiven.AxonJGiven.sagaTestFixtureBuilder;
 
 public class MoneyTransferSagaJgivenJavaTest extends SagaFixtureScenarioTest<MoneyTransferSaga> {
 
   @ProvidedScenarioState
-  private final SagaTestFixture<MoneyTransferSaga> fixture = (SagaTestFixture<MoneyTransferSaga>) new SagaTestFixture<>(MoneyTransferSaga.class)
-    .registerStartRecordingCallback(() -> {});
+  private final SagaTestFixture<MoneyTransferSaga> fixture = sagaTestFixtureBuilder(MoneyTransferSaga.class)
+    .registerStartRecordingCallback(() -> {
+    })
+    .build();
 
   @Test
   public void initialize_transfer_money() {

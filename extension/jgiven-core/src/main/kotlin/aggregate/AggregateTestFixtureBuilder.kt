@@ -27,14 +27,14 @@ class AggregateTestFixtureBuilder<T>(private val aggregateType: Class<T>) {
   private val deadlineDispatchInterceptors: MutableList<MessageDispatchInterceptor<in DeadlineMessage<*>>> = mutableListOf()
   private val deadlineHandlerInterceptors: MutableList<MessageHandlerInterceptor<in DeadlineMessage<*>>> = mutableListOf()
   private val fieldFilters: MutableList<FieldFilter> = mutableListOf()
+  private val ignoredFields: MutableList<Pair<Class<*>, String>> = mutableListOf()
   private val handlerDefinitions: MutableList<HandlerDefinition> = mutableListOf()
   private val handlerEnhancerDefinitions: MutableList<HandlerEnhancerDefinition> = mutableListOf()
-  private val ignoredFields: MutableList<Pair<Class<*>, String>> = mutableListOf()
+  private val injectableResources: MutableList<Any> = mutableListOf()
   private val parameterResolverFactories: MutableList<ParameterResolverFactory> = mutableListOf()
   private var reportIllegalStateChange: Boolean? = null
   private lateinit var repository: Repository<T>
   private lateinit var repositoryProvider: RepositoryProvider
-  private val injectableResources: MutableList<Any> = mutableListOf()
   private lateinit var subtypes: Array<Class<out T>>
 
   fun registerAggregateFactory(aggregateFactory: AggregateFactory<T>) = apply { this.aggregateFactory = aggregateFactory }
