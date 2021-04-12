@@ -5,6 +5,8 @@ import fixture.bankaccount.BankAccountAggregate
 import fixture.bankaccount.BankAccountAggregate.Configuration.DEFAULT_MAXIMAL_BALANCE
 import fixture.bankaccount.command.CreateAccountCommand
 import fixture.bankaccount.event.AccountCreatedEvent
+import io.holixon.axon.testing.jgiven.AxonJGiven
+import io.holixon.axon.testing.jgiven.AxonJGiven.aggregateTestFixtureBuilder
 import io.holixon.axon.testing.jgiven.junit.AggregateFixtureScenarioTest
 import io.toolisticon.testing.jgiven.AND
 import io.toolisticon.testing.jgiven.GIVEN
@@ -13,11 +15,10 @@ import io.toolisticon.testing.jgiven.WHEN
 import org.axonframework.test.aggregate.AggregateTestFixture
 import org.junit.Test
 
-
 class BankAccountAggregateJgivenKotlinTest : AggregateFixtureScenarioTest<BankAccountAggregate>() {
 
   @ProvidedScenarioState
-  private val fixture = AggregateTestFixture(BankAccountAggregate::class.java)
+  private val fixture = aggregateTestFixtureBuilder(BankAccountAggregate::class).build()
 
   @Test
   fun `create account`() {
@@ -25,25 +26,30 @@ class BankAccountAggregateJgivenKotlinTest : AggregateFixtureScenarioTest<BankAc
       .noPriorActivity()
 
     WHEN
-      .command(CreateAccountCommand.builder()
-        .accountId("1")
-        .customerId("1")
-        .initialBalance(100)
-        .build()
+      .command(
+        CreateAccountCommand.builder()
+          .accountId("1")
+          .customerId("1")
+          .initialBalance(100)
+          .build()
       )
 
     THEN
-      .expectEvent(AccountCreatedEvent.builder()
-        .accountId("1")
-        .customerId("1")
-        .initialBalance(100)
-        .maximalBalance(DEFAULT_MAXIMAL_BALANCE)
-        .build())
+      .expectEvent(
+        AccountCreatedEvent.builder()
+          .accountId("1")
+          .customerId("1")
+          .initialBalance(100)
+          .maximalBalance(DEFAULT_MAXIMAL_BALANCE)
+          .build()
+      )
       .AND
-      .expectState(BankAccountAggregate.builder()
-        .accountId("1")
-        .currentBalance(100)
-        .maximalBalance(DEFAULT_MAXIMAL_BALANCE)
-        .build())
+      .expectState(
+        BankAccountAggregate.builder()
+          .accountId("1")
+          .currentBalance(100)
+          .maximalBalance(DEFAULT_MAXIMAL_BALANCE)
+          .build()
+      )
   }
 }
