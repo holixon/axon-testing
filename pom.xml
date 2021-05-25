@@ -22,7 +22,7 @@
     <java.version>11</java.version>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
-    <kotlin.version>1.4.32</kotlin.version>
+    <kotlin.version>1.5.10</kotlin.version>
 
     <axon-framework.version>4.4.8</axon-framework.version>
 
