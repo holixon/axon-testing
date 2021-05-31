@@ -24,7 +24,7 @@
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <kotlin.version>1.5.10</kotlin.version>
 
-    <axon-framework.version>4.4.8</axon-framework.version>
+    <axon-framework.version>4.5.1</axon-framework.version>
 
     <jackson.version>2.12.3</jackson.version>
     <junit.version>4.13.2</junit.version>
