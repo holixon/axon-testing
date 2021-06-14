@@ -13,9 +13,7 @@
   <packaging>pom</packaging>
 
   <modules>
-    <module>jgiven-core</module>
-    <module>jgiven-junit</module>
-    <module>jgiven-junit5</module>
+    <module>jgiven</module>
     <module>upcaster-test-core</module>
   </modules>
 
