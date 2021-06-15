@@ -13,14 +13,13 @@ public class CreateAccountCommand {
 
   @NonNull
   @TargetAggregateIdentifier
-  private String accountId;
+  String accountId;
 
   @NonNull
-  private String customerId;
+  String customerId;
 
+  Integer initialBalance;
 
-  private Integer initialBalance;
-
-  private Integer maximalBalance;
+  Integer maximalBalance;
 
 }
