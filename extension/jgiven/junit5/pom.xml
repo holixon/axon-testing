@@ -2,24 +2,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <name>Axon Testing - JGiven Support for JUnit4</name>
+  <name>Axon Testing - JGiven Support for JUnit5</name>
 
   <parent>
     <groupId>io.holixon.axon.testing._</groupId>
-    <artifactId>extension</artifactId>
-    <version>0.0.2</version>
+    <artifactId>extension-jgiven</artifactId>
+    <version>0.1.0</version>
   </parent>
 
   <groupId>io.holixon.axon.testing</groupId>
-  <artifactId>axon-testing-jgiven-junit</artifactId>
-
-  <properties>
-    <jacoco.skip>false</jacoco.skip>
-    <dokka.skip>false</dokka.skip>
-    <maven.javadoc.skip>false</maven.javadoc.skip>
-    <maven.sources.skip>false</maven.sources.skip>
-    <maven.install.skip>false</maven.install.skip>
-  </properties>
+  <artifactId>axon-testing-jgiven-junit5</artifactId>
 
   <dependencies>
     <dependency>
@@ -28,7 +20,7 @@
     </dependency>
     <dependency>
       <groupId>com.tngtech.jgiven</groupId>
-      <artifactId>jgiven-junit</artifactId>
+      <artifactId>jgiven-junit5</artifactId>
       <version>${jgiven.version}</version>
     </dependency>
   </dependencies>

@@ -2,34 +2,36 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <name>Axon Testing - JGiven Support for JUnit5</name>
+  <name>Axon Testing - JGiven Core</name>
 
   <parent>
     <groupId>io.holixon.axon.testing._</groupId>
-    <artifactId>extension</artifactId>
-    <version>0.0.2</version>
+    <artifactId>extension-jgiven</artifactId>
+    <version>0.1.0</version>
   </parent>
 
   <groupId>io.holixon.axon.testing</groupId>
-  <artifactId>axon-testing-jgiven-junit5</artifactId>
-
-  <properties>
-    <jacoco.skip>false</jacoco.skip>
-    <dokka.skip>false</dokka.skip>
-    <maven.javadoc.skip>false</maven.javadoc.skip>
-    <maven.sources.skip>false</maven.sources.skip>
-    <maven.install.skip>false</maven.install.skip>
-  </properties>
+  <artifactId>axon-testing-jgiven-core</artifactId>
 
   <dependencies>
     <dependency>
-      <groupId>${project.groupId}</groupId>
-      <artifactId>axon-testing-jgiven-core</artifactId>
+      <groupId>org.axonframework</groupId>
+      <artifactId>axon-configuration</artifactId>
+      </dependency>
+    <dependency>
+      <groupId>org.axonframework</groupId>
+      <artifactId>axon-test</artifactId>
+      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.tngtech.jgiven</groupId>
-      <artifactId>jgiven-junit5</artifactId>
+      <artifactId>jgiven-core</artifactId>
       <version>${jgiven.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest-core</artifactId>
+      <version>2.2</version>
     </dependency>
   </dependencies>
 </project>

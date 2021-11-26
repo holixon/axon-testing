@@ -7,7 +7,7 @@
   <parent>
     <groupId>io.holixon.axon.testing._</groupId>
     <artifactId>extension</artifactId>
-    <version>0.0.2</version>
+    <version>0.1.0</version>
   </parent>
 
   <groupId>io.holixon.axon.testing</groupId>
@@ -25,12 +25,10 @@
     <dependency>
       <groupId>org.axonframework</groupId>
       <artifactId>axon-configuration</artifactId>
-      <version>${axon-framework.version}</version>
     </dependency>
     <dependency>
       <groupId>org.axonframework</groupId>
       <artifactId>axon-test</artifactId>
-      <version>${axon-framework.version}</version>
     </dependency>
     <dependency>
       <groupId>org.dom4j</groupId>
@@ -72,7 +70,7 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
-      <version>1.7.30</version>
+      <version>1.7.32</version>
     </dependency>
 
 
