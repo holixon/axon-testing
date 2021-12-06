@@ -15,5 +15,5 @@ updates:
   - dependency-name: io.holixon.axon:axon-framework-bom
     versions:
     - "4.5"
-labels: [ "Type: dependencies" ]
+  labels: [ "Type: dependencies" ]
   
