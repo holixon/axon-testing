@@ -27,7 +27,7 @@
     <dependency>
       <groupId>io.toolisticon.testing</groupId>
       <artifactId>jgiven-kotlin</artifactId>
-      <version>1.0.1</version>
+      <version>1.2.0</version>
       <scope>test</scope>
     </dependency>
     <dependency>
