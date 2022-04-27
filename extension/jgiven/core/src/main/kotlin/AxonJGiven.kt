@@ -25,13 +25,20 @@ abstract class SagaFixtureScenarioTestBase<T> : ScenarioTestBase<SagaFixtureGive
 
 object AxonJGiven {
 
+  inline fun <reified T : Any> aggregateTestFixtureBuilder() = AggregateTestFixtureBuilder(T::class.java)
+  inline fun <reified T : Any> sagaTestFixtureBuilder() = SagaTestFixtureBuilder(T::class.java)
+
+}
+
+/**
+ * Use this when implementing in java
+ */
+object AxonJGivenJava {
+
   @JvmStatic
   fun <T : Any> aggregateTestFixtureBuilder(aggregateType: Class<T>) = AggregateTestFixtureBuilder(aggregateType)
 
   @JvmStatic
   fun <T : Any> sagaTestFixtureBuilder(aggregateType: Class<T>) = SagaTestFixtureBuilder(aggregateType)
-
-  inline fun <reified T : Any> aggregateTestFixtureBuilder(aggregateType: KClass<T>) = AggregateTestFixtureBuilder(T::class.java)
-  inline fun <reified T : Any> sagaTestFixtureBuilder(aggregateType: KClass<T>) = SagaTestFixtureBuilder(T::class.java)
 
 }
