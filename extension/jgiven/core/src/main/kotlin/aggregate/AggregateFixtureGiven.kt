@@ -1,8 +1,12 @@
 @file:Suppress("unused")
+
 package io.holixon.axon.testing.jgiven.aggregate
 
 import com.tngtech.jgiven.Stage
-import com.tngtech.jgiven.annotation.*
+import com.tngtech.jgiven.annotation.As
+import com.tngtech.jgiven.annotation.ExpectedScenarioState
+import com.tngtech.jgiven.annotation.ProvidedScenarioState
+import com.tngtech.jgiven.annotation.Quoted
 import io.holixon.axon.testing.jgiven.AxonJGivenStage
 import io.holixon.axon.testing.jgiven.step
 import org.axonframework.test.aggregate.AggregateTestFixture
@@ -43,14 +47,14 @@ class AggregateFixtureGiven<T> : Stage<AggregateFixtureGiven<T>>() {
    * @param commands dispatched commands.
    */
   @As("commands:")
-  fun commands(@Quoted @Table vararg commands: Any) = this.commands(commands.toList())
+  fun commands(@Quoted vararg commands: Any) = this.commands(commands.toList())
 
   /**
    * One or several commands has been dispatched.
    * @param commands dispatched commands.
    */
   @As("commands:")
-  fun commands(@Quoted @Table commands: List<Any>) = execute {
+  fun commands(@Quoted commands: List<Any>) = execute {
     if (!::testExecutor.isInitialized)
       fixture.givenCommands(commands)
     else
@@ -69,14 +73,14 @@ class AggregateFixtureGiven<T> : Stage<AggregateFixtureGiven<T>>() {
    * @param events published events.
    */
   @As("events:")
-  fun events(@Quoted @Table vararg events: Any) = this.events(events.toList())
+  fun events(@Quoted vararg events: Any) = this.events(events.toList())
 
   /**
    * One or several events has been published.
    * @param events published events.
    */
   @As("events:")
-  fun events(@Quoted @Table events: List<Any>) = execute {
+  fun events(@Quoted events: List<Any>) = execute {
     if (!::testExecutor.isInitialized)
       fixture.given(events)
     else

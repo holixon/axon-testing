@@ -35,14 +35,14 @@ class AggregateFixtureThen<T> : Stage<AggregateFixtureThen<T>>() {
    * @param events events to expect.
    */
   @As("expect events:")
-  fun expectEvents(@Quoted @Table vararg events: Any) = execute { resultValidator.expectEvents(*events) }
+  fun expectEvents(@Quoted vararg events: Any) = execute { resultValidator.expectEvents(*events) }
 
   /**
    * Expect a series of events.
    * @param events events to expect.
    */
   @As("expect events:")
-  fun expectEvents(@Quoted @Table vararg events: EventMessage<*>) = execute { resultValidator.expectEvents(*events) }
+  fun expectEvents(@Quoted vararg events: EventMessage<*>) = execute { resultValidator.expectEvents(*events) }
 
   /**
    * Expect events matching criteria.
