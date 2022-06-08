@@ -7,7 +7,7 @@
   <parent>
     <groupId>io.holixon.axon.testing._</groupId>
     <artifactId>extension-jgiven</artifactId>
-    <version>0.1.0</version>
+    <version>0.2.0</version>
   </parent>
 
   <groupId>io.holixon.axon.testing</groupId>
@@ -22,6 +22,26 @@
       <groupId>com.tngtech.jgiven</groupId>
       <artifactId>jgiven-junit5</artifactId>
       <version>${jgiven.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>io.toolisticon.testing</groupId>
+      <artifactId>jgiven-kotlin</artifactId>
+      <version>1.2.2</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.inject</groupId>
+      <artifactId>javax.inject</artifactId>
+      <version>1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>1.2.11</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 </project>

@@ -8,7 +8,7 @@ import org.axonframework.test.saga.SagaTestFixture;
 import org.junit.Test;
 
 import static fixture.bankaccount.AccountAggregateTestHelper.*;
-import static io.holixon.axon.testing.jgiven.AxonJGiven.sagaTestFixtureBuilder;
+import static io.holixon.axon.testing.jgiven.AxonJGivenJava.sagaTestFixtureBuilder;
 
 public class MoneyTransferSagaJgivenJavaTest extends SagaFixtureScenarioTest<MoneyTransferSaga> {
 

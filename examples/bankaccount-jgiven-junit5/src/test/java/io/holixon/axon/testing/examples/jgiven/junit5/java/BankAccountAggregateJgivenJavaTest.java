@@ -12,6 +12,7 @@ import fixture.bankaccount.event.MoneyWithdrawnEvent;
 import fixture.bankaccount.exception.InsufficientBalanceException;
 import fixture.bankaccount.exception.MaximalBalanceExceededException;
 import fixture.bankaccount.exception.MaximumActiveMoneyTransfersReachedException;
+import io.holixon.axon.testing.jgiven.AxonJGivenJava;
 import io.holixon.axon.testing.jgiven.junit5.AggregateFixtureScenarioTest;
 import org.axonframework.test.aggregate.AggregateTestFixture;
 import org.junit.jupiter.api.Test;
@@ -25,7 +26,8 @@ import static fixture.bankaccount.BankAccountAggregate.Configuration.DEFAULT_MAX
 public class BankAccountAggregateJgivenJavaTest extends AggregateFixtureScenarioTest<BankAccountAggregate> {
 
   @ProvidedScenarioState
-  private final AggregateTestFixture<BankAccountAggregate> fixture = new AggregateTestFixture<>(BankAccountAggregate.class);
+  private final AggregateTestFixture<BankAccountAggregate> fixture = AxonJGivenJava.aggregateTestFixtureBuilder(BankAccountAggregate.class)
+    .build();
 
   @Test
   public void create_account() {

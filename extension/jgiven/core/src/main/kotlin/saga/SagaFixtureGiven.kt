@@ -1,4 +1,5 @@
 @file:Suppress("unused")
+
 package io.holixon.axon.testing.jgiven.saga
 
 import com.tngtech.jgiven.Stage
@@ -54,7 +55,7 @@ class SagaFixtureGiven<T> : Stage<SagaFixtureGiven<T>>() {
    * @param events published events.
    */
   @As("aggregate $ published $")
-  fun aggregatePublishedEvents(@Quoted aggregateIdentifier: String, @Table vararg events: Any) = aggregatePublishedEvents(aggregateIdentifier, events.toList())
+  fun aggregatePublishedEvents(@Quoted aggregateIdentifier: String, vararg events: Any) = aggregatePublishedEvents(aggregateIdentifier, events.toList())
 
   /**
    * An aggregate published one or multiple events.

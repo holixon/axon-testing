@@ -1,10 +1,10 @@
 @file:Suppress("unused")
+
 package io.holixon.axon.testing.jgiven.saga
 
 import com.tngtech.jgiven.Stage
 import com.tngtech.jgiven.annotation.As
 import com.tngtech.jgiven.annotation.ExpectedScenarioState
-import com.tngtech.jgiven.annotation.Table
 import io.holixon.axon.testing.jgiven.AxonJGivenStage
 import org.axonframework.deadline.DeadlineMessage
 import org.axonframework.eventhandling.EventMessage
@@ -43,7 +43,7 @@ class SagaFixtureThen<T> : Stage<SagaFixtureThen<T>>() {
    * @param commands The expected commands
    * @return the FixtureExecutionResult for method chaining
    */
-  fun expectDispatchedCommands(@Table vararg commands: Any) = self().apply {
+  fun expectDispatchedCommands(vararg commands: Any) = self().apply {
     thenState = thenState.expectDispatchedCommands(*commands)
   }
 
@@ -232,7 +232,7 @@ class SagaFixtureThen<T> : Stage<SagaFixtureThen<T>>() {
    *
    * @return the FixtureExecutionResult for method chaining
    */
-  fun expectNoDispatchedCommands() = self().apply {
+  fun expectNoDispatchedCommands(): SagaFixtureThen<T> = self().apply {
     thenState.expectNoDispatchedCommands()
   }
 

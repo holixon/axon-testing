@@ -5,6 +5,7 @@ import fixture.bankaccount.BankAccountAggregate
 import fixture.bankaccount.BankAccountAggregate.Configuration.DEFAULT_MAXIMAL_BALANCE
 import fixture.bankaccount.command.CreateAccountCommand
 import fixture.bankaccount.event.AccountCreatedEvent
+import io.holixon.axon.testing.jgiven.AxonJGiven
 import io.holixon.axon.testing.jgiven.junit5.AggregateFixtureScenarioTest
 import io.toolisticon.testing.jgiven.AND
 import io.toolisticon.testing.jgiven.GIVEN
@@ -17,7 +18,8 @@ import org.junit.jupiter.api.Test
 class BankAccountAggregateJgivenKotlinTest : AggregateFixtureScenarioTest<BankAccountAggregate>() {
 
   @ProvidedScenarioState
-  private val fixture = AggregateTestFixture(BankAccountAggregate::class.java)
+  private val fixture = AxonJGiven.aggregateTestFixtureBuilder<BankAccountAggregate>()
+    .build()
 
   @Test
   fun `create account`() {

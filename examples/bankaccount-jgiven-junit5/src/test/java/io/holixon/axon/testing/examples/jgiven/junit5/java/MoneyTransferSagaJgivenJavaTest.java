@@ -7,12 +7,17 @@ import io.holixon.axon.testing.jgiven.junit5.SagaFixtureScenarioTest;
 import org.axonframework.test.saga.SagaTestFixture;
 import org.junit.jupiter.api.Test;
 
-import static fixture.bankaccount.AccountAggregateTestHelper.*;
+import static fixture.bankaccount.AccountAggregateTestHelper.ACCOUNT_ID_1;
+import static fixture.bankaccount.AccountAggregateTestHelper.ACCOUNT_ID_2;
+import static fixture.bankaccount.AccountAggregateTestHelper.CUSTOMER_ID_1;
+import static fixture.bankaccount.AccountAggregateTestHelper.CUSTOMER_ID_2;
+import static fixture.bankaccount.AccountAggregateTestHelper.accountCreatedEvent;
+import static io.holixon.axon.testing.jgiven.AxonJGivenJava.sagaTestFixtureBuilder;
 
 public class MoneyTransferSagaJgivenJavaTest extends SagaFixtureScenarioTest<MoneyTransferSaga> {
 
   @ProvidedScenarioState
-  private final SagaTestFixture<MoneyTransferSaga> fixture = new SagaTestFixture<>(MoneyTransferSaga.class);
+  private final SagaTestFixture<MoneyTransferSaga> fixture = sagaTestFixtureBuilder(MoneyTransferSaga.class).build();
 
   @Test
   public void initialize_transfer_money() {

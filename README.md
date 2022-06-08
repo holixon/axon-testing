@@ -1,6 +1,6 @@
 # Axon Testing
 
-
+[![stable](https://img.shields.io/badge/lifecycle-STABLE-green.svg)](https://github.com/holisticon#open-source-lifecycle)
 [![Build Status](https://github.com/holixon/axon-testing/workflows/Development%20branches/badge.svg)](https://github.com/holixon/axon-testing/actions)
 [![sponsored](https://img.shields.io/badge/sponsoredBy-Holisticon-RED.svg)](https://holisticon.de/)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.holixon.axon.testing/axon-testing-jgiven-core/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.holixon.axon.testing/axon-testing-jgiven-core)
