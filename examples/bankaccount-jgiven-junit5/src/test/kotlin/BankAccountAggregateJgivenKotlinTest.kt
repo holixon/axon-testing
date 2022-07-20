@@ -11,7 +11,7 @@ import io.toolisticon.testing.jgiven.AND
 import io.toolisticon.testing.jgiven.GIVEN
 import io.toolisticon.testing.jgiven.THEN
 import io.toolisticon.testing.jgiven.WHEN
-import org.axonframework.test.aggregate.AggregateTestFixture
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 
@@ -45,6 +45,15 @@ class BankAccountAggregateJgivenKotlinTest : AggregateFixtureScenarioTest<BankAc
           .build()
       )
       .AND
+      .expectEvents(
+        AccountCreatedEvent.builder()
+          .accountId("1")
+          .customerId("1")
+          .initialBalance(100)
+          .maximalBalance(DEFAULT_MAXIMAL_BALANCE)
+          .build()
+      )
+      .AND
       .expectState(
         BankAccountAggregate.builder()
           .accountId("1")
@@ -52,5 +61,10 @@ class BankAccountAggregateJgivenKotlinTest : AggregateFixtureScenarioTest<BankAc
           .maximalBalance(DEFAULT_MAXIMAL_BALANCE)
           .build()
       )
+      .AND
+      .expectState("assert correct balance") {
+        assertEquals(100, it.currentBalance)
+      }
+
   }
 }
