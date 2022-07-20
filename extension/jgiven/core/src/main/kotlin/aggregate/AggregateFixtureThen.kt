@@ -1,8 +1,12 @@
 @file:Suppress("unused")
+
 package io.holixon.axon.testing.jgiven.aggregate
 
 import com.tngtech.jgiven.Stage
-import com.tngtech.jgiven.annotation.*
+import com.tngtech.jgiven.annotation.As
+import com.tngtech.jgiven.annotation.ExpectedScenarioState
+import com.tngtech.jgiven.annotation.Hidden
+import com.tngtech.jgiven.annotation.Quoted
 import io.holixon.axon.testing.jgiven.AxonJGivenStage
 import org.axonframework.commandhandling.CommandResultMessage
 import org.axonframework.deadline.DeadlineMessage
@@ -12,6 +16,7 @@ import org.hamcrest.Matcher
 import org.hamcrest.MatcherAssert
 import java.time.Duration
 import java.time.Instant
+import java.util.function.Consumer
 
 /**
  * Then stage for aggregate fixture.
@@ -79,6 +84,12 @@ class AggregateFixtureThen<T> : Stage<AggregateFixtureThen<T>>() {
     resultValidator.expectState {
       MatcherAssert.assertThat("state failed, expected '$expected', but was=$it", it == expected)
     }
+  }
+
+
+  @As("expect state: $")
+  fun expectState(@Quoted message: String = "by validator", @Hidden validator: Consumer<T>) = execute {
+    resultValidator.expectState(validator)
   }
 
   /**

@@ -8,7 +8,7 @@
 
   <groupId>io.holixon.axon.testing._</groupId>
   <artifactId>axon-testing_</artifactId>
-  <version>0.2.0</version>
+  <version>0.2.1</version>
   <packaging>pom</packaging>
 
   <modules>
@@ -22,9 +22,9 @@
     <java.version>11</java.version>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
-    <kotlin.version>1.6.21</kotlin.version>
+    <kotlin.version>1.7.10</kotlin.version>
 
-    <axon-bom.version>4.5.13</axon-bom.version>
+    <axon-bom.version>4.5.16</axon-bom.version>
 
     <jackson.version>2.13.3</jackson.version>
     <junit.version>4.13.2</junit.version>
@@ -184,14 +184,14 @@
         <!-- Install -->
         <plugin>
           <artifactId>maven-install-plugin</artifactId>
-          <version>2.5.2</version>
+          <version>3.0.0</version>
         </plugin>
 
         <!-- Assembly -->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-assembly-plugin</artifactId>
-          <version>3.3.0</version>
+          <version>3.4.1</version>
           <configuration>
             <descriptorSourceDirectory>assembly</descriptorSourceDirectory>
             <archiverConfig>
@@ -268,7 +268,7 @@
         <plugin>
           <groupId>org.jetbrains.dokka</groupId>
           <artifactId>dokka-maven-plugin</artifactId>
-          <version>1.6.21</version>
+          <version>1.7.10</version>
           <configuration>
             <!-- Conditional on maven property set per-project -->
             <skip>${dokka.skip}</skip>
@@ -321,7 +321,7 @@
         <!-- Enforcer -->
         <plugin>
           <artifactId>maven-enforcer-plugin</artifactId>
-          <version>3.0.0</version>
+          <version>3.1.0</version>
           <executions>
             <execution>
               <id>enforce-java</id>
@@ -392,7 +392,7 @@
         <!-- Deploy -->
         <plugin>
           <artifactId>maven-deploy-plugin</artifactId>
-          <version>2.8.2</version>
+          <version>3.0.0</version>
           <configuration>
             <skip>true</skip>
           </configuration>
