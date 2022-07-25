@@ -33,6 +33,7 @@ class DummyAggregateTest : AxonJGivenTestFixtures.AggregateFixtureScenarioTest<A
     GIVEN
       .noPriorActivity()
 
-    THEN.expectNoEvents()
+    THEN
+      .expectNoEvents()
   }
 }

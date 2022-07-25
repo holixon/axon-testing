@@ -8,7 +8,6 @@ import io.holixon.axon.testing.jgiven.AxonJGivenStage
 import io.holixon.axon.testing.jgiven.step
 import org.axonframework.test.aggregate.AggregateTestFixture
 import org.axonframework.test.aggregate.TestExecutor
-import java.time.Duration
 import java.time.Instant
 import java.util.function.Supplier
 
@@ -23,11 +22,11 @@ class AggregateFixtureGiven<T> : Stage<AggregateFixtureGiven<T>>() {
   private lateinit var fixture: AggregateTestFixture<T>
 
   @ProvidedScenarioState
-  private val context: AggregateTestFixtureContext<T> = AggregateTestFixtureContext()
+  private lateinit var context: AggregateTestFixtureContext<T>
 
   @BeforeStage
   internal fun initStage() {
-    context.init(fixture)
+    context = AggregateTestFixtureContext(fixture)
   }
 
   /**
@@ -56,7 +55,12 @@ class AggregateFixtureGiven<T> : Stage<AggregateFixtureGiven<T>>() {
    */
   @As("commands:")
   fun commands(@Quoted commands: List<Any>): AggregateFixtureGiven<T> = execute {
-    context.testExecutor!!.andGivenCommands(commands)
+    if (context.isFirstGiven) {
+      context.isFirstGiven = false
+      context.fixture!!.givenCommands(commands)
+    } else {
+      context.testExecutor!!.andGivenCommands(commands)
+    }
   }
 
   /**
@@ -79,7 +83,12 @@ class AggregateFixtureGiven<T> : Stage<AggregateFixtureGiven<T>>() {
    */
   @As("events:")
   fun events(@Quoted events: List<Any>): AggregateFixtureGiven<T> = execute {
-    context.testExecutor!!.andGiven(events)
+    if (context.isFirstGiven) {
+      context.isFirstGiven = false
+      context.fixture!!.given(events)
+    } else {
+      context.testExecutor!!.andGiven(events)
+    }
   }
 
   /**

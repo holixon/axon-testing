@@ -10,11 +10,11 @@ internal class AggregateTestFixtureContext<T>(
   var resultValidator: ResultValidator<T>? = null
 ) {
 
-  fun init(fixture: AggregateTestFixture<T>) {
-    this.fixture = fixture
-    this.testExecutor = fixture.givenNoPriorActivity()
-    this.resultValidator = AggregateTestFixtureExt.buildResultValidator(fixture)
-  }
+  constructor(fixture: AggregateTestFixture<T>) : this(
+    fixture,
+    fixture.givenNoPriorActivity(),
+    AggregateTestFixtureExt.buildResultValidator(fixture)
+  )
 
   fun checkInitialized() {
     if (!isInitialized()) {
@@ -23,4 +23,6 @@ internal class AggregateTestFixtureContext<T>(
   }
 
   fun isInitialized() = fixture != null && testExecutor != null && resultValidator != null
+
+  var isFirstGiven = true
 }
