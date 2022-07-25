@@ -10,6 +10,8 @@ import io.holixon.axon.testing.jgiven.AxonJGivenStage
 import io.holixon.axon.testing.jgiven.step
 import org.axonframework.messaging.MetaData
 import org.axonframework.test.aggregate.ResultValidator
+import java.time.Duration
+import java.time.Instant
 
 /**
  * When stage for aggregate fixture.
@@ -37,6 +39,21 @@ class AggregateFixtureWhen<T> : Stage<AggregateFixtureWhen<T>>() {
   @As("command: \$cmd, metadata: \$metadata")
   fun command(@Quoted cmd: Any, metadata: Map<String, *>): AggregateFixtureWhen<T> = execute { context.testExecutor!!.`when`(cmd, metadata) }
 
+  /**
+   * Moves time to new value.
+   * @param instant new time to set.
+   */
+  fun timeAdvancesTo(instant: Instant) {
+    context.testExecutor!!.whenThenTimeAdvancesTo(instant)
+  }
+
+  /**
+   * Moves time to new value.
+   * @param duration timespan to move time to.
+   */
+  fun timeElapses(duration: Duration) {
+    context.testExecutor!!.whenThenTimeElapses(duration)
+  }
 
   private fun execute(block: () -> ResultValidator<T>) = step { context.resultValidator = block.invoke() }
 

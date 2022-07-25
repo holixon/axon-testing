@@ -106,24 +106,6 @@ class AggregateFixtureGiven<T> : Stage<AggregateFixtureGiven<T>>() {
     fixture.givenState(aggregate)
   }
 
-  /**
-   * Moves time to new value.
-   * @param instant new time to set.
-   */
-  @Deprecated("this belongs in the when stage")
-  fun timeAdvancesTo(instant: Instant) {
-    context.testExecutor!!.whenThenTimeAdvancesTo(instant)
-  }
-
-  /**
-   * Moves time to new value.
-   * @param duration timespan to move time to.
-   */
-  @Deprecated("this belongs in the when stage")
-  fun timeElapses(duration: Duration) {
-    context.testExecutor!!.whenThenTimeElapses(duration)
-  }
-
   private fun execute(block: () -> TestExecutor<T>) = step {
     context.testExecutor = block.invoke()
   }
