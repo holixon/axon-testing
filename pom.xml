@@ -17,21 +17,28 @@
   </modules>
 
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <!-- JVM -->
     <java.version>11</java.version>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <kotlin.version>1.7.10</kotlin.version>
 
+    <!-- LIBS -->
     <axon-bom.version>4.5.16</axon-bom.version>
+    <jgiven.version>1.2.2</jgiven.version>
+    <jgiven-kotlin.version>1.2.2.1</jgiven-kotlin.version>
 
+    <!-- TEST -->
     <jackson.version>2.13.3</jackson.version>
     <junit.version>4.13.2</junit.version>
     <junit5.version>5.8.2</junit5.version>
-    <jgiven.version>1.2.2</jgiven.version>
     <dom4j.version>2.1.3</dom4j.version>
     <assertj.version>3.23.1</assertj.version>
+
+    <!-- MAVEN -->
+    <project.encoding>UTF-8</project.encoding>
+    <project.build.sourceEncoding>${project.encoding}</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>${project.encoding}</project.reporting.outputEncoding>
 
     <!-- deactivate by default -->
     <jacoco.skip>true</jacoco.skip>
