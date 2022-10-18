@@ -25,7 +25,7 @@
 
     <!-- LIBS -->
     <axon-bom.version>4.6.1</axon-bom.version>
-    <jgiven.version>1.2.2</jgiven.version>
+    <jgiven.version>1.2.3</jgiven.version>
     <jgiven-kotlin.version>1.2.3.0</jgiven-kotlin.version>
 
     <!-- TEST -->
