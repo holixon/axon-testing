@@ -21,17 +21,17 @@
     <java.version>11</java.version>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
-    <kotlin.version>1.7.10</kotlin.version>
+    <kotlin.version>1.7.20</kotlin.version>
 
     <!-- LIBS -->
-    <axon-bom.version>4.5.16</axon-bom.version>
-    <jgiven.version>1.2.2</jgiven.version>
-    <jgiven-kotlin.version>1.2.2.1</jgiven-kotlin.version>
+    <axon-bom.version>4.6.1</axon-bom.version>
+    <jgiven.version>1.2.3</jgiven.version>
+    <jgiven-kotlin.version>1.2.3.0</jgiven-kotlin.version>
 
     <!-- TEST -->
-    <jackson.version>2.13.3</jackson.version>
+    <jackson.version>2.13.4</jackson.version>
     <junit.version>4.13.2</junit.version>
-    <junit5.version>5.8.2</junit5.version>
+    <junit5.version>5.9.1</junit5.version>
     <dom4j.version>2.1.3</dom4j.version>
     <assertj.version>3.23.1</assertj.version>
 
@@ -182,7 +182,7 @@
         <!-- Resources -->
         <plugin>
           <artifactId>maven-resources-plugin</artifactId>
-          <version>3.2.0</version>
+          <version>3.3.0</version>
           <configuration>
             <encoding>UTF-8</encoding>
           </configuration>
@@ -191,14 +191,14 @@
         <!-- Install -->
         <plugin>
           <artifactId>maven-install-plugin</artifactId>
-          <version>3.0.0</version>
+          <version>3.0.1</version>
         </plugin>
 
         <!-- Assembly -->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-assembly-plugin</artifactId>
-          <version>3.4.1</version>
+          <version>3.4.2</version>
           <configuration>
             <descriptorSourceDirectory>assembly</descriptorSourceDirectory>
             <archiverConfig>
@@ -275,7 +275,7 @@
         <plugin>
           <groupId>org.jetbrains.dokka</groupId>
           <artifactId>dokka-maven-plugin</artifactId>
-          <version>1.7.10</version>
+          <version>1.7.20</version>
           <configuration>
             <!-- Conditional on maven property set per-project -->
             <skip>${dokka.skip}</skip>
@@ -302,7 +302,7 @@
         <!-- JAR -->
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>
-          <version>3.2.2</version>
+          <version>3.3.0</version>
           <configuration>
             <archive>
               <manifest>
@@ -354,7 +354,7 @@
         <plugin>
           <groupId>com.amashchenko.maven.plugin</groupId>
           <artifactId>gitflow-maven-plugin</artifactId>
-          <version>1.18.0</version>
+          <version>1.19.0</version>
           <configuration>
             <gitFlowConfig>
               <productionBranch>master</productionBranch>
