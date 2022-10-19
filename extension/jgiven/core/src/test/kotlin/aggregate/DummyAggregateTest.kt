@@ -4,16 +4,17 @@ import com.tngtech.jgiven.annotation.ProvidedScenarioState
 import io.holixon.axon.testing.jgiven.AxonJGiven.aggregateTestFixtureBuilder
 import io.holixon.axon.testing.jgiven.AxonJGivenTestFixtures
 import io.holixon.axon.testing.jgiven.AxonJGivenTestFixtures.CreateDummyAggregate
+import io.holixon.axon.testing.jgiven.AxonJGivenTestFixtures.DummyAggregate
 import io.holixon.axon.testing.jgiven.AxonJGivenTestFixtures.DummyAggregateCreated
 import io.toolisticon.testing.jgiven.GIVEN
 import io.toolisticon.testing.jgiven.THEN
 import io.toolisticon.testing.jgiven.WHEN
 import org.junit.jupiter.api.Test
 
-class DummyAggregateTest : AxonJGivenTestFixtures.AggregateFixtureScenarioTest<AxonJGivenTestFixtures.DummyAggregate>() {
+class DummyAggregateTest : AxonJGivenTestFixtures.AggregateFixtureScenarioTest<DummyAggregate>() {
 
   @ProvidedScenarioState
-  val fixture = aggregateTestFixtureBuilder<AxonJGivenTestFixtures.DummyAggregate>()
+  val fixture = aggregateTestFixtureBuilder<DummyAggregate>()
     .build()
 
   @Test
