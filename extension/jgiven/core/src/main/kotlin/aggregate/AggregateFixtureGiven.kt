@@ -3,18 +3,13 @@
 package io.holixon.axon.testing.jgiven.aggregate
 
 import com.tngtech.jgiven.Stage
-import com.tngtech.jgiven.annotation.As
-import com.tngtech.jgiven.annotation.ExpectedScenarioState
-import com.tngtech.jgiven.annotation.ProvidedScenarioState
-import com.tngtech.jgiven.annotation.Quoted
+import com.tngtech.jgiven.annotation.*
 import io.holixon.axon.testing.jgiven.AxonJGivenStage
 import io.holixon.axon.testing.jgiven.step
 import org.axonframework.test.aggregate.AggregateTestFixture
 import org.axonframework.test.aggregate.TestExecutor
-import java.time.Duration
 import java.time.Instant
 import java.util.function.Supplier
-
 
 /**
  * Given stage for aggregate fixture.
@@ -27,7 +22,12 @@ class AggregateFixtureGiven<T> : Stage<AggregateFixtureGiven<T>>() {
   private lateinit var fixture: AggregateTestFixture<T>
 
   @ProvidedScenarioState
-  private lateinit var testExecutor: TestExecutor<T>
+  private lateinit var context: AggregateTestFixtureContext<T>
+
+  @BeforeStage
+  internal fun initStage() {
+    context = AggregateTestFixtureContext(fixture)
+  }
 
   /**
    * Nothing happens before.
@@ -40,25 +40,27 @@ class AggregateFixtureGiven<T> : Stage<AggregateFixtureGiven<T>>() {
    * @param command dispatched command.
    */
   @As("command:")
-  fun command(@Quoted command: Any) = this.commands(command)
+  fun command(@Quoted command: Any): AggregateFixtureGiven<T> = this.commands(command)
 
   /**
    * One or several commands has been dispatched.
    * @param commands dispatched commands.
    */
   @As("commands:")
-  fun commands(@Quoted vararg commands: Any) = this.commands(commands.toList())
+  fun commands(@Quoted vararg commands: Any): AggregateFixtureGiven<T> = this.commands(commands.toList())
 
   /**
    * One or several commands has been dispatched.
    * @param commands dispatched commands.
    */
   @As("commands:")
-  fun commands(@Quoted commands: List<Any>) = execute {
-    if (!::testExecutor.isInitialized)
-      fixture.givenCommands(commands)
-    else
-      testExecutor.andGivenCommands(commands)
+  fun commands(@Quoted commands: List<Any>): AggregateFixtureGiven<T> = execute {
+    if (context.isFirstGiven) {
+      context.isFirstGiven = false
+      context.fixture!!.givenCommands(commands)
+    } else {
+      context.testExecutor!!.andGivenCommands(commands)
+    }
   }
 
   /**
@@ -66,43 +68,42 @@ class AggregateFixtureGiven<T> : Stage<AggregateFixtureGiven<T>>() {
    * @param event published event.
    */
   @As("event:")
-  fun event(@Quoted event: Any) = this.events(event)
+  fun event(@Quoted event: Any): AggregateFixtureGiven<T> = this.events(event)
 
   /**
    * One or several events has been published.
    * @param events published events.
    */
   @As("events:")
-  fun events(@Quoted vararg events: Any) = this.events(events.toList())
+  fun events(@Quoted vararg events: Any): AggregateFixtureGiven<T> = this.events(events.toList())
 
   /**
    * One or several events has been published.
    * @param events published events.
    */
   @As("events:")
-  fun events(@Quoted events: List<Any>) = execute {
-    if (!::testExecutor.isInitialized)
-      fixture.given(events)
-    else
-      testExecutor.andGiven(events)
+  fun events(@Quoted events: List<Any>): AggregateFixtureGiven<T> = execute {
+    if (context.isFirstGiven) {
+      context.isFirstGiven = false
+      context.fixture!!.given(events)
+    } else {
+      context.testExecutor!!.andGiven(events)
+    }
   }
 
   /**
    * Sets the time.
    * @param instant new time.
    */
-  fun currentTime(instant: Instant) = execute {
-    if (!::testExecutor.isInitialized)
-      fixture.givenCurrentTime(instant)
-    else
-      testExecutor.andGivenCurrentTime(instant)
+  fun currentTime(instant: Instant): AggregateFixtureGiven<T> = execute {
+    context.testExecutor!!.andGivenCurrentTime(instant)
   }
 
   /**
    * Sets the state of the aggregate.
    * @param aggregate aggregate state supplier.
    */
-  fun state(aggregate: Supplier<T>) = execute {
+  fun state(aggregate: Supplier<T>): AggregateFixtureGiven<T> = execute {
     fixture.givenState(aggregate)
   }
 
@@ -110,34 +111,11 @@ class AggregateFixtureGiven<T> : Stage<AggregateFixtureGiven<T>>() {
    * Sets the state of the aggregate.
    * @param aggregate aggregate state providing function..
    */
-  fun state(aggregate: () -> T) = execute {
+  fun state(aggregate: () -> T): AggregateFixtureGiven<T> = execute {
     fixture.givenState(aggregate)
   }
 
-  /**
-   * Moves time to new value.
-   * @param instant new time to set.
-   */
-  fun timeAdvancesTo(instant: Instant) {
-    if (!::testExecutor.isInitialized)
-      fixture.whenThenTimeAdvancesTo(instant)
-    else
-      testExecutor.whenThenTimeAdvancesTo(instant)
-  }
-
-  /**
-   * Moves time to new value.
-   * @param duration timespan to move time to.
-   */
-  fun timeElapses(duration: Duration) {
-    if (!::testExecutor.isInitialized)
-      fixture.whenThenTimeElapses(duration)
-    else
-      testExecutor.whenThenTimeElapses(duration)
-  }
-
   private fun execute(block: () -> TestExecutor<T>) = step {
-    testExecutor = block.invoke()
+    context.testExecutor = block.invoke()
   }
-
 }

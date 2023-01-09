@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <name>Axon Testing - JGiven Core</name>
 
   <parent>
     <groupId>io.holixon.axon.testing._</groupId>
     <artifactId>extension-jgiven</artifactId>
-    <version>0.2.1</version>
+    <version>0.3.0</version>
   </parent>
 
   <groupId>io.holixon.axon.testing</groupId>
@@ -17,12 +17,13 @@
     <dependency>
       <groupId>org.axonframework</groupId>
       <artifactId>axon-configuration</artifactId>
-      </dependency>
+    </dependency>
     <dependency>
       <groupId>org.axonframework</groupId>
       <artifactId>axon-test</artifactId>
       <scope>compile</scope>
     </dependency>
+
     <dependency>
       <groupId>com.tngtech.jgiven</groupId>
       <artifactId>jgiven-core</artifactId>
@@ -34,6 +35,28 @@
       <version>2.2</version>
     </dependency>
 
+    <!-- TEST -->
+
+    <dependency>
+      <groupId>io.github.microutils</groupId>
+      <artifactId>kotlin-logging-jvm</artifactId>
+      <version>3.0.4</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.toolisticon.testing</groupId>
+      <artifactId>jgiven-kotlin</artifactId>
+      <version>${jgiven-kotlin.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.tngtech.jgiven</groupId>
+      <artifactId>jgiven-junit5</artifactId>
+      <version>${jgiven.version}</version>
+      <scope>test</scope>
+    </dependency>
+
     <dependency>
       <groupId>javax.inject</groupId>
       <artifactId>javax.inject</artifactId>
@@ -43,7 +66,7 @@
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
-      <version>1.2.11</version>
+      <version>1.4.5</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
