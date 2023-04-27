@@ -8,7 +8,7 @@
 
   <groupId>io.holixon.axon.testing._</groupId>
   <artifactId>axon-testing_</artifactId>
-  <version>0.4.0</version>
+  <version>4.7.4.0</version>
   <packaging>pom</packaging>
 
   <modules>
@@ -24,7 +24,7 @@
     <kotlin.version>1.8.21</kotlin.version>
 
     <!-- LIBS -->
-    <axon-bom.version>4.6.3</axon-bom.version>
+    <axon-bom.version>4.7.3</axon-bom.version>
     <jgiven.version>1.2.5</jgiven.version>
     <jgiven-kotlin.version>1.2.5.0</jgiven-kotlin.version>
 
@@ -127,7 +127,7 @@
             </pluginOptions>
             <args>
               <arg>-Xjsr305=strict</arg>
-              <arg>-Xjvm-default=enable</arg>
+              <arg>-Xjvm-default=all-compatibility</arg>
             </args>
           </configuration>
           <dependencies>

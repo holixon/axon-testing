@@ -21,3 +21,6 @@ For both kind of tests, we propose to use a JVM Framework for BDD testing called
 
 Writing event upcasters is sometimes difficult. Testing of them require even more effort. The library helps to create easy upcaster tests.
 
+## Changelog
+
+* Beginning with release `4.7.4.0` we changed to a semantic versioning model where the first 3 digits refer to the axon framework version this lib is supposed to work withm the last digit is the build version of this lib against the framework.

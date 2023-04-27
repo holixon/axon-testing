@@ -6,6 +6,7 @@ import com.tngtech.jgiven.Stage
 import com.tngtech.jgiven.annotation.As
 import com.tngtech.jgiven.annotation.ExpectedScenarioState
 import io.holixon.axon.testing.jgiven.AxonJGivenStage
+import io.holixon.axon.testing.jgiven.step
 import org.axonframework.deadline.DeadlineMessage
 import org.axonframework.eventhandling.EventMessage
 import org.axonframework.test.saga.FixtureExecutionResult
@@ -27,13 +28,13 @@ class SagaFixtureThen<T> : Stage<SagaFixtureThen<T>>() {
    * @return the FixtureExecutionResult for method chaining
    */
   @As("expect $ active sagas")
-  fun expectActiveSagas(expected: Int): SagaFixtureThen<T> = self().apply {
+  fun expectActiveSagas(expected: Int): SagaFixtureThen<T> = step {
     thenState.expectActiveSagas(expected)
   }
 
   fun expectNoActiveSagas(): SagaFixtureThen<T> = expectActiveSagas(0)
 
-  fun expectDispatchedCommand(command: Any) = expectDispatchedCommands(command)
+  fun expectDispatchedCommand(command: Any): SagaFixtureThen<T> = expectDispatchedCommands(command)
 
   /**
    * Asserts that the given commands have been dispatched in exactly the order given. The command objects are
@@ -43,7 +44,7 @@ class SagaFixtureThen<T> : Stage<SagaFixtureThen<T>>() {
    * @param commands The expected commands
    * @return the FixtureExecutionResult for method chaining
    */
-  fun expectDispatchedCommands(vararg commands: Any) = self().apply {
+  fun expectDispatchedCommands(vararg commands: Any): SagaFixtureThen<T> = step {
     thenState = thenState.expectDispatchedCommands(*commands)
   }
 
@@ -52,7 +53,7 @@ class SagaFixtureThen<T> : Stage<SagaFixtureThen<T>>() {
    * Asserts that at least one of the active sagas is associated with the given `associationKey` and
    * `associationValue`.
    */
-  fun expectAssociationWith(associationKey: String, associationValue: Any) = self().apply {
+  fun expectAssociationWith(associationKey: String, associationValue: Any): SagaFixtureThen<T> = step {
     thenState.expectAssociationWith(associationKey, associationValue)
   }
 
@@ -61,7 +62,7 @@ class SagaFixtureThen<T> : Stage<SagaFixtureThen<T>>() {
    * Asserts that at none of the active sagas is associated with the given `associationKey` and
    * `associationValue`.
    */
-  fun expectNoAssociationWith(associationKey: String, associationValue: Any) = self().apply {
+  fun expectNoAssociationWith(associationKey: String, associationValue: Any): SagaFixtureThen<T> = step {
     thenState.expectNoAssociationWith(associationKey, associationValue)
   }
 
@@ -70,14 +71,14 @@ class SagaFixtureThen<T> : Stage<SagaFixtureThen<T>>() {
    * Asserts that an event matching the given `matcher` has been scheduled to be published after the given
    * `duration`.
    */
-  fun expectScheduledEventMatching(duration: Duration, matcher: Matcher<in EventMessage<*>>) = self().apply {
+  fun expectScheduledEventMatching(duration: Duration, matcher: Matcher<in EventMessage<*>>): SagaFixtureThen<T> = step {
     thenState.expectScheduledEventMatching(duration, matcher)
   }
 
   /**
    * Asserts that a deadline scheduled after given `duration` matches the given `matcher`.
    */
-  fun expectScheduledDeadlineMatching(duration: Duration, matcher: Matcher<in DeadlineMessage<*>>) = self().apply {
+  fun expectScheduledDeadlineMatching(duration: Duration, matcher: Matcher<in DeadlineMessage<*>>): SagaFixtureThen<T> = step {
     thenState.expectScheduledDeadlineMatching(duration, matcher)
   }
 
@@ -91,7 +92,7 @@ class SagaFixtureThen<T> : Stage<SagaFixtureThen<T>>() {
    * @param duration The time to wait before the event should be published
    * @param event    The expected event
    */
-  fun expectScheduledEvent(duration: Duration, event: Any) = self().apply {
+  fun expectScheduledEvent(duration: Duration, event: Any): SagaFixtureThen<T> = step {
     thenState.expectScheduledEvent(duration, event)
   }
 
@@ -105,7 +106,7 @@ class SagaFixtureThen<T> : Stage<SagaFixtureThen<T>>() {
    * @param duration The time to wait before the deadline should be met
    * @param deadline The expected deadline
    */
-  fun expectScheduledDeadline(duration: Duration, deadline: Any) = self().apply {
+  fun expectScheduledDeadline(duration: Duration, deadline: Any): SagaFixtureThen<T> = step {
     thenState.expectScheduledDeadline(duration, deadline)
   }
 
@@ -116,7 +117,7 @@ class SagaFixtureThen<T> : Stage<SagaFixtureThen<T>>() {
    * @param duration  The time to wait before the event should be published
    * @param eventType The type of the expected event
    */
-  fun expectScheduledEventOfType(duration: Duration, eventType: Class<*>) = self().apply {
+  fun expectScheduledEventOfType(duration: Duration, eventType: Class<*>): SagaFixtureThen<T> = step {
     thenState.expectScheduledEventOfType(duration, eventType)
   }
 
@@ -126,7 +127,7 @@ class SagaFixtureThen<T> : Stage<SagaFixtureThen<T>>() {
    * @param duration     The time to wait before the deadline is met
    * @param deadlineType The type of the expected deadline
    */
-  fun expectScheduledDeadlineOfType(duration: Duration, deadlineType: Class<*>) = self().apply {
+  fun expectScheduledDeadlineOfType(duration: Duration, deadlineType: Class<*>): SagaFixtureThen<T> = step {
     thenState.expectScheduledDeadlineOfType(duration, deadlineType)
   }
 
@@ -140,7 +141,7 @@ class SagaFixtureThen<T> : Stage<SagaFixtureThen<T>>() {
    * @param scheduledTime The time at which the event should be published
    * @param matcher       A matcher defining the event expected to be published
    */
-  fun expectScheduledEventMatching(scheduledTime: Instant, matcher: Matcher<in EventMessage<*>>) = self().apply {
+  fun expectScheduledEventMatching(scheduledTime: Instant, matcher: Matcher<in EventMessage<*>>): SagaFixtureThen<T> = step {
     thenState.expectScheduledEventMatching(scheduledTime, matcher)
   }
 
@@ -153,7 +154,7 @@ class SagaFixtureThen<T> : Stage<SagaFixtureThen<T>>() {
    * @param scheduledTime The time at which the deadline should be met
    * @param matcher       The matcher defining the deadline expected
    */
-  fun expectScheduledDeadlineMatching(scheduledTime: Instant, matcher: Matcher<in DeadlineMessage<*>>) = self().apply {
+  fun expectScheduledDeadlineMatching(scheduledTime: Instant, matcher: Matcher<in DeadlineMessage<*>>): SagaFixtureThen<T> = step {
     thenState.expectScheduledDeadlineMatching(scheduledTime, matcher)
   }
 
@@ -171,7 +172,7 @@ class SagaFixtureThen<T> : Stage<SagaFixtureThen<T>>() {
    * @param scheduledTime The time at which the event should be published
    * @param event         The expected event
    */
-  fun expectScheduledEvent(scheduledTime: Instant, event: Any) = self().apply {
+  fun expectScheduledEvent(scheduledTime: Instant, event: Any): SagaFixtureThen<T> = step {
     thenState.expectScheduledEvent(scheduledTime, event)
   }
 
@@ -188,7 +189,7 @@ class SagaFixtureThen<T> : Stage<SagaFixtureThen<T>>() {
    * @param scheduledTime The time at which the deadline is scheduled
    * @param deadline      The expected deadline
    */
-  fun expectScheduledDeadline(scheduledTime: Instant, deadline: Any) = self().apply {
+  fun expectScheduledDeadline(scheduledTime: Instant, deadline: Any): SagaFixtureThen<T> = step {
     thenState.expectScheduledDeadline(scheduledTime, deadline)
   }
 
@@ -202,7 +203,7 @@ class SagaFixtureThen<T> : Stage<SagaFixtureThen<T>>() {
    * @param scheduledTime The time at which the event should be published
    * @param eventType     The type of the expected event
    */
-  fun expectScheduledEventOfType(scheduledTime: Instant, eventType: Class<*>) = self().apply {
+  fun expectScheduledEventOfType(scheduledTime: Instant, eventType: Class<*>): SagaFixtureThen<T> = step {
     thenState.expectScheduledEventOfType(scheduledTime, eventType)
   }
 
@@ -212,7 +213,7 @@ class SagaFixtureThen<T> : Stage<SagaFixtureThen<T>>() {
    * @param scheduledTime The time at which the deadline is scheduled
    * @param deadlineType  The type of the expected deadline
    */
-  fun expectScheduledDeadlineOfType(scheduledTime: Instant, deadlineType: Class<*>) = self().apply {
+  fun expectScheduledDeadlineOfType(scheduledTime: Instant, deadlineType: Class<*>): SagaFixtureThen<T> = step {
     thenState.expectScheduledDeadlineOfType(scheduledTime, deadlineType)
   }
 
@@ -232,7 +233,7 @@ class SagaFixtureThen<T> : Stage<SagaFixtureThen<T>>() {
    *
    * @return the FixtureExecutionResult for method chaining
    */
-  fun expectNoDispatchedCommands(): SagaFixtureThen<T> = self().apply {
+  fun expectNoDispatchedCommands(): SagaFixtureThen<T> = step {
     thenState.expectNoDispatchedCommands()
   }
 
@@ -242,7 +243,7 @@ class SagaFixtureThen<T> : Stage<SagaFixtureThen<T>>() {
    *
    * @return the FixtureExecutionResult for method chaining
    */
-  fun expectNoScheduledEvents() = self().apply {
+  fun expectNoScheduledEvents(): SagaFixtureThen<T> = step {
     thenState.expectNoScheduledEvents()
   }
 
@@ -252,7 +253,7 @@ class SagaFixtureThen<T> : Stage<SagaFixtureThen<T>>() {
    *
    * @return the FixtureExecutionResult for method chaining
    */
-  fun expectNoScheduledDeadlines() = self().apply { thenState.expectNoScheduledDeadlines() }
+  fun expectNoScheduledDeadlines(): SagaFixtureThen<T> = step { thenState.expectNoScheduledDeadlines() }
 
   // TODO: fix matcher generics
 //  /**
@@ -262,7 +263,7 @@ class SagaFixtureThen<T> : Stage<SagaFixtureThen<T>>() {
 //   * @param matcher The matcher that defines the expected list of published events.
 //   * @return the FixtureExecutionResult for method chaining
 //   */
-//  fun expectPublishedEventsMatching(matcher: Matcher<out List<in EventMessage<*>>>) = self().apply { TODO("implement") }
+//  fun expectPublishedEventsMatching(matcher: Matcher<out List<in EventMessage<*>>>) = step{ TODO("implement") }
 
   // TODO: fix matcher generics
 //  /**
@@ -271,17 +272,17 @@ class SagaFixtureThen<T> : Stage<SagaFixtureThen<T>>() {
 //   * @param matcher The matcher that defines the expected list of deadlines
 //   * @return the FixtureExecutionResult for method chaining
 //   */
-//  fun expectDeadlinesMetMatching(matcher: Matcher<out List<in DeadlineMessage<*>>>) = self().apply { TODO("implement") }
+//  fun expectDeadlinesMetMatching(matcher: Matcher<out List<in DeadlineMessage<*>>>) = step{ TODO("implement") }
 
   /**
    * Assert that the saga published events on the EventBus in the exact sequence of the given `expected`
-   * events. Events are compared comparing their type and fields using equals. Sequence number, aggregate identifier
+   * events. Events are compared by comparing their type and fields using equals. Sequence number, aggregate identifier
    * (for domain events) and source (for application events) are ignored in the comparison.
    *
    * @param expected The sequence of events expected to be published by the Saga
    * @return the FixtureExecutionResult for method chaining
    */
-  fun expectPublishedEvents(vararg expected: Any) = self().apply {
+  fun expectPublishedEvents(vararg expected: Any): SagaFixtureThen<T> = step {
     thenState.expectPublishedEvents(*expected)
   }
 
@@ -292,7 +293,7 @@ class SagaFixtureThen<T> : Stage<SagaFixtureThen<T>>() {
    * @param expected The sequence of deadlines expected to be met
    * @return the FixtureExecutionResult for method chaining
    */
-  fun expectDeadlinesMet(vararg expected: Any) = self().apply {
-    thenState.expectDeadlinesMet(*expected)
+  fun expectDeadlinesMet(vararg expected: Any): SagaFixtureThen<T> = step {
+    thenState.expectTriggeredDeadlines(*expected)
   }
 }
