@@ -44,16 +44,14 @@ class AggregateFixtureWhen<T> : Stage<AggregateFixtureWhen<T>>() {
    * @param instant new time to set.
    */
   fun timeAdvancesTo(instant: Instant) {
-    context.testExecutor!!.whenThenTimeAdvancesTo(instant)
+    context.testExecutor!!.whenTimeAdvancesTo(instant)
   }
 
   /**
    * Moves time to new value.
    * @param duration timespan to move time to.
    */
-  fun timeElapses(duration: Duration) {
-    context.testExecutor!!.whenThenTimeElapses(duration)
-  }
+  fun timeElapses(duration: Duration) = timeAdvancesTo(context.testExecutor!!.currentTime().plus(duration))
 
   private fun execute(block: () -> ResultValidator<T>) = step { context.resultValidator = block.invoke() }
 
