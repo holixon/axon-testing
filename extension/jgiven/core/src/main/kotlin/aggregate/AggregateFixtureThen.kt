@@ -191,7 +191,7 @@ class AggregateFixtureThen<T> : Stage<AggregateFixtureThen<T>>() {
    * @param deadlines deadlines to be met. Will be compared with equals.
    */
   fun expectDeadlinesMet(vararg deadlines: Any) = execute {
-    expectDeadlinesMet(deadlines)
+    expectTriggeredDeadlines(deadlines)
   }
 
   /**
@@ -199,7 +199,7 @@ class AggregateFixtureThen<T> : Stage<AggregateFixtureThen<T>>() {
    * @param matcher deadlines criteria.
    */
   fun expectDeadlinesMetMatching(matcher: Matcher<out MutableList<in DeadlineMessage<*>>>) = execute {
-    expectDeadlinesMetMatching(matcher)
+    expectTriggeredDeadlinesMatching(matcher)
   }
 
   /**
