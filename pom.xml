@@ -127,7 +127,7 @@
             </pluginOptions>
             <args>
               <arg>-Xjsr305=strict</arg>
-              <arg>-Xjvm-default=enable</arg>
+              <arg>-Xjvm-default=all-compatibility</arg>
             </args>
           </configuration>
           <dependencies>
