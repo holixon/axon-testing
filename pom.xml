@@ -8,7 +8,7 @@
 
   <groupId>io.holixon.axon.testing._</groupId>
   <artifactId>axon-testing_</artifactId>
-  <version>0.3.0</version>
+  <version>0.4.0</version>
   <packaging>pom</packaging>
 
   <modules>
@@ -21,19 +21,19 @@
     <java.version>11</java.version>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
-    <kotlin.version>1.8.0</kotlin.version>
+    <kotlin.version>1.8.21</kotlin.version>
 
     <!-- LIBS -->
     <axon-bom.version>4.6.3</axon-bom.version>
-    <jgiven.version>1.2.4</jgiven.version>
-    <jgiven-kotlin.version>1.2.4.0</jgiven-kotlin.version>
+    <jgiven.version>1.2.5</jgiven.version>
+    <jgiven-kotlin.version>1.2.5.0</jgiven-kotlin.version>
 
     <!-- TEST -->
-    <jackson.version>2.14.1</jackson.version>
+    <jackson.version>2.15.0</jackson.version>
     <junit.version>4.13.2</junit.version>
-    <junit5.version>5.9.1</junit5.version>
-    <dom4j.version>2.1.3</dom4j.version>
-    <assertj.version>3.24.1</assertj.version>
+    <junit5.version>5.9.3</junit5.version>
+    <dom4j.version>2.1.4</dom4j.version>
+    <assertj.version>3.24.2</assertj.version>
 
     <!-- MAVEN -->
     <project.encoding>UTF-8</project.encoding>
@@ -142,7 +142,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.10.1</version>
+          <version>3.11.0</version>
           <configuration>
             <encoding>${project.build.sourceEncoding}</encoding>
             <source>${maven.compiler.source}</source>
@@ -182,7 +182,7 @@
         <!-- Resources -->
         <plugin>
           <artifactId>maven-resources-plugin</artifactId>
-          <version>3.3.0</version>
+          <version>3.3.1</version>
           <configuration>
             <encoding>UTF-8</encoding>
           </configuration>
@@ -191,14 +191,14 @@
         <!-- Install -->
         <plugin>
           <artifactId>maven-install-plugin</artifactId>
-          <version>3.1.0</version>
+          <version>3.1.1</version>
         </plugin>
 
         <!-- Assembly -->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-assembly-plugin</artifactId>
-          <version>3.4.2</version>
+          <version>3.5.0</version>
           <configuration>
             <descriptorSourceDirectory>assembly</descriptorSourceDirectory>
             <archiverConfig>
@@ -210,7 +210,7 @@
         <!-- Release -->
         <plugin>
           <artifactId>maven-release-plugin</artifactId>
-          <version>2.5.3</version>
+          <version>3.0.0</version>
           <configuration>
             <mavenExecutorId>forked-path</mavenExecutorId>
             <localCheckout>true</localCheckout>
@@ -222,7 +222,7 @@
         <plugin>
           <groupId>org.jacoco</groupId>
           <artifactId>jacoco-maven-plugin</artifactId>
-          <version>0.8.8</version>
+          <version>0.8.10</version>
           <executions>
             <execution>
               <id>pre-unit-test</id>
@@ -242,7 +242,7 @@
         <!-- Surefire -->
         <plugin>
           <artifactId>maven-surefire-plugin</artifactId>
-          <version>2.22.2</version>
+          <version>3.0.0</version>
           <configuration>
             <useSystemClassLoader>false</useSystemClassLoader>
             <shutdown>kill</shutdown>
@@ -268,14 +268,14 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-failsafe-plugin</artifactId>
-          <version>2.22.2</version>
+          <version>3.0.0</version>
         </plugin>
 
         <!-- KDoc generation -->
         <plugin>
           <groupId>org.jetbrains.dokka</groupId>
           <artifactId>dokka-maven-plugin</artifactId>
-          <version>1.7.20</version>
+          <version>1.8.10</version>
           <configuration>
             <!-- Conditional on maven property set per-project -->
             <skip>${dokka.skip}</skip>
@@ -328,7 +328,7 @@
         <!-- Enforcer -->
         <plugin>
           <artifactId>maven-enforcer-plugin</artifactId>
-          <version>3.1.0</version>
+          <version>3.3.0</version>
           <executions>
             <execution>
               <id>enforce-java</id>
@@ -399,7 +399,7 @@
         <!-- Deploy -->
         <plugin>
           <artifactId>maven-deploy-plugin</artifactId>
-          <version>3.0.0</version>
+          <version>3.1.1</version>
           <configuration>
             <skip>true</skip>
           </configuration>
