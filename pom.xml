@@ -29,7 +29,7 @@
     <jgiven-kotlin.version>1.2.5.0</jgiven-kotlin.version>
 
     <!-- TEST -->
-    <jackson.version>2.15.1</jackson.version>
+    <jackson.version>2.15.2</jackson.version>
     <junit.version>4.13.2</junit.version>
     <junit5.version>5.9.3</junit5.version>
     <dom4j.version>2.1.4</dom4j.version>
