@@ -14,7 +14,7 @@
 
   <modules>
     <module>jgiven</module>
-    <module>upcaster-test-core</module>
+    <module>upcaster</module>
   </modules>
 
   <dependencies>

@@ -32,7 +32,7 @@ class AccountCreatedV0V1UpcasterTest {
     )
 
     val payloadType = AccountCreatedEvent::class.java.name
-    val targetRevision = AccountCreatedEvent::class.java.getAnnotation(Revision::class.java).value
+    val targetRevision = "1" // AccountCreatedEvent::class.java.getAnnotation(Revision::class.java).value
 
     // AND GIVEN: an old event with revision "0" with bankAccountId (has to be renamed to accountId), and maximalBalance is missing!
     val eventData = jsonTestEventData(

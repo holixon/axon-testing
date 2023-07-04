@@ -99,6 +99,12 @@
         <version>${project.version}</version>
       </dependency>
 
+      <dependency>
+        <groupId>io.holixon.axon.testing</groupId>
+        <artifactId>axon-testing-upcaster-junit5</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
     </dependencies>
   </dependencyManagement>
 
@@ -133,8 +139,8 @@
           </executions>
           <configuration>
             <jvmTarget>11</jvmTarget>
-            <apiVersion>1.8</apiVersion>
-            <languageVersion>1.8</languageVersion>
+            <apiVersion>1.9</apiVersion>
+            <languageVersion>1.9</languageVersion>
             <compilerPlugins>
               <plugin>spring</plugin>
               <plugin>all-open</plugin>
@@ -243,14 +249,15 @@
           <executions>
             <execution>
               <id>pre-unit-test</id>
+              <phase>initialize</phase>
               <goals>
                 <goal>prepare-agent</goal>
               </goals>
             </execution>
             <execution>
-              <id>pre-integration-test</id>
+              <id>report-unit-test</id>
               <goals>
-                <goal>prepare-agent-integration</goal>
+                <goal>report</goal>
               </goals>
             </execution>
           </executions>
