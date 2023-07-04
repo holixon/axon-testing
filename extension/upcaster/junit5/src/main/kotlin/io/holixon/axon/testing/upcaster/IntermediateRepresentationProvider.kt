@@ -6,6 +6,9 @@ import org.junit.jupiter.params.provider.ArgumentsProvider
 import org.junit.jupiter.params.support.AnnotationConsumer
 import java.util.stream.Stream
 
+/**
+ * Provider for intermediate representation of events read from file system.
+ */
 class IntermediateRepresentationProvider : ArgumentsProvider, AnnotationConsumer<UpcasterTest> {
 
   private lateinit var eventEncoding: UpcasterTest.EventEncoding
@@ -24,7 +27,9 @@ class IntermediateRepresentationProvider : ArgumentsProvider, AnnotationConsumer
     val testFiles = folder.getFiles(ending)
     require(testFiles.isNotEmpty()) { "Could not load any test data files (*.$eventEncoding) from provided folder $folderName" }
     return Stream.of(
-
+      Arguments.of(
+        testFiles.map { it.readText() }
+      )
     )
   }
 

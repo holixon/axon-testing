@@ -1,6 +1,5 @@
 package io.holixon.axon.testing.upcaster
 
-import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.thoughtworks.xstream.XStream
 import com.thoughtworks.xstream.security.AnyTypePermission
@@ -11,7 +10,6 @@ import io.holixon.axon.testing.upcaster.UpcasterTestSupport.Companion.jsonTestEv
 import io.holixon.axon.testing.upcaster.UpcasterTestSupport.Companion.xmlDocumentUpcaster
 import io.holixon.axon.testing.upcaster.UpcasterTestSupport.Companion.xmlTestEventData
 import org.assertj.core.api.Assertions.assertThat
-import org.axonframework.serialization.Revision
 import org.axonframework.serialization.json.JacksonSerializer
 import org.axonframework.serialization.upcasting.event.EventUpcasterChain
 import org.axonframework.serialization.xml.XStreamSerializer
@@ -94,8 +92,3 @@ class DummyUpcasterTest {
   }
 }
 
-@Revision(value = "2")
-data class DummyEvent(
-  @JsonProperty("someValue")
-  val someValue: String
-)
