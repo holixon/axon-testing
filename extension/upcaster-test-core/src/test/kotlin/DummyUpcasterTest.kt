@@ -1,38 +1,47 @@
 package io.holixon.axon.testing.upcaster
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.thoughtworks.xstream.XStream
+import com.thoughtworks.xstream.security.AnyTypePermission
+import io.holixon.axon.testing.upcaster.UpcasterTestSupport.Companion.EMPTY_JSON
 import io.holixon.axon.testing.upcaster.UpcasterTestSupport.Companion.initialEvent
+import io.holixon.axon.testing.upcaster.UpcasterTestSupport.Companion.jsonNodeUpcaster
 import io.holixon.axon.testing.upcaster.UpcasterTestSupport.Companion.jsonTestEventData
+import io.holixon.axon.testing.upcaster.UpcasterTestSupport.Companion.xmlDocumentUpcaster
 import io.holixon.axon.testing.upcaster.UpcasterTestSupport.Companion.xmlTestEventData
 import org.assertj.core.api.Assertions.assertThat
 import org.axonframework.serialization.Revision
-import org.axonframework.serialization.SimpleSerializedType
 import org.axonframework.serialization.json.JacksonSerializer
 import org.axonframework.serialization.upcasting.event.EventUpcasterChain
-import org.axonframework.serialization.upcasting.event.IntermediateEventRepresentation
-import org.axonframework.serialization.upcasting.event.SingleEventUpcaster
 import org.axonframework.serialization.xml.XStreamSerializer
-import org.dom4j.Document
-import org.junit.Test
-import java.util.function.Function
+import org.junit.jupiter.api.Test
 import kotlin.streams.toList
 
-class DummyUpcasterTest {
-
-  private val jsonSerializer = JacksonSerializer.builder().objectMapper(jacksonObjectMapper()).build()
-  private val jsonUpcasters = EventUpcasterChain(DummyEventJsonUpcaster())
-
-  private val xmlSerializer = XStreamSerializer.builder().build()
-  private val xmlUpcasters = EventUpcasterChain(DummyEventXmlUpcaster())
+internal class DummyUpcasterTest {
 
   @Test
-  fun `should upcast json`() {
+  fun `should upcast json just changing the target revision`() {
+    val jsonSerializer = JacksonSerializer
+      .builder()
+      .lenientDeserialization()
+      .objectMapper(
+        jacksonObjectMapper()
+          .findAndRegisterModules()
+      ).build()
+
+    val jsonUpcasters = EventUpcasterChain(
+      jsonNodeUpcaster(DummyEvent::class, "1", "2") {
+        it // do nothing
+      }
+    )
 
     val json = """
       {"value":"some"}
       """.trimIndent()
 
-    val result = jsonUpcasters.upcast(initialEvent(jsonTestEventData(json, "io.holixon.axon.testing.upcaster.DummyEvent", "{}", "1"), jsonSerializer)).toList()
+    val result = jsonUpcasters.upcast(
+      initialEvent(jsonTestEventData(json, DummyEvent::class, EMPTY_JSON, "1"), jsonSerializer)
+    ).toList()
 
     assertThat(result)
       .isNotNull
@@ -46,13 +55,34 @@ class DummyUpcasterTest {
   }
 
   @Test
-  fun `should upcast xml`() {
+  fun `should upcast xml just changing the target revision`() {
+
+    val xmlSerializer = XStreamSerializer
+      .builder()
+      .lenientDeserialization()
+      .xStream(
+        XStream()
+          .apply { addPermission(AnyTypePermission.ANY) }
+      ).build()
+
+    val xmlUpcasters = EventUpcasterChain(
+      xmlDocumentUpcaster(DummyEvent::class, "1", "2") {
+        it // do nothing
+      }
+    )
 
     val xml = """
       <io.holixon.axon.testing.upcaster.DummyEvent><value>some</value></io.holixon.axon.testing.upcaster.DummyEvent>
       """.trimIndent()
 
-    val result = xmlUpcasters.upcast(initialEvent(xmlTestEventData(xml, "io.holixon.axon.testing.upcaster.DummyEvent", "1"), xmlSerializer)).toList()
+    val result = xmlUpcasters.upcast(
+      initialEvent(
+        xmlTestEventData(
+          xml,
+          DummyEvent::class.java.name, "1"
+        ), xmlSerializer
+      )
+    ).toList()
 
     assertThat(result)
       .isNotNull
@@ -64,7 +94,6 @@ class DummyUpcasterTest {
     val event: DummyEvent = xmlSerializer.deserialize(result[0].data)
     assertThat(event).isNotNull
   }
-
 }
 
 @Revision("2")
@@ -72,32 +101,3 @@ data class DummyEvent(
   val value: String
 )
 
-
-class DummyEventJsonUpcaster : SingleEventUpcaster() {
-
-  override fun canUpcast(representation: IntermediateEventRepresentation): Boolean =
-    representation.type.name == DummyEvent::class.java.name && representation.type.revision == "1"
-
-
-  override fun doUpcast(representation: IntermediateEventRepresentation): IntermediateEventRepresentation {
-    return representation.upcastPayload(
-      SimpleSerializedType(DummyEvent::class.java.name, "2"),
-      String::class.java,
-      Function.identity()
-    )
-  }
-}
-
-class DummyEventXmlUpcaster : SingleEventUpcaster() {
-
-  override fun canUpcast(representation: IntermediateEventRepresentation): Boolean =
-    representation.type.name == DummyEvent::class.java.name && representation.type.revision == "1"
-
-  override fun doUpcast(representation: IntermediateEventRepresentation): IntermediateEventRepresentation {
-    return representation.upcastPayload(
-      SimpleSerializedType(DummyEvent::class.java.name, "2"),
-      Document::class.java,
-      Function.identity()
-    )
-  }
-}

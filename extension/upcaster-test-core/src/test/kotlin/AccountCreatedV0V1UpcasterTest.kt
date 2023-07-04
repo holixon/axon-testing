@@ -1,18 +1,15 @@
 package io.holixon.axon.testing.upcaster
 
-import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import io.holixon.axon.testing.upcaster.UpcasterTestSupport.Companion.initialEvent
+import io.holixon.axon.testing.upcaster.UpcasterTestSupport.Companion.jsonNodeUpcaster
 import io.holixon.axon.testing.upcaster.UpcasterTestSupport.Companion.jsonTestEventData
 import org.assertj.core.api.Assertions.assertThat
 import org.axonframework.serialization.Revision
 import org.axonframework.serialization.SerializedObject
-import org.axonframework.serialization.SimpleSerializedType
 import org.axonframework.serialization.json.JacksonSerializer
 import org.axonframework.serialization.upcasting.event.EventUpcasterChain
-import org.axonframework.serialization.upcasting.event.IntermediateEventRepresentation
-import org.axonframework.serialization.upcasting.event.SingleEventUpcaster
 import org.junit.jupiter.api.Test
 import kotlin.streams.toList
 
@@ -45,7 +42,7 @@ class AccountCreatedV0V1UpcasterTest {
     )
 
     // AND an upcaster we wrote for this usecase
-    val upcaster = upcaster(payloadType = payloadType, sourceRevision = eventData.payload.type.revision, targetRevision = targetRevision) {
+    val upcaster = jsonNodeUpcaster(payloadTypeName = payloadType, sourceRevision = eventData.payload.type.revision, targetRevision = targetRevision) {
       (it as ObjectNode).apply {
         put("accountId", get("bankAccountId").asText())
         remove("bankAccountId")
@@ -68,17 +65,4 @@ class AccountCreatedV0V1UpcasterTest {
     assertThat(revision1data.initialBalance).isEqualTo(0)
     assertThat(revision1data.maximalBalance).isEqualTo(1000)
   }
-
-  private fun upcaster(payloadType: String, sourceRevision: String, targetRevision: String, upcastFunction: (JsonNode) -> JsonNode) =
-    object : SingleEventUpcaster() {
-      override fun canUpcast(representation: IntermediateEventRepresentation): Boolean =
-        representation.type.name == payloadType && representation.type.revision == sourceRevision
-
-      override fun doUpcast(intermediateRepresentation: IntermediateEventRepresentation): IntermediateEventRepresentation =
-        intermediateRepresentation.upcastPayload(
-          SimpleSerializedType(payloadType, targetRevision),
-          JsonNode::class.java,
-          upcastFunction
-        )
-    }
 }

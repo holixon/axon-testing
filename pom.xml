@@ -31,7 +31,7 @@
     <!-- TEST -->
     <jackson.version>2.15.2</jackson.version>
     <junit.version>4.13.2</junit.version>
-    <junit5.version>5.9.3</junit5.version>
+    <junit5.version>5.9.1</junit5.version>
     <dom4j.version>2.1.4</dom4j.version>
     <assertj.version>3.24.2</assertj.version>
 
@@ -68,6 +68,14 @@
       </dependency>
 
       <dependency>
+        <groupId>com.fasterxml.jackson</groupId>
+        <artifactId>jackson-bom</artifactId>
+        <version>${jackson.version}</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+
+      <dependency>
         <groupId>io.holixon.axon.testing</groupId>
         <artifactId>axon-testing-jgiven-core</artifactId>
         <version>${project.version}</version>
@@ -84,6 +92,13 @@
         <artifactId>axon-testing-jgiven-junit5</artifactId>
         <version>${project.version}</version>
       </dependency>
+
+      <dependency>
+        <groupId>io.holixon.axon.testing</groupId>
+        <artifactId>axon-testing-upcaster-core</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
     </dependencies>
   </dependencyManagement>
 
@@ -117,7 +132,9 @@
             </execution>
           </executions>
           <configuration>
-            <jvmTarget>1.8</jvmTarget>
+            <jvmTarget>11</jvmTarget>
+            <apiVersion>1.8</apiVersion>
+            <languageVersion>1.8</languageVersion>
             <compilerPlugins>
               <plugin>spring</plugin>
               <plugin>all-open</plugin>
@@ -253,8 +270,6 @@
               <include>**/*Test_*.java</include>
               <include>**/*Tests_*.java</include>
             </includes>
-            <!-- Sets the VM argument line used when unit tests are run. -->
-            <!-- prevent the annoying ForkedBooter process from stealing window focus on Mac OS -->
             <argLine>-Djava.awt.headless=true ${argLine} -XX:+StartAttachListener -Xmx1024m -XX:MaxPermSize=256m</argLine>
             <argLine>${surefireArgLine}</argLine>
             <systemPropertyVariables>
@@ -342,7 +357,7 @@
                     <version>${java.version}</version>
                   </requireJavaVersion>
                   <requireMavenVersion>
-                    <version>3.5</version>
+                    <version>3.9</version>
                   </requireMavenVersion>
                 </rules>
               </configuration>
@@ -432,12 +447,12 @@
     -->
     <plugins>
       <plugin>
-        <groupId>org.jacoco</groupId>
-        <artifactId>jacoco-maven-plugin</artifactId>
-      </plugin>
-      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
       </plugin>
     </plugins>
   </build>
@@ -548,7 +563,7 @@
   <licenses>
     <license>
       <name>Apache 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+      <url>https://www.apache.org/licenses/LICENSE-2.0</url>
     </license>
   </licenses>
   <organization>
