@@ -24,7 +24,7 @@
     <kotlin.version>1.8.22</kotlin.version>
 
     <!-- LIBS -->
-    <axon-bom.version>4.7.4</axon-bom.version>
+    <axon-bom.version>4.8.0</axon-bom.version>
     <jgiven.version>1.2.5</jgiven.version>
     <jgiven-kotlin.version>1.2.5.0</jgiven-kotlin.version>
 
