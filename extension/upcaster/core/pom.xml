@@ -6,7 +6,7 @@
 
   <parent>
     <groupId>io.holixon.axon.testing._</groupId>
-    <artifactId>extension</artifactId>
+    <artifactId>extension-upcaster</artifactId>
     <version>4.7.4.1-SNAPSHOT</version>
   </parent>
 
@@ -27,10 +27,9 @@
       <artifactId>axon-configuration</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.axonframework</groupId>
-      <artifactId>axon-test</artifactId>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
     </dependency>
-
     <dependency>
       <groupId>org.dom4j</groupId>
       <artifactId>dom4j</artifactId>
@@ -39,27 +38,9 @@
 
     <!-- Local test -->
     <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-databind</artifactId>
-      <version>${jackson.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.fasterxml.jackson.module</groupId>
-      <artifactId>jackson-module-kotlin</artifactId>
-      <version>${jackson.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.fasterxml.jackson.datatype</groupId>
-      <artifactId>jackson-datatype-jsr310</artifactId>
-      <version>${jackson.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>${junit.version}</version>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>${junit5.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -69,10 +50,29 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-simple</artifactId>
+      <groupId>com.fasterxml.jackson.module</groupId>
+      <artifactId>jackson-module-kotlin</artifactId>
       <scope>test</scope>
-      <version>2.0.7</version>
     </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <artifactId>jackson-datatype-jsr310</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <!--
+    <dependency>
+      <groupId>org.jetbrains.kotlin</groupId>
+      <artifactId>kotlin-compiler-embeddable</artifactId>
+      <version>${kotlin.version}</version>
+      <scope>test</scope>
+    </dependency>
+    -->
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>1.4.8</version>
+      <scope>test</scope>
+    </dependency>
+
   </dependencies>
 </project>
