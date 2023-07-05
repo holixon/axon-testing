@@ -17,15 +17,14 @@ import kotlin.streams.toList
 class DummyUpcasterParametrizedTest {
 
   companion object {
-
-    val xmlSerializer = XStreamSerializer
+    private val xmlSerializer = XStreamSerializer
       .builder()
       .lenientDeserialization()
       .xStream(
         XStream()
           .apply { addPermission(AnyTypePermission.ANY) }
       ).build()
-
+    private val fixedPayloadTypeAndRevisionProvider = FixedPayloadTypeAndRevisionProvider(DummyEvent::class.java.name, "1")
 
     @JvmStatic
     fun createStream(): Stream<Stream<IntermediateEventRepresentation>> {
@@ -36,10 +35,12 @@ class DummyUpcasterParametrizedTest {
 
       return Stream.of(
         initialEvent(
-          xmlTestEventData(
+          entry = xmlTestEventData(
             xml,
-            DummyEvent::class.java.name, "1"
-          ), xmlSerializer
+            fixedPayloadTypeAndRevisionProvider.getPayloadType(xml),
+            fixedPayloadTypeAndRevisionProvider.getRevision(xml)
+          ),
+          serializer = xmlSerializer
         )
       )
     }
@@ -48,7 +49,6 @@ class DummyUpcasterParametrizedTest {
   @ParameterizedTest
   @MethodSource("io.holixon.axon.testing.upcaster.DummyUpcasterParametrizedTest#createStream")
   fun `should upcast xml just changing the target revision`(stream: Stream<IntermediateEventRepresentation>) {
-
 
     val xmlUpcasters = EventUpcasterChain(
       xmlDocumentUpcaster(DummyEvent::class, "1", "2") {
