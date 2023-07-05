@@ -8,7 +8,6 @@ import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.ArgumentsProvider
 import org.junit.jupiter.params.provider.ArgumentsSource
 import java.io.File
-import java.io.FileFilter
 import java.util.stream.Stream
 
 class FileUtilsTest {
@@ -51,8 +50,10 @@ class FileUtilsTest {
 
   internal class DummyFileStreamProvider : ArgumentsProvider {
     override fun provideArguments(ctx: ExtensionContext): Stream<out Arguments> =
-      Stream.of(Arguments.of(
-        ctx.getTestFolder()?.getFiles("json")
-      ))
+      Stream.of(
+        Arguments.of(
+          ctx.getTestFolder()?.getFiles("json")
+        )
+      )
   }
 }

@@ -10,8 +10,9 @@ import kotlin.io.path.Path
  * Retrieves the test folder for this test context.
  */
 fun ExtensionContext.getTestFolder(): File? {
-  val path = getTestFolderName()?.let { Path(it) }
-  return if (path != null && Files.exists(path) && path.toFile().isDirectory) {
+  val folderPathAsString = IntermediateRepresentationProvider::class.java.getResource("/" + getTestFolderName())?.path ?: return null
+  val path = Path(folderPathAsString)
+  return if (Files.exists(path) && path.toFile().isDirectory) {
     path.toFile()
   } else {
     null
@@ -21,11 +22,8 @@ fun ExtensionContext.getTestFolder(): File? {
 /**
  * Retrieves the test folder name for this test context.
  */
-fun ExtensionContext.getTestFolderName() = IntermediateRepresentationProvider::class.java.getResource(
-  "/"
-    + (this.requiredTestClass.canonicalName + "." + this.requiredTestMethod.name.replace(' ', '_'))
-    .replace('.', '/')
-)?.path
+fun ExtensionContext.getTestFolderName(): String =
+  (this.requiredTestClass.canonicalName + "." + this.requiredTestMethod.name.replace(' ', '_')).replace('.', '/')
 
 
 /**

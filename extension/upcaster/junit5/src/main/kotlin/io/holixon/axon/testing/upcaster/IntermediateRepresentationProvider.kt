@@ -1,5 +1,6 @@
 package io.holixon.axon.testing.upcaster
 
+import org.junit.jupiter.api.Named
 import org.junit.jupiter.api.extension.ExtensionContext
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.ArgumentsProvider
@@ -16,8 +17,8 @@ class IntermediateRepresentationProvider : ArgumentsProvider, AnnotationConsumer
   override fun provideArguments(context: ExtensionContext): Stream<out Arguments> {
 
     sanitize()
-    val folderName = context.getTestFolderName();
-    val folder = requireNotNull(context.getTestFolder()) { "Could not access the test data folder $folderName, consider defining it" }
+    val folderName = context.getTestFolderName()
+    val folder = requireNotNull(context.getTestFolder()) { "Could not access the test data folder $folderName, consider creating it in your resources folder." }
 
     val ending = when (eventEncoding) {
       UpcasterTest.EventEncoding.XML -> "xml"
@@ -25,10 +26,13 @@ class IntermediateRepresentationProvider : ArgumentsProvider, AnnotationConsumer
       UpcasterTest.EventEncoding.AVRO -> "avro"
     }
     val testFiles = folder.getFiles(ending)
-    require(testFiles.isNotEmpty()) { "Could not load any test data files (*.$eventEncoding) from provided folder $folderName" }
+    require(testFiles.isNotEmpty()) { "Could not load any test data files (*.$ending) from provided folder $folderName." }
     return Stream.of(
       Arguments.of(
-        testFiles.map { it.readText() }
+        NamedStream(
+          name = "*.$ending files from $folderName",
+          stream = testFiles.map { it.readText().trim() }.stream()
+        )
       )
     )
   }
@@ -39,5 +43,10 @@ class IntermediateRepresentationProvider : ArgumentsProvider, AnnotationConsumer
 
   private fun sanitize() {
     require(this::eventEncoding.isInitialized) { "Event encoding must be initialized to use this provider." }
+  }
+
+  class NamedStream<T: Any>(private val name: String, private val stream: Stream<T>): Stream<T> by stream, Named<Stream<T>> {
+    override fun getName(): String = name
+    override fun getPayload(): Stream<T>  = stream
   }
 }
