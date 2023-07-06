@@ -24,16 +24,9 @@ class AccountCreatedEventUpcastingKotlinTest {
     private val xmlSerializer: XStreamSerializer =
       XStreamSerializer.builder().lenientDeserialization().xStream(XStream().apply { addPermission(AnyTypePermission.ANY) }).build()
     private val jacksonSerializer: JacksonSerializer = JacksonSerializer.builder().lenientDeserialization().objectMapper(jacksonObjectMapper()).build()
-  }
 
-  @UpcasterTest(
-    messageEncoding = MessageEncoding.XSTREAM,
-    payloadTypeProvider = FilenameBasedPayloadTypeAndRevisionProvider::class,
-    messageContentProvider = DefaultStringMessageContentProvider::class
-  )
-  fun upcasts_account_created_xstream(events: List<IntermediateEventRepresentation?>) {
-    val payloadType: String = AccountCreatedEvent::class.java.name
-    val upcaster: SingleEventUpcaster = xmlDocumentUpcaster(payloadType, "0", "1") {
+    private val payloadType: String = AccountCreatedEvent::class.java.name
+    private val xmlUpcaster = xmlDocumentUpcaster(payloadType, "0", "1") {
       it.apply {
         selectNodes("//$payloadType").forEach { node ->
           // replace bank account id with account id
@@ -48,7 +41,35 @@ class AccountCreatedEventUpcastingKotlinTest {
         }
       }
     }
-    val upcastedStream: Stream<IntermediateEventRepresentation> = upcaster.upcast(events.stream())
+
+    private val jsonUpcaster = jsonNodeUpcaster(payloadType, "12", "13") {
+      (it as ObjectNode).apply {
+        put("accountId", get("bankAccountId").asText())
+        remove("bankAccountId")
+        put("maximalBalance", 1000)
+      }
+    }
+
+    private val accountEvent = AccountCreatedEvent
+      .builder()
+      .accountId("4711")
+      .customerId("Customer1")
+      .initialBalance(100)
+      .maximalBalance(1000)
+      .build()
+  }
+
+
+  @UpcasterTest(
+    messageEncoding = MessageEncoding.XSTREAM,
+    payloadTypeProvider = FilenameBasedPayloadTypeAndRevisionProvider::class,
+    messageContentProvider = DefaultStringMessageContentProvider::class
+  )
+  fun upcasts_account_created_xstream(events: List<IntermediateEventRepresentation?>) {
+
+    val upcastedStream: Stream<IntermediateEventRepresentation> = xmlUpcaster.upcast(events.stream())
+
+    // FIXME: build assertions
     val upcastedEvents = upcastedStream.map { ier ->
       xmlSerializer.deserialize<org.dom4j.Document, Any>(
         ier.getData(
@@ -59,15 +80,7 @@ class AccountCreatedEventUpcastingKotlinTest {
     assertThat(upcastedEvents)
       .hasSize(1)
       .element(0)
-      .isEqualTo(
-        AccountCreatedEvent
-          .builder()
-          .accountId("4711")
-          .customerId("Customer1")
-          .initialBalance(100)
-          .maximalBalance(1000)
-          .build()
-      )
+      .isEqualTo(accountEvent)
   }
 
   @UpcasterTest(
@@ -76,32 +89,20 @@ class AccountCreatedEventUpcastingKotlinTest {
     messageContentProvider = DefaultStringMessageContentProvider::class
   )
   fun upcasts_account_created_jackson(events: List<IntermediateEventRepresentation?>) {
-    val payloadType: String = AccountCreatedEvent::class.java.name
-    val upcaster: SingleEventUpcaster = jsonNodeUpcaster(payloadType, "12", "13") {
-      (it as ObjectNode).apply {
-        put("accountId", get("bankAccountId").asText())
-        remove("bankAccountId")
-        put("maximalBalance", 1000)
-      }
-    }
-    val upcastedStream: Stream<IntermediateEventRepresentation> = upcaster.upcast(events.stream())
+
+    val upcastedStream: Stream<IntermediateEventRepresentation> = jsonUpcaster.upcast(events.stream())
+
+    // FIXME: build assertions
     val upcastedEvents = upcastedStream.map { ier ->
       val event: AccountCreatedEvent = jacksonSerializer.deserialize(
         ier.data
       )
       event
     }
+
     assertThat(upcastedEvents)
       .hasSize(1)
       .element(0)
-      .isEqualTo(
-        AccountCreatedEvent
-          .builder()
-          .accountId("4711")
-          .customerId("Customer1")
-          .initialBalance(100)
-          .maximalBalance(1000)
-          .build()
-      )
+      .isEqualTo(accountEvent)
   }
 }
