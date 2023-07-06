@@ -1,5 +1,7 @@
 package io.holixon.axon.testing.upcaster
 
+import io.holixon.axon.testing.upcaster.file.getFiles
+import io.holixon.axon.testing.upcaster.file.numberedFileRegex
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtensionContext

@@ -1,5 +1,7 @@
 package io.holixon.axon.testing.upcaster
 
+import io.holixon.axon.testing.upcaster.content.StaticTestInstanceMessageContentProvider
+import io.holixon.axon.testing.upcaster.payloadtype.StaticTestInstancePayloadTypeAndRevisionProvider
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ArgumentsSource
 import kotlin.reflect.KClass
@@ -10,15 +12,12 @@ import kotlin.reflect.KClass
 @ParameterizedTest(name = "Using {arguments}")
 @ArgumentsSource(value = IntermediateRepresentationProvider::class)
 annotation class UpcasterTest(
-  val eventEncoding: EventEncoding = EventEncoding.JSON,
-  val payloadTypeProvider: KClass<PayloadTypeAndRevisionProvider>
+  val messageEncoding: MessageEncoding = MessageEncoding.JACKSON,
+  val payloadTypeProvider: KClass<out PayloadTypeAndRevisionProvider> = StaticTestInstancePayloadTypeAndRevisionProvider::class,
+  val messageContentProvider: KClass<out MessageContentProvider> = StaticTestInstanceMessageContentProvider::class,
+  val messageFileEnding: String = DEFAULT_FILE_ENDING
 ) {
-  /**
-   * Type of event
-   */
-  enum class EventEncoding {
-    XML,
-    JSON,
-    AVRO
+  companion object {
+    const val DEFAULT_FILE_ENDING = "__DEFAULT"
   }
 }

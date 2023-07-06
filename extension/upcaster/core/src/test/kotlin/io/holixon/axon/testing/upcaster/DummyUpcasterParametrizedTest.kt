@@ -5,6 +5,7 @@ import com.thoughtworks.xstream.security.AnyTypePermission
 import io.holixon.axon.testing.upcaster.UpcasterTestSupport.Companion.initialEvent
 import io.holixon.axon.testing.upcaster.UpcasterTestSupport.Companion.xmlDocumentUpcaster
 import io.holixon.axon.testing.upcaster.UpcasterTestSupport.Companion.xmlTestEventData
+import io.holixon.axon.testing.upcaster.payloadtype.FixedPayloadTypeAndRevisionProvider
 import org.assertj.core.api.Assertions.assertThat
 import org.axonframework.serialization.upcasting.event.EventUpcasterChain
 import org.axonframework.serialization.upcasting.event.IntermediateEventRepresentation
@@ -37,8 +38,8 @@ class DummyUpcasterParametrizedTest {
         initialEvent(
           entry = xmlTestEventData(
             xml,
-            fixedPayloadTypeAndRevisionProvider.getPayloadType(xml),
-            fixedPayloadTypeAndRevisionProvider.getRevision(xml)
+            fixedPayloadTypeAndRevisionProvider.getPayloadType(),
+            fixedPayloadTypeAndRevisionProvider.getRevision()
           ),
           serializer = xmlSerializer
         )
