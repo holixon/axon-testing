@@ -1,0 +1,5 @@
+<fixture.bankaccount.event.AccountCreatedEvent>
+  <bankAccountId>4711</bankAccountId>
+  <customerId>Customer1</customerId>
+  <initialBalance>100</initialBalance>
+</fixture.bankaccount.event.AccountCreatedEvent>
