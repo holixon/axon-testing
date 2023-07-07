@@ -24,9 +24,9 @@ enum class MessageEncoding {
    */
   fun defaultFileEnding() =
     when (this) {
-      XSTREAM -> "xml"
-      JACKSON -> "json"
-      AVRO_SINGLE_OBJECT -> "avro" // FIXME: what is the best ending here -> @jangalinski
+      XSTREAM -> ".xml"
+      JACKSON -> ".json"
+      AVRO_SINGLE_OBJECT -> ".avrosoe" // FIXME: what is the best ending here -> @jangalinski
     }
 
 }

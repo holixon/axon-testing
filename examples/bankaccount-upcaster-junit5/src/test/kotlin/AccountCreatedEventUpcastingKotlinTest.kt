@@ -16,6 +16,9 @@ import org.axonframework.serialization.json.JacksonSerializer
 import org.axonframework.serialization.upcasting.event.IntermediateEventRepresentation
 import org.axonframework.serialization.upcasting.event.SingleEventUpcaster
 import org.axonframework.serialization.xml.XStreamSerializer
+import org.dom4j.Document
+import org.dom4j.Element
+import java.util.stream.Collectors
 import java.util.stream.Stream
 
 class AccountCreatedEventUpcastingKotlinTest {
@@ -30,13 +33,13 @@ class AccountCreatedEventUpcastingKotlinTest {
       it.apply {
         selectNodes("//$payloadType").forEach { node ->
           // replace bank account id with account id
-          val accountId = (node as org.dom4j.Element).addElement("accountId")
+          val accountId = (node as Element).addElement("accountId")
           val bankAccountId = node.element("bankAccountId")
           accountId.addText(bankAccountId.text)
           node.remove(bankAccountId)
 
           // add max balance
-          val maxBalance: org.dom4j.Element = node.addElement("maximalBalance")
+          val maxBalance: Element = node.addElement("maximalBalance")
           maxBalance.addText("1000")
         }
       }
@@ -61,19 +64,17 @@ class AccountCreatedEventUpcastingKotlinTest {
 
 
   @UpcasterTest(
-    messageEncoding = MessageEncoding.XSTREAM,
-    payloadTypeProvider = FilenameBasedPayloadTypeAndRevisionProvider::class,
-    messageContentProvider = DefaultStringMessageContentProvider::class
+    messageEncoding = MessageEncoding.XSTREAM
   )
-  fun upcasts_account_created_xstream(events: List<IntermediateEventRepresentation?>) {
+  fun upcasts_account_created_xstream(events: List<IntermediateEventRepresentation>) {
 
     val upcastedStream: Stream<IntermediateEventRepresentation> = xmlUpcaster.upcast(events.stream())
 
-    // FIXME: build assertions
+    // FIXME: build better assertions
     val upcastedEvents = upcastedStream.map { ier ->
-      xmlSerializer.deserialize<org.dom4j.Document, Any>(
+      xmlSerializer.deserialize<Document, Any>(
         ier.getData(
-          org.dom4j.Document::class.java
+          Document::class.java
         )
       )
     }
@@ -84,15 +85,13 @@ class AccountCreatedEventUpcastingKotlinTest {
   }
 
   @UpcasterTest(
-    messageEncoding = MessageEncoding.JACKSON,
-    payloadTypeProvider = FilenameBasedPayloadTypeAndRevisionProvider::class,
-    messageContentProvider = DefaultStringMessageContentProvider::class
+    messageEncoding = MessageEncoding.JACKSON
   )
-  fun upcasts_account_created_jackson(events: List<IntermediateEventRepresentation?>) {
+  fun `upcasts account created jackson`(events: List<IntermediateEventRepresentation>, result: List<IntermediateEventRepresentation>) {
 
-    val upcastedStream: Stream<IntermediateEventRepresentation> = jsonUpcaster.upcast(events.stream())
+    val upcastedStream = jsonUpcaster.upcast(events.stream()).collect(Collectors.toList())
 
-    // FIXME: build assertions
+    // FIXME: build better assertions
     val upcastedEvents = upcastedStream.map { ier ->
       val event: AccountCreatedEvent = jacksonSerializer.deserialize(
         ier.data
@@ -100,9 +99,13 @@ class AccountCreatedEventUpcastingKotlinTest {
       event
     }
 
-    assertThat(upcastedEvents)
-      .hasSize(1)
-      .element(0)
-      .isEqualTo(accountEvent)
+    val deserializedResult = result.map { ier ->
+      val event: AccountCreatedEvent = jacksonSerializer.deserialize(
+        ier.data
+      )
+      event
+    }
+
+    assertThat(upcastedEvents).containsExactlyElementsOf(deserializedResult)
   }
 }

@@ -1,5 +1,7 @@
 package io.holixon.axon.testing.upcaster
 
+import io.holixon.axon.testing.upcaster.content.DefaultStringMessageContentProvider
+import io.holixon.axon.testing.upcaster.content.MessageEncodingAutoDetectingMessageContentProvider
 import io.holixon.axon.testing.upcaster.content.StaticTestInstanceMessageContentProvider
 import io.holixon.axon.testing.upcaster.payloadtype.StaticTestInstancePayloadTypeAndRevisionProvider
 import org.axonframework.serialization.Serializer
@@ -30,12 +32,20 @@ fun ExtensionContext.getTestFolder(): File? {
  * Retrieves the test folder name for this test context.
  */
 fun ExtensionContext.getTestFolderName(): String =
-  (this.requiredTestClass.canonicalName + "." + this.requiredTestMethod.name.replace(' ', '_')).replace('.', '/')
+  (this.requiredTestClass.canonicalName + "." + this.requiredTestMethod.name.replace(' ', '_'))
+    .replace('.', '/')
 
 /**
- * Tries to detect the parameter type of the parametrized method.
+ * We believe that any parametrized parameter is relevant for the provider.
+ * FIXME This is a bold assumption and should be revalidated later.
  */
-fun ExtensionContext.detectParameterType(): Class<*>? {
+fun ExtensionContext.retrieveRelevantParameterCount() =
+  this.requiredTestMethod.genericParameterTypes.filterIsInstance<ParameterizedType>().count()
+
+/**
+ * Tries to detect the first parameter type of the parametrized method.
+ */
+fun ExtensionContext.detectSourceParameterType(): Class<*>? {
   return if (
     this.requiredTestMethod.genericParameterTypes.isNotEmpty()
     && this.requiredTestMethod.genericParameterTypes[0] is ParameterizedType
@@ -43,6 +53,22 @@ fun ExtensionContext.detectParameterType(): Class<*>? {
     && ((this.requiredTestMethod.genericParameterTypes[0] as ParameterizedType).actualTypeArguments[0] is Class<*>)
   ) {
     (this.requiredTestMethod.genericParameterTypes[0] as ParameterizedType).actualTypeArguments[0] as Class<*>
+  } else {
+    null
+  }
+}
+
+/**
+ * Tries to detect the second parameter type of the parametrized method.
+ */
+fun ExtensionContext.detectTargetParameterType(): Class<*>? {
+  return if (
+    this.requiredTestMethod.genericParameterTypes.size > 1
+    && this.requiredTestMethod.genericParameterTypes[1] is ParameterizedType
+    && (this.requiredTestMethod.genericParameterTypes[1] as ParameterizedType).actualTypeArguments.isNotEmpty()
+    && ((this.requiredTestMethod.genericParameterTypes[1] as ParameterizedType).actualTypeArguments[0] is Class<*>)
+  ) {
+    (this.requiredTestMethod.genericParameterTypes[1] as ParameterizedType).actualTypeArguments[0] as Class<*>
   } else {
     null
   }
@@ -78,14 +104,12 @@ fun ExtensionContext.getPayloadTypeAndRevisionProvider(clazz: KClass<out Payload
     try {
       this.testClass.get().getInstanceVariableValue(PayloadTypeAndRevisionProvider::class, null, PayloadTypeAndRevisionProvider::class)
     } catch (e: Exception) {
-      this.publishReportEntry("ERROR}")
       null
     }
   } else {
     try {
       return clazz.primaryConstructor?.call()
     } catch (e: Exception) {
-      this.publishReportEntry("ERROR}")
       null
     }
   }
@@ -93,22 +117,35 @@ fun ExtensionContext.getPayloadTypeAndRevisionProvider(clazz: KClass<out Payload
 
 /**
  * Extracts the MessageContentProvider from the instance or instantiates one.
+ * @param clazz selected message encoder.
+ * @param messageEncoding encoding used.
  */
-fun ExtensionContext.getMessageContentProvider(clazz: KClass<out MessageContentProvider>): MessageContentProvider? {
+fun ExtensionContext.getMessageContentProvider(clazz: KClass<out MessageContentProvider>, messageEncoding: MessageEncoding): MessageContentProvider? {
   if (this.testClass.isEmpty) {
     return null
   }
-  return if (clazz == StaticTestInstanceMessageContentProvider::class) {
-    try {
+  return when (clazz) {
+    StaticTestInstanceMessageContentProvider::class -> try {
       this.testClass.get().getInstanceVariableValue(MessageContentProvider::class, null, MessageContentProvider::class)
     } catch (e: Exception) {
       null
     }
-  } else {
-    try {
-      return clazz.primaryConstructor?.call()
-    } catch (e: Exception) {
-      null
+
+    MessageEncodingAutoDetectingMessageContentProvider::class -> {
+      when (messageEncoding) {
+        MessageEncoding.JACKSON,
+        MessageEncoding.XSTREAM -> DefaultStringMessageContentProvider()
+
+        else -> null
+      }
+    }
+
+    else -> {
+      try {
+        return clazz.primaryConstructor?.call()
+      } catch (e: Exception) {
+        null
+      }
     }
   }
 }

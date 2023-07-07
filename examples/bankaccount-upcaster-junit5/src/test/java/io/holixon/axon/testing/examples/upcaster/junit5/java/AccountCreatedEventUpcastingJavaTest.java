@@ -8,11 +8,10 @@ import com.thoughtworks.xstream.security.AnyTypePermission;
 import fixture.bankaccount.event.AccountCreatedEvent;
 import io.holixon.axon.testing.upcaster.MessageEncoding;
 import io.holixon.axon.testing.upcaster.UpcasterTest;
-import io.holixon.axon.testing.upcaster.content.DefaultStringMessageContentProvider;
-import io.holixon.axon.testing.upcaster.payloadtype.FilenameBasedPayloadTypeAndRevisionProvider;
 import lombok.val;
 import org.axonframework.serialization.json.JacksonSerializer;
 import org.axonframework.serialization.upcasting.event.IntermediateEventRepresentation;
+import org.axonframework.serialization.upcasting.event.SingleEventUpcaster;
 import org.axonframework.serialization.xml.XStreamSerializer;
 import org.dom4j.Document;
 import org.dom4j.Element;
@@ -26,31 +25,41 @@ import static org.assertj.core.api.Assertions.*;
 public class AccountCreatedEventUpcastingJavaTest {
   private final static XStreamSerializer xmlSerializer = createXstreamSerializer();
   private final static JacksonSerializer jacksonSerializer = createJacksonSerializer();
+  private final static String payloadType = AccountCreatedEvent.class.getName();
+  private final static SingleEventUpcaster xmlDocumentUpcaster = xmlDocumentUpcaster(payloadType, "0", "1", (document) -> {
+    document.selectNodes("//" + payloadType).forEach(node -> {
+      // replace bank account id with account id
+      Element accountId = ((Element) node).addElement("accountId");
+      Element bankAccountId = ((Element) node).element("bankAccountId");
+      accountId.addText(bankAccountId.getText());
+      ((Element) node).remove(bankAccountId);
+
+      // add max balance
+      Element maxBalance = ((Element) node).addElement("maximalBalance");
+      maxBalance.addText("1000");
+    });
+    return document;
+  });
+
+  private final static SingleEventUpcaster jsonNodeUpcaster = jsonNodeUpcaster(payloadType, "12", "13", (node) -> {
+    val root = (ObjectNode)node;
+    root.set("accountId", root.get("bankAccountId"));
+    root.remove("bankAccountId");
+    root.put("maximalBalance", 1000);
+    return root;
+  });
+
+
 
   @UpcasterTest(
-    messageEncoding = MessageEncoding.XSTREAM,
-    payloadTypeProvider = FilenameBasedPayloadTypeAndRevisionProvider.class,
-    messageContentProvider = DefaultStringMessageContentProvider.class)
+    messageEncoding = MessageEncoding.XSTREAM
+  )
   public void upcasts_account_created_xstream(List<IntermediateEventRepresentation> events) {
 
-    val payloadType = AccountCreatedEvent.class.getName();
-    val upcaster = xmlDocumentUpcaster(payloadType, "0", "1", (document) -> {
-      document.selectNodes("//" + payloadType).forEach(node -> {
-        // replace bank account id with account id
-        Element accountId = ((Element) node).addElement("accountId");
-        Element bankAccountId = ((Element) node).element("bankAccountId");
-        accountId.addText(bankAccountId.getText());
-        ((Element) node).remove(bankAccountId);
 
-        // add max balance
-        Element maxBalance = ((Element) node).addElement("maximalBalance");
-        maxBalance.addText("1000");
-      });
-      return document;
-    });
+    val upcastedStream = xmlDocumentUpcaster.upcast(events.stream());
 
-    val upcastedStream = upcaster.upcast(events.stream());
-
+    // FIXME: build better assertions
     val upcastedEvents = upcastedStream.map((ier) -> xmlSerializer.deserialize(ier.getData(Document.class))).collect(Collectors.toList());
     assertThat(upcastedEvents)
       .hasSize(1)
@@ -67,22 +76,13 @@ public class AccountCreatedEventUpcastingJavaTest {
   }
 
   @UpcasterTest(
-    messageEncoding = MessageEncoding.JACKSON,
-    payloadTypeProvider = FilenameBasedPayloadTypeAndRevisionProvider.class,
-    messageContentProvider = DefaultStringMessageContentProvider.class)
+    messageEncoding = MessageEncoding.JACKSON
+  )
   public void upcasts_account_created_jackson(List<IntermediateEventRepresentation> events) {
 
-    val payloadType = AccountCreatedEvent.class.getName();
-    val upcaster = jsonNodeUpcaster(payloadType, "12", "13", (node) -> {
-      val root = (ObjectNode)node;
-      root.set("accountId", root.get("bankAccountId"));
-      root.remove("bankAccountId");
-      root.put("maximalBalance", 1000);
-      return root;
-    });
+    val upcastedStream = jsonNodeUpcaster.upcast(events.stream());
 
-    val upcastedStream = upcaster.upcast(events.stream());
-
+    // FIXME: build better assertions
     val upcastedEvents = upcastedStream.map((ier) -> jacksonSerializer.deserialize(ier.getData())).collect(Collectors.toList());
 
     assertThat(upcastedEvents)
