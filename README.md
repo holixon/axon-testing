@@ -40,7 +40,7 @@ Please put the following dependency on your project classpath:
 Now create a JUnit 5 test for your upcaster:
 
 ```java
-// the package is important to put event data in correct folder inside the tst resources
+// the package is important to put event data in correct folder inside the test resources
 package io.holixon.axon.testing.examples.upcaster.junit5.java;
 
 // intentionally left out some trivial imports 
@@ -80,7 +80,9 @@ public class AccountCreatedEventUpcastingJavaTest {
 ```
 This looks like a miracle that the source events are passed in to the test, can be directly passed to the upcaster under the test
 and the result can be asserted using the collection of expected events. Indeed, the library makes use of JUnit 5 parameterized test
-functionality, by defining a custom argument provider reading events out of files from the file system. We believe this is a good
+functionality, by defining a custom argument provider reading events from the file system. 
+
+We believe this is a good
 practice for upcaster and upcaster chain testing, where several representations of different versions of the same event exist and must 
 be managed and set-up for the test. In also helps in situations where comparison with the expected event as an object in Java is 
 not feasible because only one version of a class may be available (probably the latest one).
@@ -113,7 +115,7 @@ of source events. The source events are passed to the test method annotated by t
 The other two with the `__result` suffix are considered to be JSON representations of the expected events, received after the 
 upcaster run. Those will be passed to the test method as the second parameter `expectedSerializedEvents`. 
 
-The ordering of the files (in each group) is determined based on the first numbers until the first `__` separator. The next part of 
+The ordering of the files (in each group) is determined based on the first numbers before the first `__` separator. The next part of 
 the file name is considered as the type name of the stored event. Finally, the last number is representing the revision of the event.
 
 You may want to use only parts of the functionality above. A good starting point for this are our examples. Please consider to look at the 
