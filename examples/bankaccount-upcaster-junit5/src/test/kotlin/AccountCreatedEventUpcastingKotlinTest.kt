@@ -7,14 +7,12 @@ import com.thoughtworks.xstream.security.AnyTypePermission
 import fixture.bankaccount.event.AccountCreatedEvent
 import io.holixon.axon.testing.upcaster.MessageEncoding
 import io.holixon.axon.testing.upcaster.UpcasterTest
+import io.holixon.axon.testing.upcaster.UpcasterTestSupport.Companion.deserializeEvents
 import io.holixon.axon.testing.upcaster.UpcasterTestSupport.Companion.jsonNodeUpcaster
 import io.holixon.axon.testing.upcaster.UpcasterTestSupport.Companion.xmlDocumentUpcaster
-import io.holixon.axon.testing.upcaster.content.DefaultStringMessageContentProvider
-import io.holixon.axon.testing.upcaster.payloadtype.FilenameBasedPayloadTypeAndRevisionProvider
 import org.assertj.core.api.Assertions.assertThat
 import org.axonframework.serialization.json.JacksonSerializer
 import org.axonframework.serialization.upcasting.event.IntermediateEventRepresentation
-import org.axonframework.serialization.upcasting.event.SingleEventUpcaster
 import org.axonframework.serialization.xml.XStreamSerializer
 import org.dom4j.Document
 import org.dom4j.Element
@@ -68,16 +66,11 @@ class AccountCreatedEventUpcastingKotlinTest {
   )
   fun upcasts_account_created_xstream(events: List<IntermediateEventRepresentation>) {
 
-    val upcastedStream: Stream<IntermediateEventRepresentation> = xmlUpcaster.upcast(events.stream())
+    val upcastedStream = xmlUpcaster.upcast(events.stream())
+    val upcastedEvents = deserializeEvents<AccountCreatedEvent>(upcastedStream, xmlSerializer)
 
     // FIXME: build better assertions
-    val upcastedEvents = upcastedStream.map { ier ->
-      xmlSerializer.deserialize<Document, Any>(
-        ier.getData(
-          Document::class.java
-        )
-      )
-    }
+
     assertThat(upcastedEvents)
       .hasSize(1)
       .element(0)
@@ -89,22 +82,11 @@ class AccountCreatedEventUpcastingKotlinTest {
   )
   fun `upcasts account created jackson`(events: List<IntermediateEventRepresentation>, result: List<IntermediateEventRepresentation>) {
 
-    val upcastedStream = jsonUpcaster.upcast(events.stream()).collect(Collectors.toList())
+    val upcastedStream = jsonUpcaster.upcast(events.stream())
 
     // FIXME: build better assertions
-    val upcastedEvents = upcastedStream.map { ier ->
-      val event: AccountCreatedEvent = jacksonSerializer.deserialize(
-        ier.data
-      )
-      event
-    }
-
-    val deserializedResult = result.map { ier ->
-      val event: AccountCreatedEvent = jacksonSerializer.deserialize(
-        ier.data
-      )
-      event
-    }
+    val upcastedEvents = deserializeEvents<AccountCreatedEvent>(stream = upcastedStream, serializer = jacksonSerializer).collect(Collectors.toList())
+    val deserializedResult = deserializeEvents<AccountCreatedEvent>(list = result, serializer = jacksonSerializer)
 
     assertThat(upcastedEvents).containsExactlyElementsOf(deserializedResult)
   }

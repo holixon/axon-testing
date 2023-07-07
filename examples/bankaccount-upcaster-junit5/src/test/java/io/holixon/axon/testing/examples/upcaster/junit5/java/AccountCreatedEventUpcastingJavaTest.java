@@ -82,8 +82,9 @@ public class AccountCreatedEventUpcastingJavaTest {
 
     val upcastedStream = jsonNodeUpcaster.upcast(events.stream());
 
+    val upcastedEvents = deserializeEvents(upcastedStream, jacksonSerializer).collect(Collectors.toList());
+
     // FIXME: build better assertions
-    val upcastedEvents = upcastedStream.map((ier) -> jacksonSerializer.deserialize(ier.getData())).collect(Collectors.toList());
 
     assertThat(upcastedEvents)
       .hasSize(1)

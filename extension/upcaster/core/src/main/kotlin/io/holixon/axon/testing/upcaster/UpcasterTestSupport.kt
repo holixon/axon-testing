@@ -43,6 +43,28 @@ class UpcasterTestSupport {
 
 
     /**
+     * Deserializes events from `IntermediateEventRepresentation` stream.
+     * @param stream stream of intermediate representation
+     * @param serializer serializer
+     * @param T type of event
+     * @return stream of events
+     */
+    @JvmStatic
+    fun <T : Any> deserializeEvents(stream: Stream<IntermediateEventRepresentation>, serializer: Serializer): Stream<T> =
+      stream.map { ier -> serializer.deserialize(ier.data) }
+
+    /**
+     * Deserializes events from `IntermediateEventRepresentation` list.
+     * @param list list of intermediate representation
+     * @param serializer serializer
+     * @param T type of event
+     * @return list of events
+     */
+    @JvmStatic
+    fun <T : Any> deserializeEvents(list: List<IntermediateEventRepresentation>, serializer: Serializer): List<T> =
+      list.map { ier -> serializer.deserialize(ier.data) }
+
+    /**
      * Creates an event data object serialized as JSON.
      * @param payloadJson JSON payload as string.
      * @param metaDataJson JSON metadata as string.
@@ -196,5 +218,5 @@ class UpcasterTestSupport {
         upcastFunction = upcastFunction
       )
   }
-
 }
+
