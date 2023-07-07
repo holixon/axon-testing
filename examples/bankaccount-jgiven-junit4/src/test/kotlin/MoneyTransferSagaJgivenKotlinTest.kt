@@ -15,7 +15,7 @@ import org.junit.Test
 class MoneyTransferSagaJgivenKotlinTest : SagaFixtureScenarioTest<MoneyTransferSaga>() {
 
   @ProvidedScenarioState
-  private val fixture = sagaTestFixtureBuilder(MoneyTransferSaga::class)
+  private val fixture = sagaTestFixtureBuilder<MoneyTransferSaga>()
     .registerStartRecordingCallback({})
     .build()
 

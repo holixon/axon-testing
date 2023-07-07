@@ -20,6 +20,7 @@
   <modules>
     <module>bankaccount-jgiven-junit4</module>
     <module>bankaccount-jgiven-junit5</module>
+    <module>bankaccount-upcaster-junit5</module>
   </modules>
 
   <dependencyManagement>

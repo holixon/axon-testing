@@ -18,7 +18,7 @@ import org.junit.Test
 class BankAccountAggregateJgivenKotlinTest : AggregateFixtureScenarioTest<BankAccountAggregate>() {
 
   @ProvidedScenarioState
-  private val fixture = aggregateTestFixtureBuilder(BankAccountAggregate::class).build()
+  private val fixture = aggregateTestFixtureBuilder<BankAccountAggregate>().build()
 
   @Test
   fun `create account`() {

@@ -35,7 +35,11 @@
       <artifactId>dom4j</artifactId>
       <version>${dom4j.version}</version>
     </dependency>
-
+    <dependency>
+      <groupId>jaxen</groupId>
+      <artifactId>jaxen</artifactId>
+      <version>${jaxen.version}</version>
+    </dependency>
     <!-- Local test -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
