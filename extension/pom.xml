@@ -15,6 +15,7 @@
   <modules>
     <module>jgiven</module>
     <module>upcaster</module>
+      <module>extension-assert</module>
   </modules>
 
   <dependencies>
