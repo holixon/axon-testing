@@ -29,7 +29,7 @@ class AggregateFixtureWhen<T> : Stage<AggregateFixtureWhen<T>>() {
    * @param cmd command to dispatch.
    */
   @As("command: \$cmd")
-  fun command(@Quoted cmd: Any): AggregateFixtureWhen<T> = command(cmd, MetaData.emptyInstance())
+  fun command(cmd: Any): AggregateFixtureWhen<T> = command(cmd, MetaData.emptyInstance())
 
   /**
    * Dispatches a command.
@@ -37,7 +37,7 @@ class AggregateFixtureWhen<T> : Stage<AggregateFixtureWhen<T>>() {
    * @param metadata metadata to include into command message.
    */
   @As("command: \$cmd, metadata: \$metadata")
-  fun command(@Quoted cmd: Any, metadata: Map<String, *>): AggregateFixtureWhen<T> = execute { context.testExecutor!!.`when`(cmd, metadata) }
+  fun command(cmd: Any, metadata: Map<String, *>): AggregateFixtureWhen<T> = execute { context.testExecutor!!.`when`(cmd, metadata) }
 
   /**
    * Moves time to new value.
