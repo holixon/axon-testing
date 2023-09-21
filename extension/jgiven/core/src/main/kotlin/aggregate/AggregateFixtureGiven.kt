@@ -40,21 +40,25 @@ class AggregateFixtureGiven<T> : Stage<AggregateFixtureGiven<T>>() {
    * @param command dispatched command.
    */
   @As("command:")
-  fun command(@Quoted command: Any): AggregateFixtureGiven<T> = this.commands(command)
+  fun command(command: Any): AggregateFixtureGiven<T> = this.commandsInternal(listOf(command))
 
   /**
    * One or several commands has been dispatched.
    * @param commands dispatched commands.
    */
   @As("commands:")
-  fun commands(@Quoted vararg commands: Any): AggregateFixtureGiven<T> = this.commands(commands.toList())
+  fun commands(vararg commands: Any): AggregateFixtureGiven<T> = this.commandsInternal(commands.toList())
 
   /**
    * One or several commands has been dispatched.
    * @param commands dispatched commands.
    */
   @As("commands:")
-  fun commands(@Quoted commands: List<Any>): AggregateFixtureGiven<T> = execute {
+  fun commands(commands: List<Any>): AggregateFixtureGiven<T> = this.commandsInternal(commands)
+
+
+  private fun commandsInternal(commands: List<Any>): AggregateFixtureGiven<T> = execute {
+
     if (context.isFirstGiven) {
       context.isFirstGiven = false
       context.fixture!!.givenCommands(commands)
@@ -68,21 +72,27 @@ class AggregateFixtureGiven<T> : Stage<AggregateFixtureGiven<T>>() {
    * @param event published event.
    */
   @As("event:")
-  fun event(@Quoted event: Any): AggregateFixtureGiven<T> = this.events(event)
+  fun event(event: Any): AggregateFixtureGiven<T> = this.eventsInternal(listOf(event))
 
   /**
    * One or several events has been published.
    * @param events published events.
    */
   @As("events:")
-  fun events(@Quoted vararg events: Any): AggregateFixtureGiven<T> = this.events(events.toList())
+  fun events(vararg events: Any): AggregateFixtureGiven<T> = this.eventsInternal(events.toList())
 
   /**
    * One or several events has been published.
    * @param events published events.
    */
   @As("events:")
-  fun events(@Quoted events: List<Any>): AggregateFixtureGiven<T> = execute {
+  fun events(events: List<Any>): AggregateFixtureGiven<T> = this.eventsInternal(events)
+
+
+  /*
+   * Private method to avoid duplications in report.
+   */
+  private fun eventsInternal(events: List<Any>) = execute {
     if (context.isFirstGiven) {
       context.isFirstGiven = false
       context.fixture!!.given(events)
@@ -90,6 +100,7 @@ class AggregateFixtureGiven<T> : Stage<AggregateFixtureGiven<T>>() {
       context.testExecutor!!.andGiven(events)
     }
   }
+
 
   /**
    * Sets the time.
