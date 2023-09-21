@@ -22,7 +22,6 @@
 
   <modules>
     <module>core</module>
-    <module>junit</module>
     <module>junit5</module>
   </modules>
 
