@@ -8,7 +8,7 @@
 
   <groupId>io.holixon.axon.testing._</groupId>
   <artifactId>axon-testing_</artifactId>
-  <version>4.7.4.1-SNAPSHOT</version>
+  <version>4.7.6.0</version>
   <packaging>pom</packaging>
 
   <modules>
@@ -19,10 +19,10 @@
   <properties>
     <!-- JVM -->
     <java.version>11</java.version>
-    <kotlin.version>1.8.22</kotlin.version>
+    <kotlin.version>1.9.10</kotlin.version>
 
     <!-- LIBS -->
-    <axon-bom.version>4.8.0</axon-bom.version>
+    <axon-bom.version>4.7.4</axon-bom.version>
     <jgiven.version>1.2.5</jgiven.version>
     <jgiven-kotlin.version>1.2.5.0</jgiven-kotlin.version>
 
@@ -325,6 +325,22 @@
           </configuration>
         </plugin>
 
+        <plugin>
+          <groupId>com.tngtech.jgiven</groupId>
+          <artifactId>jgiven-maven-plugin</artifactId>
+          <version>${jgiven.version}</version>
+          <executions>
+            <execution>
+              <goals>
+                <goal>report</goal>
+              </goals>
+            </execution>
+          </executions>
+          <configuration>
+            <format>html</format>
+          </configuration>
+        </plugin>
+
         <!-- Failsafe -->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -336,7 +352,7 @@
         <plugin>
           <groupId>org.jetbrains.dokka</groupId>
           <artifactId>dokka-maven-plugin</artifactId>
-          <version>1.8.20</version>
+          <version>1.9.10</version>
           <configuration>
             <!-- Conditional on maven property set per-project -->
             <skip>${dokka.skip}</skip>
@@ -632,9 +648,9 @@
       </roles>
     </developer>
   </developers>
-    <!--
-    Profile creating all artifacts: JARs, POMs, Sources, JavaDoc and all signatures.
-    -->
+  <!--
+  Profile creating all artifacts: JARs, POMs, Sources, JavaDoc and all signatures.
+  -->
 
   <!-- License Stuff -->
   <inceptionYear>2021</inceptionYear>
