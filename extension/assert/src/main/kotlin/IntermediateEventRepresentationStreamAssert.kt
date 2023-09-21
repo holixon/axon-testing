@@ -32,7 +32,7 @@ class IntermediateEventRepresentationStreamAssert(actual: Stream<IntermediateEve
    * @param expected intermediate representation.
    * @param T type of the payload.
    */
-  fun <T : Any> isContainsExactlyElementsOf(expected: Stream<IntermediateEventRepresentation>): IntermediateEventRepresentationStreamAssert {
+  fun <T : Any> containsExactlyDeserializedElementsOf(expected: Stream<IntermediateEventRepresentation>, clazz: Class<T>): IntermediateEventRepresentationStreamAssert {
     isNotNull
     val deserialized: List<T> = actual.collect(Collectors.toList()).map { ier -> serializer.deserialize(ier.data) }
     val deserializedExpected: List<T> = expected.collect(Collectors.toList()).map { ier -> serializer.deserialize(ier.data) }
@@ -41,4 +41,6 @@ class IntermediateEventRepresentationStreamAssert(actual: Stream<IntermediateEve
     }
     return this
   }
+
+
 }

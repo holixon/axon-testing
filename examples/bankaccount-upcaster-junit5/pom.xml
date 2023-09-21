@@ -18,6 +18,11 @@
       <artifactId>axon-testing-upcaster-junit5</artifactId>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>io.holixon.axon.testing</groupId>
+      <artifactId>axon-testing-assert</artifactId>
+      <scope>test</scope>
+    </dependency>
 
     <dependency>
       <groupId>com.fasterxml.jackson.module</groupId>

@@ -9,12 +9,23 @@
     <version>4.7.4.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>extension-assert</artifactId>
+  <groupId>io.holixon.axon.testing</groupId>
+  <artifactId>axon-testing-assert</artifactId>
+  <name>Axon Testing - Assert</name>
 
   <properties>
   </properties>
 
   <dependencies>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.dom4j</groupId>
+      <artifactId>dom4j</artifactId>
+      <version>${dom4j.version}</version>
+    </dependency>
     <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>

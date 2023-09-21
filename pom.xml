@@ -103,7 +103,11 @@
         <artifactId>axon-testing-upcaster-junit5</artifactId>
         <version>${project.version}</version>
       </dependency>
-
+      <dependency>
+        <groupId>io.holixon.axon.testing</groupId>
+        <artifactId>axon-testing-assert</artifactId>
+        <version>${project.version}</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 

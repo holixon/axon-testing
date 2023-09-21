@@ -24,5 +24,16 @@ class AxonAssertions private constructor() {
     @JvmStatic
     fun assertThat(actual: Stream<IntermediateEventRepresentation>, serializer: Serializer) =
       IntermediateEventRepresentationStreamAssert.assertThat(actual, serializer)
+
+    /**
+     * Creates the assert for given list of intermediate representation serialized using given serializer.
+     * @param actual list of current intermediate representations.
+     * @param serializer serializer in use.
+     * @return the asserting anchor for checks.
+     */
+    @JvmStatic
+    fun assertThat(actual: List<IntermediateEventRepresentation>, serializer: Serializer) =
+      IntermediateEventRepresentationListAssert.assertThat(actual, serializer)
+
   }
 }

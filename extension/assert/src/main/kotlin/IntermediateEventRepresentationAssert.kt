@@ -1,17 +1,32 @@
 package io.holixon.axon.testing.assert
 
+import com.fasterxml.jackson.databind.JsonNode
 import org.assertj.core.api.AbstractAssert
 import org.assertj.core.api.ObjectAssert
 import org.axonframework.serialization.SerializedObject
 import org.axonframework.serialization.SerializedType
 import org.axonframework.serialization.Serializer
+import org.axonframework.serialization.json.JacksonSerializer
 import org.axonframework.serialization.upcasting.event.IntermediateEventRepresentation
+import org.axonframework.serialization.xml.XStreamSerializer
+import org.dom4j.Document
+
 
 /**
  * Asserts intermediate representation.
  */
-class IntermediateEventRepresentationAssert(actual: IntermediateEventRepresentation, private val serializer: Serializer) :
-  AbstractAssert<IntermediateEventRepresentationAssert, IntermediateEventRepresentation>(actual, IntermediateEventRepresentationAssert::class.java) {
+class IntermediateEventRepresentationAssert(
+  actual: IntermediateEventRepresentation,
+  private val serializer: Serializer,
+  private val intermediateRepresentationTypeResolver: (serializer: Serializer) -> Class<*> =
+    {
+      when (it) {
+        is XStreamSerializer -> Document::class.java
+        is JacksonSerializer -> JsonNode::class.java
+        else -> throw IllegalArgumentException("Unknown serializer type ${serializer::class.java}")
+      }
+    }
+) : AbstractAssert<IntermediateEventRepresentationAssert, IntermediateEventRepresentation>(actual, IntermediateEventRepresentationAssert::class.java) {
 
 
   companion object {
@@ -33,7 +48,9 @@ class IntermediateEventRepresentationAssert(actual: IntermediateEventRepresentat
    */
   fun <T : Any> hasDeserializedData(expected: T): ObjectAssert<T> {
     isNotNull
-    val event: T = serializer.deserialize(actual.data)
+    val intermediateRepresentationType = intermediateRepresentationTypeResolver.invoke(serializer)
+    val data = actual.getData(intermediateRepresentationType)
+    val event: T = serializer.deserialize(data)
     if (event != expected) {
       failWithMessage("Expected the event to be <%s> but it was <%s>", expected, event)
     }
@@ -150,13 +167,15 @@ class IntermediateEventRepresentationAssert(actual: IntermediateEventRepresentat
    * @param expected intermediate representation.
    * @param T type of the payload.
    */
-  fun <T : Any> isEqualsTo(expected: IntermediateEventRepresentation): IntermediateEventRepresentationAssert {
+  fun <T : Any> isEqualDeserializedTo(expected: IntermediateEventRepresentation): IntermediateEventRepresentationAssert {
     isNotNull
     val deserialized: T = serializer.deserialize(actual.data)
-    val deserializedExpected: T = serializer.deserialize(actual.data)
+    val deserializedExpected: T = serializer.deserialize(expected.data)
     if (deserialized != deserializedExpected) {
       failWithMessage("Expected the content type name to be <%s> but it was <%s>", deserializedExpected, deserialized)
     }
     return this
   }
+
+
 }

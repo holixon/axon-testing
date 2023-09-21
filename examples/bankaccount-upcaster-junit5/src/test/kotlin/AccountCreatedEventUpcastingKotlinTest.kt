@@ -5,19 +5,16 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.thoughtworks.xstream.XStream
 import com.thoughtworks.xstream.security.AnyTypePermission
 import fixture.bankaccount.event.AccountCreatedEvent
+import io.holixon.axon.testing.assert.AxonAssertions
 import io.holixon.axon.testing.upcaster.MessageEncoding
 import io.holixon.axon.testing.upcaster.UpcasterTest
-import io.holixon.axon.testing.upcaster.UpcasterTestSupport.Companion.deserializeEvents
 import io.holixon.axon.testing.upcaster.UpcasterTestSupport.Companion.jsonNodeUpcaster
 import io.holixon.axon.testing.upcaster.UpcasterTestSupport.Companion.xmlDocumentUpcaster
-import org.assertj.core.api.Assertions.assertThat
 import org.axonframework.serialization.json.JacksonSerializer
 import org.axonframework.serialization.upcasting.event.IntermediateEventRepresentation
 import org.axonframework.serialization.xml.XStreamSerializer
-import org.dom4j.Document
 import org.dom4j.Element
 import java.util.stream.Collectors
-import java.util.stream.Stream
 
 class AccountCreatedEventUpcastingKotlinTest {
 
@@ -61,33 +58,35 @@ class AccountCreatedEventUpcastingKotlinTest {
   }
 
 
+  /**
+   * This method demonstrates usage of input events provided to the test method,
+   * usage of the list assert and element assert for intermediate representation.
+   */
   @UpcasterTest(
     messageEncoding = MessageEncoding.XSTREAM
   )
   fun upcasts_account_created_xstream(events: List<IntermediateEventRepresentation>) {
 
     val upcastedStream = xmlUpcaster.upcast(events.stream())
-    val upcastedEvents = deserializeEvents<AccountCreatedEvent>(upcastedStream, xmlSerializer)
 
-    // FIXME: build better assertions
-
-    assertThat(upcastedEvents)
+    AxonAssertions
+      .assertThat(upcastedStream.collect(Collectors.toList()), xmlSerializer)
       .hasSize(1)
       .element(0)
-      .isEqualTo(accountEvent)
+      .hasDeserializedData(accountEvent)
   }
 
+  /**
+   * This method demonstrates usage of input events and resulting provided to the test method,
+   * and usage of the stream assert.
+   */
   @UpcasterTest(
     messageEncoding = MessageEncoding.JACKSON
   )
   fun `upcasts account created jackson`(events: List<IntermediateEventRepresentation>, result: List<IntermediateEventRepresentation>) {
-
     val upcastedStream = jsonUpcaster.upcast(events.stream())
-
-    // FIXME: build better assertions
-    val upcastedEvents = deserializeEvents<AccountCreatedEvent>(stream = upcastedStream, serializer = jacksonSerializer).collect(Collectors.toList())
-    val deserializedResult = deserializeEvents<AccountCreatedEvent>(list = result, serializer = jacksonSerializer)
-
-    assertThat(upcastedEvents).containsExactlyElementsOf(deserializedResult)
+    AxonAssertions.assertThat(upcastedStream, jacksonSerializer)
+      .containsExactlyDeserializedElementsOf(result.stream(), AccountCreatedEvent::class.java)
   }
 }
+
