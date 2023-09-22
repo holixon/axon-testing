@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <name>Axon Testing - Parent</name>
   <description>A set of tools to write even more effective tests for systems built with Axon Framework.</description>
@@ -8,7 +8,7 @@
 
   <groupId>io.holixon.axon.testing._</groupId>
   <artifactId>axon-testing_</artifactId>
-  <version>4.7.4.0</version>
+  <version>4.8.0.0</version>
   <packaging>pom</packaging>
 
   <modules>
@@ -19,20 +19,19 @@
   <properties>
     <!-- JVM -->
     <java.version>11</java.version>
-    <maven.compiler.source>${java.version}</maven.compiler.source>
-    <maven.compiler.target>${java.version}</maven.compiler.target>
-    <kotlin.version>1.8.21</kotlin.version>
+    <kotlin.version>1.9.10</kotlin.version>
 
     <!-- LIBS -->
-    <axon-bom.version>4.7.3</axon-bom.version>
-    <jgiven.version>1.2.5</jgiven.version>
-    <jgiven-kotlin.version>1.2.5.0</jgiven-kotlin.version>
+    <axon-bom.version>4.7.4</axon-bom.version>
+    <jgiven.version>1.3.0</jgiven.version>
+    <jgiven-kotlin.version>1.3.0.0</jgiven-kotlin.version>
 
     <!-- TEST -->
-    <jackson.version>2.15.0</jackson.version>
+    <jackson.version>2.15.2</jackson.version>
     <junit.version>4.13.2</junit.version>
-    <junit5.version>5.9.3</junit5.version>
+    <junit5.version>5.10.0</junit5.version>
     <dom4j.version>2.1.4</dom4j.version>
+    <jaxen.version>2.0.0</jaxen.version>
     <assertj.version>3.24.2</assertj.version>
 
     <!-- MAVEN -->
@@ -68,6 +67,14 @@
       </dependency>
 
       <dependency>
+        <groupId>com.fasterxml.jackson</groupId>
+        <artifactId>jackson-bom</artifactId>
+        <version>${jackson.version}</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+
+      <dependency>
         <groupId>io.holixon.axon.testing</groupId>
         <artifactId>axon-testing-jgiven-core</artifactId>
         <version>${project.version}</version>
@@ -84,8 +91,47 @@
         <artifactId>axon-testing-jgiven-junit5</artifactId>
         <version>${project.version}</version>
       </dependency>
+
+      <dependency>
+        <groupId>io.holixon.axon.testing</groupId>
+        <artifactId>axon-testing-upcaster-core</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.holixon.axon.testing</groupId>
+        <artifactId>axon-testing-upcaster-junit5</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.holixon.axon.testing</groupId>
+        <artifactId>axon-testing-assert</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-classic</artifactId>
+        <version>1.4.11</version>
+        <scope>test</scope>
+      </dependency>
     </dependencies>
   </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.jetbrains.kotlin</groupId>
+      <artifactId>kotlin-stdlib</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.jetbrains.kotlin</groupId>
+      <artifactId>kotlin-stdlib-common</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.jetbrains.kotlin</groupId>
+      <artifactId>kotlin-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
 
   <build>
     <defaultGoal>clean package</defaultGoal>
@@ -94,7 +140,7 @@
         <!-- Clean -->
         <plugin>
           <artifactId>maven-clean-plugin</artifactId>
-          <version>3.2.0</version>
+          <version>3.3.1</version>
         </plugin>
 
         <!-- Kotlin Compiler -->
@@ -102,22 +148,14 @@
           <groupId>org.jetbrains.kotlin</groupId>
           <artifactId>kotlin-maven-plugin</artifactId>
           <version>${kotlin.version}</version>
-          <executions>
-            <execution>
-              <id>compile</id>
-              <goals>
-                <goal>compile</goal>
-              </goals>
-            </execution>
-            <execution>
-              <id>test-compile</id>
-              <goals>
-                <goal>test-compile</goal>
-              </goals>
-            </execution>
-          </executions>
           <configuration>
-            <jvmTarget>1.8</jvmTarget>
+            <jvmTarget>${java.version}</jvmTarget>
+            <apiVersion>1.8</apiVersion>
+            <languageVersion>1.8</languageVersion>
+            <args>
+              <arg>-Xjsr305=strict</arg>
+              <arg>-Xjvm-default=all-compatibility</arg>
+            </args>
             <compilerPlugins>
               <plugin>spring</plugin>
               <plugin>all-open</plugin>
@@ -125,11 +163,35 @@
             <pluginOptions>
               <option>all-open:annotation=io.holixon.axon.testing.jgiven.AxonJGivenStage</option>
             </pluginOptions>
-            <args>
-              <arg>-Xjsr305=strict</arg>
-              <arg>-Xjvm-default=all-compatibility</arg>
-            </args>
           </configuration>
+          <executions>
+            <execution>
+              <id>compile</id>
+              <phase>compile</phase>
+              <goals>
+                <goal>compile</goal>
+              </goals>
+              <configuration>
+                <sourceDirs>
+                  <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
+                  <sourceDir>${project.basedir}/src/main/java</sourceDir>
+                </sourceDirs>
+              </configuration>
+            </execution>
+            <execution>
+              <id>test-compile</id>
+              <phase>test-compile</phase>
+              <goals>
+                <goal>test-compile</goal>
+              </goals>
+              <configuration>
+                <sourceDirs>
+                  <sourceDir>${project.basedir}/src/test/kotlin</sourceDir>
+                  <sourceDir>${project.basedir}/src/test/java</sourceDir>
+                </sourceDirs>
+              </configuration>
+            </execution>
+          </executions>
           <dependencies>
             <dependency>
               <groupId>org.jetbrains.kotlin</groupId>
@@ -145,8 +207,9 @@
           <version>3.11.0</version>
           <configuration>
             <encoding>${project.build.sourceEncoding}</encoding>
-            <source>${maven.compiler.source}</source>
-            <target>${maven.compiler.target}</target>
+            <source>${java.version}</source>
+            <target>${java.version}</target>
+            <release>${java.version}</release>
           </configuration>
           <executions>
             <!-- Replacing default-compile as it is treated specially by maven -->
@@ -172,9 +235,6 @@
               <goals>
                 <goal>testCompile</goal>
               </goals>
-              <configuration>
-                <skip>${skipTests}</skip>
-              </configuration>
             </execution>
           </executions>
         </plugin>
@@ -198,7 +258,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-assembly-plugin</artifactId>
-          <version>3.5.0</version>
+          <version>3.6.0</version>
           <configuration>
             <descriptorSourceDirectory>assembly</descriptorSourceDirectory>
             <archiverConfig>
@@ -210,7 +270,7 @@
         <!-- Release -->
         <plugin>
           <artifactId>maven-release-plugin</artifactId>
-          <version>3.0.0</version>
+          <version>3.0.1</version>
           <configuration>
             <mavenExecutorId>forked-path</mavenExecutorId>
             <localCheckout>true</localCheckout>
@@ -226,15 +286,25 @@
           <executions>
             <execution>
               <id>pre-unit-test</id>
+              <phase>initialize</phase>
               <goals>
                 <goal>prepare-agent</goal>
               </goals>
+              <configuration>
+                <destFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</destFile>
+                <propertyName>surefireArgLine</propertyName>
+              </configuration>
             </execution>
             <execution>
-              <id>pre-integration-test</id>
+              <id>post-unit-test</id>
+              <phase>test</phase>
               <goals>
-                <goal>prepare-agent-integration</goal>
+                <goal>report</goal>
               </goals>
+              <configuration>
+                <dataFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</dataFile>
+                <outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>
+              </configuration>
             </execution>
           </executions>
         </plugin>
@@ -242,7 +312,7 @@
         <!-- Surefire -->
         <plugin>
           <artifactId>maven-surefire-plugin</artifactId>
-          <version>3.0.0</version>
+          <version>3.1.2</version>
           <configuration>
             <useSystemClassLoader>false</useSystemClassLoader>
             <shutdown>kill</shutdown>
@@ -253,10 +323,7 @@
               <include>**/*Test_*.java</include>
               <include>**/*Tests_*.java</include>
             </includes>
-            <!-- Sets the VM argument line used when unit tests are run. -->
-            <!-- prevent the annoying ForkedBooter process from stealing window focus on Mac OS -->
-            <argLine>-Djava.awt.headless=true ${argLine} -XX:+StartAttachListener -Xmx1024m -XX:MaxPermSize=256m</argLine>
-            <argLine>${surefireArgLine}</argLine>
+            <argLine>-Djava.awt.headless=true ${surefireArgLine} -XX:+StartAttachListener -Xmx1024m</argLine>
             <systemPropertyVariables>
               <slf4j.version>1.7.30</slf4j.version>
               <log4j.version>2.13.3</log4j.version>
@@ -264,18 +331,34 @@
           </configuration>
         </plugin>
 
+        <plugin>
+          <groupId>com.tngtech.jgiven</groupId>
+          <artifactId>jgiven-maven-plugin</artifactId>
+          <version>${jgiven.version}</version>
+          <executions>
+            <execution>
+              <goals>
+                <goal>report</goal>
+              </goals>
+            </execution>
+          </executions>
+          <configuration>
+            <format>html</format>
+          </configuration>
+        </plugin>
+
         <!-- Failsafe -->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-failsafe-plugin</artifactId>
-          <version>3.0.0</version>
+          <version>3.1.2</version>
         </plugin>
 
         <!-- KDoc generation -->
         <plugin>
           <groupId>org.jetbrains.dokka</groupId>
           <artifactId>dokka-maven-plugin</artifactId>
-          <version>1.8.10</version>
+          <version>1.9.0</version>
           <configuration>
             <!-- Conditional on maven property set per-project -->
             <skip>${dokka.skip}</skip>
@@ -313,7 +396,7 @@
         </plugin>
         <plugin>
           <artifactId>maven-source-plugin</artifactId>
-          <version>3.2.1</version>
+          <version>3.3.0</version>
           <executions>
             <execution>
               <id>attach-sources</id>
@@ -328,7 +411,7 @@
         <!-- Enforcer -->
         <plugin>
           <artifactId>maven-enforcer-plugin</artifactId>
-          <version>3.3.0</version>
+          <version>3.4.1</version>
           <executions>
             <execution>
               <id>enforce-java</id>
@@ -342,7 +425,7 @@
                     <version>${java.version}</version>
                   </requireJavaVersion>
                   <requireMavenVersion>
-                    <version>3.5</version>
+                    <version>3.9</version>
                   </requireMavenVersion>
                 </rules>
               </configuration>
@@ -354,7 +437,7 @@
         <plugin>
           <groupId>com.amashchenko.maven.plugin</groupId>
           <artifactId>gitflow-maven-plugin</artifactId>
-          <version>1.19.0</version>
+          <version>1.20.0</version>
           <configuration>
             <gitFlowConfig>
               <productionBranch>master</productionBranch>
@@ -376,7 +459,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-gpg-plugin</artifactId>
-          <version>3.0.1</version>
+          <version>3.1.0</version>
           <configuration>
             <gpgArguments>
               <arg>--batch</arg>
@@ -424,6 +507,26 @@
             </execution>
           </executions>
         </plugin>
+        <!-- Source from Kotlin -->
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>build-helper-maven-plugin</artifactId>
+          <version>3.4.0</version>
+          <executions>
+            <execution>
+              <id>add-kotlin-source</id>
+              <phase>generate-sources</phase>
+              <goals>
+                <goal>add-source</goal>
+              </goals>
+              <configuration>
+                <sources>
+                  <source>${project.basedir}/src/main/kotlin</source>
+                </sources>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
       </plugins>
     </pluginManagement>
 
@@ -432,22 +535,42 @@
     -->
     <plugins>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+      </plugin>
+      <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-enforcer-plugin</artifactId>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <artifactId>kotlin-maven-plugin</artifactId>
       </plugin>
     </plugins>
   </build>
 
   <profiles>
 
-    <!--
-    Profile creating all artifacts: JARs, POMs, Sources, JavaDoc and all signatures.
-    -->
     <profile>
+      <!--
+      Example module, should be skipped during release
+      -->
+      <id>example</id>
+      <activation>
+        <property>
+          <name>!skipExamples</name>
+        </property>
+      </activation>
+      <modules>
+        <module>examples</module>
+        <module>lib</module>
+      </modules>
+    </profile>
+
+    <profile>
+      <!--
+      Profile creating all artifacts: JARs, POMs, Sources, JavaDoc and all signatures.
+      -->
       <id>release</id>
       <activation>
         <property>
@@ -459,6 +582,10 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-source-plugin</artifactId>
+          </plugin>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>build-helper-maven-plugin</artifactId>
           </plugin>
           <plugin>
             <groupId>org.jetbrains.dokka</groupId>
@@ -476,21 +603,6 @@
       </build>
     </profile>
 
-    <profile>
-      <!--
-      Example module, should be skipped during release
-      -->
-      <id>example</id>
-      <activation>
-        <property>
-          <name>!skipExamples</name>
-        </property>
-      </activation>
-      <modules>
-        <module>examples</module>
-        <module>lib</module>
-      </modules>
-    </profile>
   </profiles>
 
   <!-- deploy and release configuration -->
@@ -542,13 +654,16 @@
       </roles>
     </developer>
   </developers>
+    <!--
+    Profile creating all artifacts: JARs, POMs, Sources, JavaDoc and all signatures.
+    -->
 
   <!-- License Stuff -->
   <inceptionYear>2021</inceptionYear>
   <licenses>
     <license>
       <name>Apache 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+      <url>https://www.apache.org/licenses/LICENSE-2.0</url>
     </license>
   </licenses>
   <organization>

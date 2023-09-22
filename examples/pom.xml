@@ -6,7 +6,7 @@
   <parent>
     <groupId>io.holixon.axon.testing._</groupId>
     <artifactId>axon-testing_</artifactId>
-    <version>4.7.4.0</version>
+    <version>4.8.0.0</version>
   </parent>
 
   <artifactId>examples</artifactId>
@@ -18,8 +18,8 @@
   </properties>
 
   <modules>
-    <module>bankaccount-jgiven-junit4</module>
     <module>bankaccount-jgiven-junit5</module>
+    <module>bankaccount-upcaster-junit5</module>
   </modules>
 
   <dependencyManagement>
@@ -31,5 +31,14 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>com.tngtech.jgiven</groupId>
+        <artifactId>jgiven-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
 
 </project>

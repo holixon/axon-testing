@@ -1,4 +1,5 @@
 @file:Suppress("unused")
+
 package io.holixon.axon.testing.jgiven.saga
 
 import com.tngtech.jgiven.Stage
@@ -11,7 +12,6 @@ import org.axonframework.test.saga.FixtureExecutionResult
 import org.axonframework.test.saga.WhenState
 import java.time.Duration
 import java.time.Instant
-
 
 /**
  * When stage for saga fixture.

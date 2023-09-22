@@ -6,7 +6,7 @@
   <parent>
     <groupId>io.holixon.axon.testing._</groupId>
     <artifactId>axon-testing_</artifactId>
-    <version>4.7.4.0</version>
+    <version>4.8.0.0</version>
   </parent>
 
   <artifactId>extension</artifactId>
@@ -14,7 +14,8 @@
 
   <modules>
     <module>jgiven</module>
-    <module>upcaster-test-core</module>
+    <module>upcaster</module>
+    <module>assert</module>
   </modules>
 
   <dependencies>
@@ -22,20 +23,6 @@
       <groupId>org.jetbrains.kotlin</groupId>
       <artifactId>kotlin-reflect</artifactId>
     </dependency>
-    <dependency>
-      <groupId>org.jetbrains.kotlin</groupId>
-      <artifactId>kotlin-stdlib-jdk8</artifactId>
-    </dependency>
   </dependencies>
 
-  <build>
-    <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
-    <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
-    <plugins>
-      <plugin>
-        <groupId>org.jetbrains.kotlin</groupId>
-        <artifactId>kotlin-maven-plugin</artifactId>
-      </plugin>
-    </plugins>
-  </build>
 </project>

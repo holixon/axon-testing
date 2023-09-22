@@ -6,7 +6,7 @@
   <parent>
     <groupId>io.holixon.axon.testing._</groupId>
     <artifactId>fixtures</artifactId>
-    <version>4.7.4.0</version>
+    <version>4.8.0.0</version>
   </parent>
 
   <groupId>io.holixon.axon.testing.lib</groupId>
@@ -20,7 +20,7 @@
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>31.1-jre</version>
+      <version>32.1.2-jre</version>
     </dependency>
   </dependencies>
 

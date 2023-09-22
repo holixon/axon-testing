@@ -6,7 +6,7 @@
   <parent>
     <groupId>io.holixon.axon.testing._</groupId>
     <artifactId>lib</artifactId>
-    <version>4.7.4.0</version>
+    <version>4.8.0.0</version>
   </parent>
 
   <artifactId>fixtures</artifactId>
@@ -36,9 +36,13 @@
       <artifactId>axon-eventsourcing</artifactId>
     </dependency>
     <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <version>1.18.26</version>
+      <version>1.18.30</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>

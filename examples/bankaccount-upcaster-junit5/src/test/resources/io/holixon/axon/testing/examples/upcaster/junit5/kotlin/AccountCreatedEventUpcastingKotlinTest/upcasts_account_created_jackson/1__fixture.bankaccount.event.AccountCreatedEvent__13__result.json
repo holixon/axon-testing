@@ -1,0 +1,6 @@
+{
+  "accountId": "4711",
+  "customerId": "Customer1",
+  "initialBalance": 100,
+  "maximalBalance": 1000
+}

@@ -5,7 +5,9 @@ package io.holixon.axon.testing.jgiven.saga
 import com.tngtech.jgiven.Stage
 import com.tngtech.jgiven.annotation.*
 import io.holixon.axon.testing.jgiven.AxonJGivenStage
+import org.axonframework.modelling.saga.repository.inmemory.InMemorySagaStore
 import org.axonframework.test.saga.FixtureExecutionResult
+import org.axonframework.test.saga.FixtureExecutionResultImpl
 import org.axonframework.test.saga.SagaTestFixture
 import org.axonframework.test.saga.WhenState
 
@@ -25,12 +27,18 @@ class SagaFixtureGiven<T> : Stage<SagaFixtureGiven<T>>() {
   @ProvidedScenarioState
   private lateinit var thenState: FixtureExecutionResult
 
+  @ProvidedScenarioState
+  private lateinit var sagaStore: InMemorySagaStore
+
+  @ProvidedScenarioState
+  private lateinit var sagaType: Class<T>
+
+
   @BeforeStage
   internal fun init() {
-    with(SagaTestFixture::class.java.getDeclaredField("fixtureExecutionResult")) {
-      isAccessible = true
-      thenState = get(fixture) as FixtureExecutionResult
-    }
+    thenState = fixture.fixtureExecutionResult
+    sagaStore = fixture.sagaStore
+    sagaType = fixture.sagaType
   }
 
   /**

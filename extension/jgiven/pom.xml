@@ -6,7 +6,7 @@
   <parent>
     <groupId>io.holixon.axon.testing._</groupId>
     <artifactId>extension</artifactId>
-    <version>4.7.4.0</version>
+    <version>4.8.0.0</version>
   </parent>
 
   <artifactId>extension-jgiven</artifactId>
@@ -22,7 +22,6 @@
 
   <modules>
     <module>core</module>
-    <module>junit</module>
     <module>junit5</module>
   </modules>
 
