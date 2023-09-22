@@ -8,7 +8,7 @@
 
   <groupId>io.holixon.axon.testing._</groupId>
   <artifactId>axon-testing_</artifactId>
-  <version>4.8.0.0</version>
+  <version>4.8.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <modules>
