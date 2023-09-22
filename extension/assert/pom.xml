@@ -14,6 +14,11 @@
   <name>Axon Testing - Assert</name>
 
   <properties>
+    <jacoco.skip>false</jacoco.skip>
+    <dokka.skip>false</dokka.skip>
+    <maven.javadoc.skip>false</maven.javadoc.skip>
+    <maven.sources.skip>false</maven.sources.skip>
+    <maven.install.skip>false</maven.install.skip>
   </properties>
 
   <dependencies>
