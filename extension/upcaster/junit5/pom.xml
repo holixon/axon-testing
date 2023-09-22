@@ -7,7 +7,7 @@
   <parent>
     <groupId>io.holixon.axon.testing._</groupId>
     <artifactId>extension-upcaster</artifactId>
-    <version>4.8.0.0-SNAPSHOT</version>
+    <version>4.8.0.0</version>
   </parent>
 
   <groupId>io.holixon.axon.testing</groupId>
