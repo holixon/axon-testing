@@ -3,10 +3,7 @@
 package io.holixon.axon.testing.jgiven.aggregate
 
 import com.tngtech.jgiven.Stage
-import com.tngtech.jgiven.annotation.As
-import com.tngtech.jgiven.annotation.Hidden
-import com.tngtech.jgiven.annotation.ProvidedScenarioState
-import com.tngtech.jgiven.annotation.Quoted
+import com.tngtech.jgiven.annotation.*
 import io.holixon.axon.testing.jgiven.AxonJGivenStage
 import io.holixon.axon.testing.jgiven.step
 import org.axonframework.commandhandling.CommandResultMessage
@@ -35,14 +32,14 @@ class AggregateFixtureThen<T> : Stage<AggregateFixtureThen<T>>() {
    * @param event expected event.
    */
   @As("expect event:")
-  fun expectEvent(@Quoted event: Any) = this.expectEvents(event)
+  fun expectEvent(event: Any) = this.expectEvents(event)
 
   /**
    * Expect a series of events.
    * @param events events to expect.
    */
   @As("expect events:")
-  fun expectEvents(@Quoted vararg events: Any) = execute {
+  fun expectEvents(vararg events: Any) = execute {
     expectEvents(*events)
   }
 
@@ -51,7 +48,7 @@ class AggregateFixtureThen<T> : Stage<AggregateFixtureThen<T>>() {
    * @param events events to expect.
    */
   @As("expect events:")
-  fun expectEvents(@Quoted vararg events: EventMessage<*>) = execute {
+  fun expectEvents(vararg events: EventMessage<*>) = execute {
     expectEvents(*events)
   }
 
@@ -121,7 +118,7 @@ class AggregateFixtureThen<T> : Stage<AggregateFixtureThen<T>>() {
   }
 
   /**
-   * Expects an exception of provided type to be thrown.
+   * Expects an exception of the provided type to be thrown.
    * @param clazz type of exception.
    */
   @As("expect exception: $")
@@ -130,7 +127,7 @@ class AggregateFixtureThen<T> : Stage<AggregateFixtureThen<T>>() {
   }
 
   /**
-   * Expects an exception of provided type to be thrown.
+   * Expects an exception of the provided type to be thrown.
    * @param clazz type of exception.
    */
   @As("expect exception: $")
