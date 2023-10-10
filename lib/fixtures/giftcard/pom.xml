@@ -6,7 +6,7 @@
   <parent>
     <groupId>io.holixon.axon.testing._</groupId>
     <artifactId>fixtures</artifactId>
-    <version>4.8.0.0</version>
+    <version>4.8.0.1</version>
   </parent>
 
   <groupId>io.holixon.axon.testing.lib</groupId>
@@ -16,6 +16,12 @@
     <dependency>
       <groupId>org.axonframework</groupId>
       <artifactId>axon-configuration</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-api</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>com.google.guava</groupId>
