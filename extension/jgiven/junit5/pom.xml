@@ -23,6 +23,12 @@
       <artifactId>jgiven-junit5</artifactId>
       <version>${jgiven.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>${junit5.version}</version>
+      <scope>provided</scope>
+    </dependency>
 
     <dependency>
       <groupId>io.toolisticon.testing</groupId>

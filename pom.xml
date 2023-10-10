@@ -121,6 +121,19 @@
         </exclusions>
         <scope>test</scope>
       </dependency>
+
+      <dependency>
+        <groupId>org.assertj</groupId>
+        <artifactId>assertj-core</artifactId>
+        <version>${assertj.version}</version>
+        <exclusions>
+          <!-- because 3.24.4 comes with v1.12.21 and latest is 1.4.8 -->
+          <exclusion>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
