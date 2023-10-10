@@ -21,6 +21,12 @@
     <dependency>
       <groupId>org.axonframework</groupId>
       <artifactId>axon-test</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.junit.jupiter</groupId>
+          <artifactId>junit-jupiter</artifactId>
+        </exclusion>
+      </exclusions>
       <scope>compile</scope>
     </dependency>
 
@@ -36,6 +42,12 @@
     </dependency>
 
     <!-- TEST -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>${junit5.version}</version>
+      <scope>test</scope>
+    </dependency>
 
     <dependency>
       <groupId>io.github.microutils</groupId>
