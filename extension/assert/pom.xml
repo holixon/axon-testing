@@ -37,6 +37,21 @@
       <version>${assertj.version}</version>
     </dependency>
     <dependency>
+      <groupId>org.xmlunit</groupId>
+      <artifactId>xmlunit-core</artifactId>
+      <version>${xmlunit.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.xmlunit</groupId>
+      <artifactId>xmlunit-assertj3</artifactId>
+      <version>${xmlunit.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.skyscreamer</groupId>
+      <artifactId>jsonassert</artifactId>
+      <version>${jsonassert.verision}</version>
+    </dependency>
+    <dependency>
       <groupId>org.axonframework</groupId>
       <artifactId>axon-messaging</artifactId>
       <exclusions>
