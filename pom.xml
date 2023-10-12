@@ -35,7 +35,7 @@
     <jaxen.version>2.0.0</jaxen.version>
     <assertj.version>3.24.2</assertj.version>
     <xmlunit.version>2.9.1</xmlunit.version>
-    <jsonassert.verision>1.5.0</jsonassert.verision>
+    <jsonassert.verision>1.5.1</jsonassert.verision>
 
     <!-- MAVEN -->
     <project.encoding>UTF-8</project.encoding>
