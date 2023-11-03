@@ -19,7 +19,7 @@
   <properties>
     <!-- JVM -->
     <java.version>11</java.version>
-    <kotlin.version>1.9.10</kotlin.version>
+    <kotlin.version>1.9.20</kotlin.version>
 
     <!-- LIBS -->
     <axon-bom.version>4.8.4</axon-bom.version>
