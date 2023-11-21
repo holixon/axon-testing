@@ -3,13 +3,19 @@
 package io.holixon.axon.testing.jgiven.aggregate
 
 import com.tngtech.jgiven.Stage
-import com.tngtech.jgiven.annotation.*
+import com.tngtech.jgiven.annotation.As
+import com.tngtech.jgiven.annotation.Hidden
+import com.tngtech.jgiven.annotation.ProvidedScenarioState
+import com.tngtech.jgiven.annotation.Quoted
+import io.holixon.axon.testing.jgiven.AxonJGiven
 import io.holixon.axon.testing.jgiven.AxonJGivenStage
 import io.holixon.axon.testing.jgiven.step
 import org.axonframework.commandhandling.CommandResultMessage
 import org.axonframework.deadline.DeadlineMessage
 import org.axonframework.eventhandling.EventMessage
+import org.axonframework.test.aggregate.Reporter
 import org.axonframework.test.aggregate.ResultValidator
+import org.axonframework.test.matchers.Matchers
 import org.hamcrest.Matcher
 import org.hamcrest.MatcherAssert
 import java.time.Duration
@@ -25,7 +31,9 @@ import kotlin.reflect.KClass
 class AggregateFixtureThen<T> : Stage<AggregateFixtureThen<T>>() {
 
   @ProvidedScenarioState
-  private  var context: AggregateTestFixtureContext<T> = AggregateTestFixtureContext()
+  private var context: AggregateTestFixtureContext<T> = AggregateTestFixtureContext()
+
+  private val reporter = Reporter()
 
   /**
    * Expect event.
@@ -33,6 +41,21 @@ class AggregateFixtureThen<T> : Stage<AggregateFixtureThen<T>>() {
    */
   @As("expect event:")
   fun expectEvent(event: Any) = this.expectEvents(event)
+
+  @As("expect event:\$  with metaData:\$")
+  fun expectEventWithMetaData(event: Any, vararg entries: Pair<String, Any>) = step {
+    val identifier = checkNotNull(context.aggregateIdentifier) { "no aggregateIdentifier present" }
+
+    val events = context.fixture?.eventStore?.readEvents(identifier)?.asSequence()?.toList() ?: emptyList()
+
+    val predicate = AxonJGiven.listContainsEventPayloadAndMetaData(event, mapOf(*entries))
+
+    val matcher = Matchers.predicate(predicate)
+
+    if (!matcher.matches(events)) {
+      reporter.reportWrongResult(events, "Event exists with payload=$event and metaData=${mapOf(*entries)}.")
+    }
+  }
 
   /**
    * Expect a series of events.
@@ -172,6 +195,7 @@ class AggregateFixtureThen<T> : Stage<AggregateFixtureThen<T>>() {
   @As("expect result message")
   fun expectResultMessage(message: CommandResultMessage<*>) = execute {
     expectResultMessage(message)
+
   }
 
   /**

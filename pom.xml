@@ -8,7 +8,7 @@
 
   <groupId>io.holixon.axon.testing._</groupId>
   <artifactId>axon-testing_</artifactId>
-  <version>4.8.0.2</version>
+  <version>4.8.0.3</version>
   <packaging>pom</packaging>
 
   <modules>
@@ -19,18 +19,18 @@
   <properties>
     <!-- JVM -->
     <java.version>11</java.version>
-    <kotlin.version>1.9.10</kotlin.version>
+    <kotlin.version>1.9.20</kotlin.version>
 
     <!-- LIBS -->
-    <axon-bom.version>4.8.3</axon-bom.version>
+    <axon-bom.version>4.8.4</axon-bom.version>
     <jgiven.version>1.3.0</jgiven.version>
     <jgiven-kotlin.version>1.3.0.0</jgiven-kotlin.version>
     <slf4j-api.version>2.0.9</slf4j-api.version>
 
     <!-- TEST -->
-    <jackson.version>2.15.2</jackson.version>
+    <jackson.version>2.16.0</jackson.version>
     <junit.version>4.13.2</junit.version>
-    <junit5.version>5.10.0</junit5.version>
+    <junit5.version>5.10.1</junit5.version>
     <dom4j.version>2.1.4</dom4j.version>
     <jaxen.version>2.0.0</jaxen.version>
     <assertj.version>3.24.2</assertj.version>
@@ -162,7 +162,7 @@
         <!-- Clean -->
         <plugin>
           <artifactId>maven-clean-plugin</artifactId>
-          <version>3.3.1</version>
+          <version>3.3.2</version>
         </plugin>
 
         <!-- Kotlin Compiler -->
@@ -304,7 +304,7 @@
         <plugin>
           <groupId>org.jacoco</groupId>
           <artifactId>jacoco-maven-plugin</artifactId>
-          <version>0.8.10</version>
+          <version>0.8.11</version>
           <executions>
             <execution>
               <id>pre-unit-test</id>
@@ -334,7 +334,7 @@
         <!-- Surefire -->
         <plugin>
           <artifactId>maven-surefire-plugin</artifactId>
-          <version>3.1.2</version>
+          <version>3.2.2</version>
           <configuration>
             <useSystemClassLoader>false</useSystemClassLoader>
             <shutdown>kill</shutdown>
@@ -373,14 +373,14 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-failsafe-plugin</artifactId>
-          <version>3.1.2</version>
+          <version>3.2.2</version>
         </plugin>
 
         <!-- KDoc generation -->
         <plugin>
           <groupId>org.jetbrains.dokka</groupId>
           <artifactId>dokka-maven-plugin</artifactId>
-          <version>1.9.0</version>
+          <version>1.9.10</version>
           <configuration>
             <!-- Conditional on maven property set per-project -->
             <skip>${dokka.skip}</skip>
