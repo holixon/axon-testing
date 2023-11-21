@@ -9,6 +9,9 @@ import org.axonframework.messaging.MessageHandlerInterceptor
 import org.axonframework.messaging.annotation.HandlerDefinition
 import org.axonframework.messaging.annotation.HandlerEnhancerDefinition
 import org.axonframework.messaging.annotation.ParameterResolverFactory
+import org.axonframework.messaging.correlation.CorrelationDataProvider
+import org.axonframework.messaging.correlation.MessageOriginProvider
+import org.axonframework.messaging.interceptors.CorrelationDataInterceptor
 import org.axonframework.modelling.command.CommandTargetResolver
 import org.axonframework.modelling.command.Repository
 import org.axonframework.modelling.command.RepositoryProvider
@@ -36,6 +39,7 @@ class AggregateTestFixtureBuilder<T>(private val aggregateType: Class<T>) {
   private lateinit var repository: Repository<T>
   private lateinit var repositoryProvider: RepositoryProvider
   private lateinit var subtypes: Array<Class<out T>>
+  private val correlationDataProviders = mutableListOf<CorrelationDataProvider>(MessageOriginProvider())
 
   fun registerAggregateFactory(aggregateFactory: AggregateFactory<T>) = apply { this.aggregateFactory = aggregateFactory }
   fun registerAnnotatedCommandHandler(annotatedCommandHandler: Any) = apply { this.annotatedCommandHandler.add(annotatedCommandHandler) }
@@ -85,6 +89,10 @@ class AggregateTestFixtureBuilder<T>(private val aggregateType: Class<T>) {
   fun withSubtypes(vararg subtypes: Class<out T>) = withSubtypes(subtypes.asList())
   fun withSubtypes(subtypes: Collection<Class<out T>>) = apply { this.subtypes = subtypes.toTypedArray() }
 
+  fun registerCorrelationDataProvider(correlationDataProvider: CorrelationDataProvider) = apply {
+    this.correlationDataProviders.add(correlationDataProvider)
+  }
+
   fun build(): AggregateTestFixture<T> {
     val fixture = AggregateTestFixture<T>(aggregateType)
 
@@ -112,6 +120,11 @@ class AggregateTestFixtureBuilder<T>(private val aggregateType: Class<T>) {
     if (this::subtypes.isInitialized) fixture.withSubtypes(*this.subtypes)
     reportIllegalStateChange?.let { fixture.setReportIllegalStateChange(it) }
 
+    if (correlationDataProviders.isNotEmpty()) {
+      fixture.commandBus.registerHandlerInterceptor(
+        CorrelationDataInterceptor(*(correlationDataProviders.toTypedArray()))
+      )
+    }
     return fixture
   }
 }
