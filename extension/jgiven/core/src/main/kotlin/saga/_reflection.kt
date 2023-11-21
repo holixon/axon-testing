@@ -1,5 +1,6 @@
 package io.holixon.axon.testing.jgiven.saga
 
+import io.holixon.axon.testing.jgiven.AxonJGiven.getDeclaredAccessibleField
 import io.holixon.axon.testing.jgiven.saga.SagaTestFixtureFields.fieldFixtureFixtureExecutionResult
 import io.holixon.axon.testing.jgiven.saga.SagaTestFixtureFields.fieldSagaStore
 import io.holixon.axon.testing.jgiven.saga.SagaTestFixtureFields.fieldSagaType
@@ -14,11 +15,6 @@ import java.lang.reflect.Field
  */
 object SagaTestFixtureFields {
   private val CLASS = SagaTestFixture::class.java
-
-  private fun Class<*>.getDeclaredAccessibleField(fieldName: String): Field = getDeclaredField(fieldName)
-    .apply {
-      isAccessible = true
-    }
 
   val fieldSagaStore: Field = CLASS.getDeclaredAccessibleField("sagaStore")
   val fieldFixtureFixtureExecutionResult: Field = CLASS.getDeclaredAccessibleField("fixtureExecutionResult")
