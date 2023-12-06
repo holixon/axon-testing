@@ -7,7 +7,7 @@
     <groupId>io.toolisticon.maven.parent</groupId>
     <artifactId>maven-parent-kotlin-base</artifactId>
     <version>2023.10.3</version>
-    <relativePath />
+    <relativePath/>
   </parent>
 
   <name>Axon Testing - Parent</name>
@@ -93,6 +93,12 @@
 
       <dependency>
         <groupId>io.holixon.axon.testing</groupId>
+        <artifactId>axon-testing-assert</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.holixon.axon.testing</groupId>
         <artifactId>axon-testing-upcaster-junit5</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -109,6 +115,14 @@
           </exclusion>
         </exclusions>
       </dependency>
+
+      <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-classic</artifactId>
+        <version>1.4.11</version>
+        <scope>test</scope>
+      </dependency>
+
     </dependencies>
   </dependencyManagement>
 
@@ -130,6 +144,7 @@
 
   <build>
     <pluginManagement>
+      <plugins>
         <!-- Assembly -->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -246,9 +261,9 @@
       </roles>
     </developer>
   </developers>
-    <!--
-    Profile creating all artifacts: JARs, POMs, Sources, JavaDoc and all signatures.
-    -->
+  <!--
+  Profile creating all artifacts: JARs, POMs, Sources, JavaDoc and all signatures.
+  -->
 
   <!-- License Stuff -->
   <inceptionYear>2021</inceptionYear>
