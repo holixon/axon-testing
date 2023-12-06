@@ -6,7 +6,7 @@
   <parent>
     <groupId>io.holixon.axon.testing._</groupId>
     <artifactId>fixtures</artifactId>
-    <version>4.8.0.3</version>
+    <version>4.9.0.0</version>
   </parent>
 
   <groupId>io.holixon.axon.testing.lib</groupId>
@@ -30,4 +30,7 @@
     </dependency>
   </dependencies>
 
+  <build>
+    <sourceDirectory>src/main/java</sourceDirectory>
+  </build>
 </project>
