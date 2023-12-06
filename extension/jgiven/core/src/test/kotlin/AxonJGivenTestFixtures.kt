@@ -26,18 +26,13 @@ object AxonJGivenTestFixtures {
 
   class DummyAggregate() {
 
-    companion object {
-
-      @CommandHandler
-      @JvmStatic
-      fun create(cmd: CreateDummyAggregate) = DummyAggregate().apply {
-        AggregateLifecycle.apply(DummyAggregateCreated(cmd.id))
-      }
-
-    }
-
     @AggregateIdentifier
     lateinit var id: String
+
+    @CommandHandler
+    constructor(cmd: CreateDummyAggregate) : this() {
+      AggregateLifecycle.apply(DummyAggregateCreated(cmd.id))
+    }
 
     @EventSourcingHandler
     fun on(evt: DummyAggregateCreated) {

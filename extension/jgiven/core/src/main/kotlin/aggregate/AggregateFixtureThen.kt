@@ -7,12 +7,15 @@ import com.tngtech.jgiven.annotation.As
 import com.tngtech.jgiven.annotation.Hidden
 import com.tngtech.jgiven.annotation.ProvidedScenarioState
 import com.tngtech.jgiven.annotation.Quoted
+import io.holixon.axon.testing.jgiven.AxonJGiven
 import io.holixon.axon.testing.jgiven.AxonJGivenStage
 import io.holixon.axon.testing.jgiven.step
 import org.axonframework.commandhandling.CommandResultMessage
 import org.axonframework.deadline.DeadlineMessage
 import org.axonframework.eventhandling.EventMessage
+import org.axonframework.test.aggregate.Reporter
 import org.axonframework.test.aggregate.ResultValidator
+import org.axonframework.test.matchers.Matchers
 import org.hamcrest.Matcher
 import org.hamcrest.MatcherAssert
 import java.time.Duration
@@ -28,21 +31,38 @@ import kotlin.reflect.KClass
 class AggregateFixtureThen<T> : Stage<AggregateFixtureThen<T>>() {
 
   @ProvidedScenarioState
-  private  var context: AggregateTestFixtureContext<T> = AggregateTestFixtureContext()
+  private var context: AggregateTestFixtureContext<T> = AggregateTestFixtureContext()
+
+  private val reporter = Reporter()
 
   /**
    * Expect event.
    * @param event expected event.
    */
   @As("expect event:")
-  fun expectEvent(@Quoted event: Any) = this.expectEvents(event)
+  fun expectEvent(event: Any) = this.expectEvents(event)
+
+  @As("expect event:\$  with metaData:\$")
+  fun expectEventWithMetaData(event: Any, vararg entries: Pair<String, Any>) = step {
+    val identifier = checkNotNull(context.aggregateIdentifier) { "no aggregateIdentifier present" }
+
+    val events = context.fixture?.eventStore?.readEvents(identifier)?.asSequence()?.toList() ?: emptyList()
+
+    val predicate = AxonJGiven.listContainsEventPayloadAndMetaData(event, mapOf(*entries))
+
+    val matcher = Matchers.predicate(predicate)
+
+    if (!matcher.matches(events)) {
+      reporter.reportWrongResult(events, "Event exists with payload=$event and metaData=${mapOf(*entries)}.")
+    }
+  }
 
   /**
    * Expect a series of events.
    * @param events events to expect.
    */
   @As("expect events:")
-  fun expectEvents(@Quoted vararg events: Any) = execute {
+  fun expectEvents(vararg events: Any) = execute {
     expectEvents(*events)
   }
 
@@ -51,7 +71,7 @@ class AggregateFixtureThen<T> : Stage<AggregateFixtureThen<T>>() {
    * @param events events to expect.
    */
   @As("expect events:")
-  fun expectEvents(@Quoted vararg events: EventMessage<*>) = execute {
+  fun expectEvents(vararg events: EventMessage<*>) = execute {
     expectEvents(*events)
   }
 
@@ -121,7 +141,7 @@ class AggregateFixtureThen<T> : Stage<AggregateFixtureThen<T>>() {
   }
 
   /**
-   * Expects an exception of provided type to be thrown.
+   * Expects an exception of the provided type to be thrown.
    * @param clazz type of exception.
    */
   @As("expect exception: $")
@@ -130,7 +150,7 @@ class AggregateFixtureThen<T> : Stage<AggregateFixtureThen<T>>() {
   }
 
   /**
-   * Expects an exception of provided type to be thrown.
+   * Expects an exception of the provided type to be thrown.
    * @param clazz type of exception.
    */
   @As("expect exception: $")
@@ -175,6 +195,7 @@ class AggregateFixtureThen<T> : Stage<AggregateFixtureThen<T>>() {
   @As("expect result message")
   fun expectResultMessage(message: CommandResultMessage<*>) = execute {
     expectResultMessage(message)
+
   }
 
   /**

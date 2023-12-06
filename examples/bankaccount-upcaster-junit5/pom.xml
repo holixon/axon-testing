@@ -6,7 +6,7 @@
   <parent>
     <groupId>io.holixon.axon.testing._</groupId>
     <artifactId>examples</artifactId>
-    <version>4.8.3.0-SNAPSHOT</version>
+    <version>4.8.0.4-SNAPSHOT</version>
   </parent>
 
   <groupId>io.holixon.axon.testing.examples</groupId>
@@ -16,6 +16,11 @@
     <dependency>
       <groupId>io.holixon.axon.testing</groupId>
       <artifactId>axon-testing-upcaster-junit5</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.holixon.axon.testing</groupId>
+      <artifactId>axon-testing-assert</artifactId>
       <scope>test</scope>
     </dependency>
 
@@ -57,7 +62,7 @@
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <version>1.18.28</version>
+      <version>1.18.30</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

@@ -5,21 +5,29 @@ package io.holixon.axon.testing.jgiven.saga
 import com.tngtech.jgiven.Stage
 import com.tngtech.jgiven.annotation.As
 import com.tngtech.jgiven.annotation.ExpectedScenarioState
+import com.tngtech.jgiven.annotation.Hidden
 import io.holixon.axon.testing.jgiven.AxonJGivenStage
 import io.holixon.axon.testing.jgiven.step
 import org.axonframework.deadline.DeadlineMessage
 import org.axonframework.eventhandling.EventMessage
+import org.axonframework.modelling.saga.AssociationValue
+import org.axonframework.modelling.saga.repository.inmemory.InMemorySagaStore
 import org.axonframework.test.saga.FixtureExecutionResult
 import org.hamcrest.Matcher
 import java.time.Duration
 import java.time.Instant
 
-
 @AxonJGivenStage
 class SagaFixtureThen<T> : Stage<SagaFixtureThen<T>>() {
 
   @ExpectedScenarioState(required = true)
-  lateinit var thenState: FixtureExecutionResult
+  private lateinit var thenState: FixtureExecutionResult
+
+  @ExpectedScenarioState(required = true)
+  private lateinit var sagaStore: InMemorySagaStore
+
+  @ExpectedScenarioState(required = true)
+  private lateinit var sagaType: Class<T>
 
   /**
    * Expect the given number of Sagas to be active (i.e. ready to respond to incoming events.
@@ -295,5 +303,26 @@ class SagaFixtureThen<T> : Stage<SagaFixtureThen<T>>() {
    */
   fun expectDeadlinesMet(vararg expected: Any): SagaFixtureThen<T> = step {
     thenState.expectTriggeredDeadlines(*expected)
+  }
+
+
+  @As("expect saga state: \$description")
+  fun expectSagaState(
+    @Hidden associationValue: AssociationValue,
+    description: String,
+    @Hidden assertion: (T) -> Unit
+  ): SagaFixtureThen<T> = step {
+    assertion(loadSaga(associationValue))
+  }
+
+  private fun loadSaga(associationValue: AssociationValue): T {
+    val sagas: List<T> = sagaStore.findSagas(sagaType, associationValue)
+      .map { sagaKey ->
+        sagaStore.loadSaga(sagaType, sagaKey)
+      }.map { entry -> entry.saga() }
+
+    check(sagas.size == 1) { "Expected exactly one saga for associationProperty=${associationValue.key}, value=${associationValue.value}, but found: ${sagas.size}." }
+
+    return sagas.single()
   }
 }

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <name>Axon Testing - Upcaster Testing Core</name>
-
   <parent>
     <groupId>io.holixon.axon.testing._</groupId>
-    <artifactId>extension-upcaster</artifactId>
+    <artifactId>extension</artifactId>
     <version>4.8.0.4-SNAPSHOT</version>
   </parent>
 
   <groupId>io.holixon.axon.testing</groupId>
-  <artifactId>axon-testing-upcaster-core</artifactId>
+  <artifactId>axon-testing-assert</artifactId>
+  <name>Axon Testing - Assert</name>
 
   <properties>
     <jacoco.skip>false</jacoco.skip>
@@ -23,16 +23,6 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.axonframework</groupId>
-      <artifactId>axon-configuration</artifactId>
-      <exclusions>
-        <exclusion>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-api</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
     </dependency>
@@ -42,44 +32,34 @@
       <version>${dom4j.version}</version>
     </dependency>
     <dependency>
-      <groupId>jaxen</groupId>
-      <artifactId>jaxen</artifactId>
-      <version>${jaxen.version}</version>
-    </dependency>
-    <!-- Local test -->
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter</artifactId>
-      <version>${junit5.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
       <version>${assertj.version}</version>
-      <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>com.fasterxml.jackson.module</groupId>
-      <artifactId>jackson-module-kotlin</artifactId>
-      <scope>test</scope>
+      <groupId>org.xmlunit</groupId>
+      <artifactId>xmlunit-core</artifactId>
+      <version>${xmlunit.version}</version>
     </dependency>
     <dependency>
-      <groupId>com.fasterxml.jackson.datatype</groupId>
-      <artifactId>jackson-datatype-jsr310</artifactId>
-      <scope>test</scope>
+      <groupId>org.xmlunit</groupId>
+      <artifactId>xmlunit-assertj3</artifactId>
+      <version>${xmlunit.version}</version>
     </dependency>
     <dependency>
-      <groupId>ch.qos.logback</groupId>
-      <artifactId>logback-classic</artifactId>
+      <groupId>org.skyscreamer</groupId>
+      <artifactId>jsonassert</artifactId>
+      <version>${jsonassert.verision}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.axonframework</groupId>
+      <artifactId>axon-messaging</artifactId>
       <exclusions>
         <exclusion>
           <groupId>org.slf4j</groupId>
           <artifactId>slf4j-api</artifactId>
         </exclusion>
       </exclusions>
-      <scope>test</scope>
     </dependency>
-
   </dependencies>
 </project>

@@ -128,6 +128,14 @@ resolve the payload type and revision and a different content retrieval strategy
 
 ## Changelog
 
+### 4.8.0.0
+
+* BREAKING: we removed support for the `axon-testing-jgiven-junit4` module, as junit5 is the new standard. You can still manually use junit4 by using the `core`module and add missing dependencies.
+* Semantic Versioning: To get a bit more freedom when it comes to versioning this lib, we decided to use only the first 2 digits (`4.8.`) to indicate the axon-framework version, the last two digits (`0.0.`) are used for our own minor/patch versions.
+
+
+### 4.7.4.0
+
 * Beginning with release `4.7.4.0` we changed to a semantic versioning model where the first 3 digits refer to the axon framework version this lib is supposed to work withm the last digit is the build version of this lib against the framework.
 
 

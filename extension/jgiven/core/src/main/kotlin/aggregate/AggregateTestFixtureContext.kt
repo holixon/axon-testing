@@ -1,5 +1,7 @@
 package io.holixon.axon.testing.jgiven.aggregate
 
+import io.holixon.axon.testing.jgiven.aggregate.AggregateTestFixtureReflection.aggregateIdentifier
+import io.holixon.axon.testing.jgiven.aggregate.AggregateTestFixtureReflection.buildResultValidator
 import org.axonframework.test.aggregate.AggregateTestFixture
 import org.axonframework.test.aggregate.ResultValidator
 import org.axonframework.test.aggregate.TestExecutor
@@ -13,7 +15,7 @@ internal class AggregateTestFixtureContext<T>(
   constructor(fixture: AggregateTestFixture<T>) : this(
     fixture,
     fixture.givenNoPriorActivity(),
-    AggregateTestFixtureExt.buildResultValidator(fixture)
+    buildResultValidator(fixture)
   )
 
   fun checkInitialized() {
@@ -25,4 +27,6 @@ internal class AggregateTestFixtureContext<T>(
   fun isInitialized() = fixture != null && testExecutor != null && resultValidator != null
 
   var isFirstGiven = true
+
+  val aggregateIdentifier: String? get() = fixture?.aggregateIdentifier
 }

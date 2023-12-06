@@ -7,7 +7,7 @@
   <parent>
     <groupId>io.holixon.axon.testing._</groupId>
     <artifactId>extension-upcaster</artifactId>
-    <version>4.8.3.0-SNAPSHOT</version>
+    <version>4.8.0.4-SNAPSHOT</version>
   </parent>
 
   <groupId>io.holixon.axon.testing</groupId>
@@ -44,7 +44,6 @@
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
-      <version>1.4.11</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
