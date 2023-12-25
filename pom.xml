@@ -32,7 +32,7 @@
     <slf4j-api.version>2.0.9</slf4j-api.version>
 
     <!-- TEST -->
-    <jackson.version>2.16.0</jackson.version>
+    <jackson.version>2.16.1</jackson.version>
     <junit.version>4.13.2</junit.version>
     <junit5.version>5.10.1</junit5.version>
     <dom4j.version>2.1.4</dom4j.version>
