@@ -39,7 +39,7 @@
     <jaxen.version>2.0.0</jaxen.version>
     <assertj.version>3.25.3</assertj.version>
     <xmlunit.version>2.10.0</xmlunit.version>
-    <jsonassert.verision>1.5.1</jsonassert.verision>
+    <jsonassert.verision>1.5.2</jsonassert.verision>
 
     <!-- deactivate by default -->
     <jacoco.skip>true</jacoco.skip>
