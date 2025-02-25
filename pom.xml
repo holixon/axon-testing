@@ -29,7 +29,7 @@
     <axon-bom.version>4.11.1</axon-bom.version>
     <jgiven.version>2.0.1</jgiven.version>
     <jgiven-kotlin.version>2.0.1.0</jgiven-kotlin.version>
-    <slf4j-api.version>2.0.16</slf4j-api.version>
+    <slf4j-api.version>2.0.17</slf4j-api.version>
 
     <!-- TEST -->
     <jackson.version>2.18.2</jackson.version>
