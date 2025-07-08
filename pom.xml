@@ -6,7 +6,7 @@
   <parent>
     <groupId>io.toolisticon.maven.parent</groupId>
     <artifactId>maven-parent-kotlin-base</artifactId>
-    <version>2025.6.0</version>
+    <version>2025.7.2</version>
     <relativePath/>
   </parent>
 
@@ -35,7 +35,7 @@
     <jackson.version>2.19.1</jackson.version>
     <junit.version>4.13.2</junit.version>
     <junit5.version>5.13.3</junit5.version>
-    <dom4j.version>2.1.4</dom4j.version>
+    <dom4j.version>2.2.0</dom4j.version>
     <jaxen.version>2.0.0</jaxen.version>
     <assertj.version>3.27.3</assertj.version>
     <xmlunit.version>2.10.3</xmlunit.version>
