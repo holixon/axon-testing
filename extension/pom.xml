@@ -11,6 +11,7 @@
 
   <artifactId>extension</artifactId>
   <packaging>pom</packaging>
+  <name>Axon Testing</name>
 
   <modules>
     <module>jgiven</module>
