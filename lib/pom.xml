@@ -11,6 +11,7 @@
 
   <artifactId>lib</artifactId>
   <packaging>pom</packaging>
+  <name>Axon Testing - Lib Parent</name>
 
   <properties>
     <maven.install.skip>false</maven.install.skip>

@@ -9,9 +9,9 @@
     <version>4.12.0.1-SNAPSHOT</version>
   </parent>
 
+  <name>Axon Testing - Assert</name>
   <groupId>io.holixon.axon.testing</groupId>
   <artifactId>axon-testing-assert</artifactId>
-  <name>Axon Testing - Assert</name>
 
   <properties>
     <jacoco.skip>false</jacoco.skip>

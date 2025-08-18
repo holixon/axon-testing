@@ -9,6 +9,7 @@
     <version>4.12.0.1-SNAPSHOT</version>
   </parent>
 
+  <name>Axon Testing - JGiven</name>
   <artifactId>extension-jgiven</artifactId>
   <packaging>pom</packaging>
 

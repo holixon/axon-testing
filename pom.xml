@@ -208,24 +208,6 @@
     </profile>
   </profiles>
 
-  <!-- deploy and release configuration -->
-  <distributionManagement>
-    <site>
-      <id>README</id>
-      <url>https://github.com/holixon/axon-testing</url>
-    </site>
-    <snapshotRepository>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-      <uniqueVersion>true</uniqueVersion>
-    </snapshotRepository>
-    <repository>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
-      <uniqueVersion>false</uniqueVersion>
-    </repository>
-  </distributionManagement>
-
   <scm>
     <connection>scm:git:git://github.com/holixon/axon-testing.git</connection>
     <developerConnection>scm:git:git@github.com:holixon/axon-testing.git</developerConnection>
@@ -237,30 +219,6 @@
     <url>https://github.com/holixon/axon-testing/issues</url>
   </issueManagement>
 
-  <developers>
-    <developer>
-      <name>Jan Galinski</name>
-      <email>jan.galinski@holisticon.de</email>
-      <organization>Holisticon AG</organization>
-      <organizationUrl>https://holisticon.de</organizationUrl>
-      <roles>
-        <role>Developer</role>
-      </roles>
-    </developer>
-    <developer>
-      <name>Simon Zambrovski</name>
-      <email>simon.zambrovski@holisticon.de</email>
-      <organization>Holisticon AG</organization>
-      <organizationUrl>https://holisticon.de</organizationUrl>
-      <roles>
-        <role>Developer</role>
-      </roles>
-    </developer>
-  </developers>
-  <!--
-  Profile creating all artifacts: JARs, POMs, Sources, JavaDoc and all signatures.
-  -->
-
   <!-- License Stuff -->
   <inceptionYear>2021</inceptionYear>
   <licenses>
@@ -269,8 +227,4 @@
       <url>https://www.apache.org/licenses/LICENSE-2.0</url>
     </license>
   </licenses>
-  <organization>
-    <name>Holisticon AG</name>
-    <url>https://holisticon.de</url>
-  </organization>
 </project>
