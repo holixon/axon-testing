@@ -6,7 +6,7 @@
   <parent>
     <groupId>io.toolisticon.maven.parent</groupId>
     <artifactId>maven-parent-kotlin-base</artifactId>
-    <version>2023.10.3</version>
+    <version>2025.7.2</version>
     <relativePath/>
   </parent>
 
@@ -16,7 +16,7 @@
 
   <groupId>io.holixon.axon.testing._</groupId>
   <artifactId>axon-testing_</artifactId>
-  <version>4.9.0.0</version>
+  <version>4.12.0.0</version>
   <packaging>pom</packaging>
 
   <modules>
@@ -26,20 +26,20 @@
 
   <properties>
     <!-- LIBS -->
-    <axon-bom.version>4.9.1</axon-bom.version>
-    <jgiven.version>1.3.0</jgiven.version>
-    <jgiven-kotlin.version>1.3.0.0</jgiven-kotlin.version>
-    <slf4j-api.version>2.0.9</slf4j-api.version>
+    <axon-bom.version>4.12.1</axon-bom.version>
+    <jgiven.version>2.0.2</jgiven.version>
+    <jgiven-kotlin.version>2.0.2.1</jgiven-kotlin.version>
+    <slf4j-api.version>2.0.17</slf4j-api.version>
 
     <!-- TEST -->
-    <jackson.version>2.16.0</jackson.version>
+    <jackson.version>2.19.2</jackson.version>
     <junit.version>4.13.2</junit.version>
-    <junit5.version>5.10.1</junit5.version>
-    <dom4j.version>2.1.4</dom4j.version>
+    <junit5.version>5.13.4</junit5.version>
+    <dom4j.version>2.2.0</dom4j.version>
     <jaxen.version>2.0.0</jaxen.version>
-    <assertj.version>3.24.2</assertj.version>
-    <xmlunit.version>2.9.1</xmlunit.version>
-    <jsonassert.verision>1.5.1</jsonassert.verision>
+    <assertj.version>3.27.4</assertj.version>
+    <xmlunit.version>2.10.3</xmlunit.version>
+    <jsonassert.verision>1.5.3</jsonassert.verision>
 
     <!-- deactivate by default -->
     <jacoco.skip>true</jacoco.skip>
@@ -119,7 +119,7 @@
       <dependency>
         <groupId>ch.qos.logback</groupId>
         <artifactId>logback-classic</artifactId>
-        <version>1.4.12</version>
+        <version>1.5.18</version>
         <scope>test</scope>
       </dependency>
 
@@ -130,10 +130,6 @@
     <dependency>
       <groupId>org.jetbrains.kotlin</groupId>
       <artifactId>kotlin-stdlib</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jetbrains.kotlin</groupId>
-      <artifactId>kotlin-stdlib-common</artifactId>
     </dependency>
     <dependency>
       <groupId>org.jetbrains.kotlin</groupId>
@@ -149,7 +145,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-assembly-plugin</artifactId>
-          <version>3.6.0</version>
+          <version>3.7.1</version>
           <configuration>
             <descriptorSourceDirectory>assembly</descriptorSourceDirectory>
             <archiverConfig>
@@ -161,7 +157,7 @@
         <!-- Release -->
         <plugin>
           <artifactId>maven-release-plugin</artifactId>
-          <version>3.0.1</version>
+          <version>3.1.1</version>
           <configuration>
             <mavenExecutorId>forked-path</mavenExecutorId>
             <localCheckout>true</localCheckout>

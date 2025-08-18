@@ -7,7 +7,7 @@
   <parent>
     <groupId>io.holixon.axon.testing._</groupId>
     <artifactId>extension-jgiven</artifactId>
-    <version>4.9.0.0</version>
+    <version>4.12.0.0</version>
   </parent>
 
   <groupId>io.holixon.axon.testing</groupId>
@@ -38,7 +38,7 @@
     <dependency>
       <groupId>org.hamcrest</groupId>
       <artifactId>hamcrest-core</artifactId>
-      <version>2.2</version>
+      <version>3.0</version>
     </dependency>
 
     <!-- TEST -->
