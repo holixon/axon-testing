@@ -26,7 +26,7 @@
 
   <properties>
     <!-- LIBS -->
-    <axon-bom.version>4.12.1</axon-bom.version>
+    <axon-bom.version>4.12.2</axon-bom.version>
     <jgiven.version>2.0.3</jgiven.version>
     <jgiven-kotlin.version>2.0.2.1</jgiven-kotlin.version>
     <slf4j-api.version>2.0.17</slf4j-api.version>
