@@ -37,7 +37,7 @@
     <junit5.version>6.0.1</junit5.version>
     <dom4j.version>2.2.0</dom4j.version>
     <jaxen.version>2.0.0</jaxen.version>
-    <assertj.version>3.27.6</assertj.version>
+    <assertj.version>3.27.7</assertj.version>
     <xmlunit.version>2.11.0</xmlunit.version>
     <jsonassert.verision>1.5.3</jsonassert.verision>
 
