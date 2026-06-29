@@ -34,7 +34,7 @@
     <!-- TEST -->
     <jackson.version>2.21.1</jackson.version>
     <junit.version>4.13.2</junit.version>
-    <junit5.version>6.0.3</junit5.version>
+    <junit5.version>6.1.1</junit5.version>
     <dom4j.version>2.2.0</dom4j.version>
     <jaxen.version>2.0.0</jaxen.version>
     <assertj.version>3.27.7</assertj.version>
